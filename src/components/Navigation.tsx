@@ -7,6 +7,7 @@ const Navigation = () => {
       <div className=" flex justify-between items-center">
           <Link to='/' className=""><b>RELIGHT</b></Link>
           <Link to='/'>Homepage</Link>
+          <Link to='/addbook'>Add Book</Link>
       </div>
       {/* Authorizations */}
       <div className="">

@@ -69,7 +69,7 @@ const AuthForm = ({action}: Prop) => {
             {error && <ErrorMsg error={error} />}
     
             {name ? (
-                <form onSubmit={handleLogin} className="mx-60">
+                <form onSubmit={handleLogin} className="mx-2 md:mx-60">
                     <h1 className="text-4xl"><b>Welcome Back</b></h1>
                     <span className="text-gray-500">Please enter your details</span>
                     {/* User Inputs */}
@@ -102,7 +102,7 @@ const AuthForm = ({action}: Prop) => {
                     </div>  
                 </form>
             ) : (
-                <form onSubmit={handleRegister}  className="mx-60">
+                <form onSubmit={handleRegister}  className="mx-2 md:mx-60">
                     <h1 className="text-4xl"><b>Ready to be part of the archive?</b></h1>
                     <span className="text-gray-500">Please enter your details</span>
                     {/* User inputs */}

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
-import CommentForm from "../components/Forms/CommentForm";
-import RenderComments from "../components/Renders/RenderComments";
-import Loading from "../components/Loading";
-import ErrorMsg from "../components/ErrorMsg";
+import useFetch from "../../hooks/useFetch";
+import CommentForm from "../../components/Forms/CommentForm";
+import RenderComments from "../../components/Renders/RenderComments";
+import Loading from "../../components/Loading";
+import ErrorMsg from "../../components/ErrorMsg";
 
 export interface Book {
     id: number,

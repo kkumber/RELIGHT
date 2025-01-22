@@ -5,8 +5,9 @@ import NotFound from "./pages/NotFound"
 import Home from "./pages/Home"
 import AuthProvider from "./utils/AuthProvider"
 import ProtectedRoute from "./components/ProtectedRoute"
-import Details from "./pages/Details"
+import Details from "./pages/Subpages/Details"
 import Navigation from "./components/Navigation"
+import AddBookPage from "./pages/Subpages/AddBookPage"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />
               <Route path="/details/:slug" element={<Details />} />
+              <Route path="/addbook" element={<AddBookPage />} />
             </Route>
 
           <Route path="/login" element={<Login />}></Route>

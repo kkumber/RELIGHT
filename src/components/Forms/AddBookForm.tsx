@@ -31,7 +31,7 @@ const AddBookForm = () => {
 
   const handleBookCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setPdf_File(e.target.files[0]);
+      setBook_Cover(e.target.files[0]);
     }
   };
 

@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import FetchData from "../pages/Home"
 import { Link } from "react-router-dom";
 
 
@@ -26,7 +24,7 @@ const RenderBooks = ({book}: BookData) => {
             <Link to={`/details/${book.slug}`}>
             <h3>{book.title}</h3>
             </Link>
-            <img src={book.book_cover} alt={book.title} />
+            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} />
             <p>Written by: {book.author} </p>
             <p>Upload Date: {book.upload_date} </p>
         </article>

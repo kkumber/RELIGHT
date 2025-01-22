@@ -31,16 +31,13 @@ const Home = () => {
     }, [returns])
 
 
-    return (     
-    <div className="home">
-        Home
-        <section>
-            <h2>Submit a Book</h2>
-            <AddBookForm />
-        </section>
+    return (    
+    // Main Home Container 
+    <div className="grid gridcols-3">
 
-        <section>
-            <h2>Browse</h2>
+    {/* Popular Uploads */}
+    <div className="grid col-span-2">
+        <section className="flex justify-between flex-wrap items-center">
             {isLoading && <Loading />}
             {error && <ErrorMsg error={error} />}
             {
@@ -51,6 +48,24 @@ const Home = () => {
                 )
             }
         </section>
+    </div>
+
+    {/* New Uploads */}
+    <div className="">
+        {/* <section className="flex flex-col">
+                {isLoading && <Loading />}
+                {error && <ErrorMsg error={error} />}
+                {
+                    bookList?.results.map(book => 
+                        <div key={book.id}>
+                            <RenderBooks book={book} />
+                        </div>
+                    )
+                }
+            </section> */}
+    </div>
+        
+
     </div> );
 }
 
