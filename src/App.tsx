@@ -11,22 +11,24 @@ import Navigation from "./components/Navigation"
 
 function App() {
   return (
-  <BrowserRouter> 
-  <Navigation />
-  <AuthProvider>
-    <Routes>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/details/:slug" element={<Details />} />
-        </Route>
+    <div className="font-monaSans">
+      <BrowserRouter> 
+      <Navigation />
+      <AuthProvider>
+        <Routes>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/details/:slug" element={<Details />} />
+            </Route>
 
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/register" element={<Register />}></Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    </AuthProvider>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        </AuthProvider>
 
-  </BrowserRouter>
+      </BrowserRouter>
+    </div>
   )
 }
 

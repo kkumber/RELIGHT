@@ -69,8 +69,10 @@ const AuthForm = ({action}: Prop) => {
     
             {name ? (
                 <form onSubmit={handleLogin}>
+                    <h1 className="">Welcome Back</h1>
                     <h2>{action}</h2>
-                    <label htmlFor="username">Enter Username: </label> <br />
+                    <span>Please enter your details</span> <br /> <br />
+                    <label htmlFor="username">Username </label> <br />
                     <input
                         type="text"
                         name="username"
@@ -78,8 +80,8 @@ const AuthForm = ({action}: Prop) => {
                         required={true}
                         value={loginData.username}
                         onChange={handleChangeLoginData}
-                    /> <br />
-                    <label htmlFor="password">Enter Password: </label> <br />
+                    /> <br /> <br />
+                    <label htmlFor="password">Password </label> <br />
                     <input
                         type="password"
                         name="password"
@@ -87,13 +89,13 @@ const AuthForm = ({action}: Prop) => {
                         required={true}
                         value={loginData.password}
                         onChange={handleChangeLoginData}
-                    /> <br />
+                    /> <br /> <br />
                     <button type="submit">Login</button>
                 </form>
             ) : (
                 <form onSubmit={handleRegister}>
                     <h2>{action}</h2>
-                    <label htmlFor="username">Enter Username: </label> <br />
+                    <label htmlFor="username">Username </label> <br />
                     <input
                         type="text"
                         name="username"
@@ -101,16 +103,16 @@ const AuthForm = ({action}: Prop) => {
                         required={true}
                         value={registerData.username}
                         onChange={handleChangeRegisterData}
-                    /> <br />
-                    <label htmlFor="email">Enter Email: </label> <br />
+                    /> <br /> <br />
+                    <label htmlFor="email">Email </label> <br />
                     <input
                         type="email"
                         name="email"
                         placeholder="Email"
                         value={registerData.email}
                         onChange={handleChangeRegisterData}
-                    /> <br />
-                    <label htmlFor="password1">Enter Password: </label> <br />
+                    /> <br /> <br />
+                    <label htmlFor="password1">Password </label> <br />
                     <input
                         type="password"
                         name="password1"
@@ -118,8 +120,8 @@ const AuthForm = ({action}: Prop) => {
                         required={true}
                         value={registerData.password1}
                         onChange={handleChangeRegisterData}
-                    /> <br />
-                    <label htmlFor="password2">Confirm Password: </label> <br />
+                    /> <br /> <br />
+                    <label htmlFor="password2">Confirm Password </label> <br />
                     <input
                         type="password"
                         name="password2"
@@ -127,7 +129,7 @@ const AuthForm = ({action}: Prop) => {
                         required={true}
                         value={registerData.password2}
                         onChange={handleChangeRegisterData}
-                    /> <br />
+                    /> <br /> <br />
                     <button type="submit">Register</button>
                 </form>
             )}
