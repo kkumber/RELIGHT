@@ -3,6 +3,7 @@ import Loading from "../Loading";
 import ErrorMsg from "../ErrorMsg";
 import { useNavigate } from "react-router-dom";
 import useAuthFetch from "../../hooks/useAuthFetch";
+import { Link } from "react-router-dom";
 
 
 interface Prop {
@@ -68,69 +69,89 @@ const AuthForm = ({action}: Prop) => {
             {error && <ErrorMsg error={error} />}
     
             {name ? (
-                <form onSubmit={handleLogin}>
-                    <h1 className="">Welcome Back</h1>
-                    <h2>{action}</h2>
-                    <span>Please enter your details</span> <br /> <br />
-                    <label htmlFor="username">Username </label> <br />
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        required={true}
-                        value={loginData.username}
-                        onChange={handleChangeLoginData}
-                    /> <br /> <br />
-                    <label htmlFor="password">Password </label> <br />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        required={true}
-                        value={loginData.password}
-                        onChange={handleChangeLoginData}
-                    /> <br /> <br />
-                    <button type="submit">Login</button>
+                <form onSubmit={handleLogin} className="mx-60">
+                    <h1 className="text-4xl"><b>Welcome Back</b></h1>
+                    <span className="text-gray-500">Please enter your details</span>
+                    {/* User Inputs */}
+                    <div className="flex flex-col justify-center gap-y-4 mt-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="username">Username </label> 
+                            <input
+                                type="text"
+                                name="username"
+                                required={true}
+                                value={loginData.username}
+                                onChange={handleChangeLoginData}
+                                className="rounded-sm border-2 border-gray-300"
+                            />  
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="password">Password </label> 
+                            <input
+                                type="password"
+                                name="password"
+                                required={true}
+                                value={loginData.password}
+                                onChange={handleChangeLoginData}
+                                className="rounded-sm border-2 border-gray-300"
+                            />  
+                        </div>
+                        <Link to={'*'} className="text-end underline">Forgot password</Link>
+                        <button type="submit" className="bg-black text-white py-2 rounded-md">Login</button> 
+                        <span className="text-center">Don't have an account? <Link to='/register'><span className="underline underline-offset-auto">Sign Up</span></Link></span>
+                    </div>  
                 </form>
             ) : (
-                <form onSubmit={handleRegister}>
-                    <h2>{action}</h2>
-                    <label htmlFor="username">Username </label> <br />
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        required={true}
-                        value={registerData.username}
-                        onChange={handleChangeRegisterData}
-                    /> <br /> <br />
-                    <label htmlFor="email">Email </label> <br />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={registerData.email}
-                        onChange={handleChangeRegisterData}
-                    /> <br /> <br />
-                    <label htmlFor="password1">Password </label> <br />
-                    <input
-                        type="password"
-                        name="password1"
-                        placeholder="Password"
-                        required={true}
-                        value={registerData.password1}
-                        onChange={handleChangeRegisterData}
-                    /> <br /> <br />
-                    <label htmlFor="password2">Confirm Password </label> <br />
-                    <input
-                        type="password"
-                        name="password2"
-                        placeholder="Confirm Password"
-                        required={true}
-                        value={registerData.password2}
-                        onChange={handleChangeRegisterData}
-                    /> <br /> <br />
-                    <button type="submit">Register</button>
+                <form onSubmit={handleRegister}  className="mx-60">
+                    <h1 className="text-4xl"><b>Ready to be part of the archive?</b></h1>
+                    <span className="text-gray-500">Please enter your details</span>
+                    {/* User inputs */}
+                    <div className="flex flex-col justify-center gap-y-4 mt-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="username">Username </label> 
+                            <input
+                                type="text"
+                                name="username"
+                                required={true}
+                                value={registerData.username}
+                                onChange={handleChangeRegisterData}
+                                className="rounded-sm border-2 border-gray-300"
+                            />  
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="email">Email </label> 
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={registerData.email}
+                                    onChange={handleChangeRegisterData}
+                                    className="rounded-sm border-2 border-gray-300"
+                                />  
+                            </div>
+                        <div className="flex flex-col">
+                        <label htmlFor="password1">Password </label> 
+                            <input
+                                type="password"
+                                name="password1"
+                                required={true}
+                                value={registerData.password1}
+                                onChange={handleChangeRegisterData}
+                                className="rounded-sm border-2 border-gray-300"
+                            />  
+                        </div>
+                        <div className="flex flex-col">
+                        <label htmlFor="password2">Confirm Password </label> 
+                            <input
+                                type="password"
+                                name="password2"
+                                required={true}
+                                value={registerData.password2}
+                                onChange={handleChangeRegisterData}
+                                className="rounded-sm border-2 border-gray-300"
+                            />  
+                        </div>
+                        <button type="submit" className="bg-black text-white py-2 rounded-md">Register</button>
+                    </div>
                 </form>
             )}
         </>
