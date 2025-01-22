@@ -33,13 +33,13 @@ const Home = () => {
 
     return (    
     // Main Home Container 
-    <div className="grid gridcols-3">
+    <div className="grid grid-cols-5">
 
     {isLoading && <Loading />}
     {error && <ErrorMsg error={error} />}
     {/* Popular Uploads */}
-    <div className="grid col-span-2">
-        <section className="grid grid-cols-4 justify-between items-center">
+    <div className="grid col-span-4">
+        <section className="flex flex-wrap gap-4">
             {
                 bookList?.results.map(book => 
                     <div key={book.id}>
@@ -52,7 +52,7 @@ const Home = () => {
 
     {/* New Uploads */}
     <div className="">
-        {/* <section className="flex flex-col">
+        <section className="flex flex-col">
                 {isLoading && <Loading />}
                 {error && <ErrorMsg error={error} />}
                 {
@@ -62,7 +62,7 @@ const Home = () => {
                         </div>
                     )
                 }
-            </section> */}
+            </section>
     </div>
         
 

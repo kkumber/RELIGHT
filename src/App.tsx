@@ -16,6 +16,7 @@ function App() {
       <BrowserRouter> 
       <Navigation />
       <AuthProvider>
+        <div className="mx-2 md:mx-40">
         <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </div>
         </AuthProvider>
 
       </BrowserRouter>
