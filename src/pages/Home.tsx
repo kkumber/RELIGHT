@@ -5,6 +5,7 @@ import RenderBooks from "../components/Renders/RenderBooks";
 import { Book } from "../components/Renders/RenderBooks";
 import Loading from "../components/Loading";
 import ErrorMsg from "../components/ErrorMsg";
+import RenderBooksSideInfo from "../components/Renders/RenderBooksSideInfo";
 
 
 export interface FetchData {
@@ -32,13 +33,16 @@ const Home = () => {
 
 
     return (    
-    // Main Home Container 
+    <>
+    
+    {/* Main Home Container  */}
     <div className="grid grid-cols-5">
-
+    
     {isLoading && <Loading />}
     {error && <ErrorMsg error={error} />}
     {/* Popular Uploads */}
-    <div className="grid col-span-4">
+    <div className="col-span-3">
+    <b className="text-lg">Popular Uploads</b>
         <section className="flex flex-wrap gap-4">
             {
                 bookList?.results.map(book => 
@@ -51,14 +55,15 @@ const Home = () => {
     </div>
 
     {/* New Uploads */}
-    <div className="">
+    <div className="col-span-2">
+        <b className="text-lg">New & Trending</b>
         <section className="flex flex-col">
                 {isLoading && <Loading />}
                 {error && <ErrorMsg error={error} />}
                 {
                     bookList?.results.map(book => 
                         <div key={book.id}>
-                            <RenderBooks book={book} />
+                            <RenderBooksSideInfo book={book} />
                         </div>
                     )
                 }
@@ -66,7 +71,9 @@ const Home = () => {
     </div>
         
 
-    </div> );
+    </div> 
+    </>
+    );
 }
 
 export default Home;

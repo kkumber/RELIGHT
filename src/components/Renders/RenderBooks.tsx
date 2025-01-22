@@ -14,7 +14,7 @@ export interface Book {
     slug: string,
 }
 
-interface BookData {
+export interface BookData {
   book: Book
 }
 
