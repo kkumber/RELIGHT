@@ -20,13 +20,27 @@ interface BookData {
 const RenderBooks = ({book}: BookData) => {
 
   return (
-        <article>
+        <article className="flex flex-col border-2">
+          {/* Images */}
+          <div className="h-60 w-40">
+            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-contain" />
+          </div>
+          {/* Title */}
+          <div className="">
             <Link to={`/details/${book.slug}`}>
-            <h3>{book.title}</h3>
+            <b>{book.title}</b>
             </Link>
-            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} />
+          </div>
+          {/* WatchList */}
+          <div className="">
+
+          </div>
+
+          {/* Author */}
+          <div className="">
             <p>Written by: {book.author} </p>
-            <p>Upload Date: {book.upload_date} </p>
+          </div>
+
         </article>
   );
 };

@@ -35,11 +35,11 @@ const Home = () => {
     // Main Home Container 
     <div className="grid gridcols-3">
 
+    {isLoading && <Loading />}
+    {error && <ErrorMsg error={error} />}
     {/* Popular Uploads */}
     <div className="grid col-span-2">
-        <section className="flex justify-between flex-wrap items-center">
-            {isLoading && <Loading />}
-            {error && <ErrorMsg error={error} />}
+        <section className="grid grid-cols-4 justify-between items-center">
             {
                 bookList?.results.map(book => 
                     <div key={book.id}>
