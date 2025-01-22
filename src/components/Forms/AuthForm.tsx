@@ -96,9 +96,9 @@ const AuthForm = ({action}: Prop) => {
                                 className="rounded-sm border-2 border-gray-300"
                             />  
                         </div>
-                        <Link to={'*'} className="text-end underline">Forgot password</Link>
+                        <Link to={'*'} className="text-end underline text-blue-500">Forgot password</Link>
                         <button type="submit" className="bg-black text-white py-2 rounded-md">Login</button> 
-                        <span className="text-center">Don't have an account? <Link to='/register'><span className="underline underline-offset-auto">Sign Up</span></Link></span>
+                        <span className="text-center">Don't have an account? <Link to='/register'><span className="underline underline-offset-auto text-blue-500">Sign Up</span></Link></span>
                     </div>  
                 </form>
             ) : (
