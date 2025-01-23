@@ -41,7 +41,7 @@ const Home = () => {
 
 
     {/* Main Home Container  */}
-    <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 mx-auto w-11/12 my-auto min-h-screen">
+    <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 mx-auto w-11/12 my-auto min-h-screen gap-y-20">
     
     {isLoading && <Loading />}
     {error && <ErrorMsg error={error} />}
@@ -49,7 +49,7 @@ const Home = () => {
     <div className="md:col-span-3">
     <b className="text-lg">Popular Uploads</b>
     <hr className="bg-primaryRed p-[2px] mb-4 rounded-full"/>
-        <section className="flex flex-wrap gap-4">
+        <section className="flex flex-wrap gap-8">
             {
                 bookList?.results.map(book => 
                     <div key={book.id} className="h-full w-28 md:w-40">

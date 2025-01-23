@@ -51,17 +51,38 @@ const AddBookForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="title">Title: </label> <br />
-      <input type="text" name="title" onChange={handleChange} value={bookForm.title} /> <br />
-      <label htmlFor="author">Author: </label> <br />
-      <input type="text" name="author" onChange={handleChange} value={bookForm.author} /> <br />
-      <label htmlFor="sypnosis">Sypnosis: </label>
-      <input type="text" name="sypnosis" onChange={handleChange} value={bookForm.sypnosis} /> <br />
-      <label htmlFor="pdf_file">Upload PDF: </label>
-      <input type="file" name="pdf_file" required={true} onChange={handlePDFChange} /> <br />
-      <label htmlFor="book_cover">Upload Book Cover: </label>
-      <input type="file" name="book_cover" onChange={handleBookCoverChange} /> 
-      <br /><button>Submit</button>
+      <div className="bg-primaryRed p-4 rounded-t-xl ">
+        <p className="text-xl font-semibold">Submit a Book</p>
+      </div>
+
+      <div className="border-2 p-4 rounded-b-xl flex flex-col gap-y-8 shadow-2xl shadow-gray-400">
+        {/* Title */}
+        <div className="flex flex-col">
+          <label htmlFor="title">Title </label> 
+          <input type="text" name="title" onChange={handleChange} value={bookForm.title} className="p-2 rounded-md bg-gray-200" /> 
+        </div>
+        {/* Author */}
+        <div className="flex flex-col">
+          <label htmlFor="author">Author </label> 
+          <input type="text" name="author" onChange={handleChange} value={bookForm.author} className="p-2 rounded-md bg-gray-200" /> 
+        </div>
+        {/* Sypnosis */}
+        <div className="flex flex-col">
+          <label htmlFor="sypnosis">Sypnosis </label>
+          <input type="text" name="sypnosis" onChange={handleChange} value={bookForm.sypnosis} className="p-2 rounded-md bg-gray-200"/> 
+        </div>
+        {/* PDF File */}
+        <div className="flex flex-col">
+          <label htmlFor="pdf_file">Upload PDF </label>
+          <input type="file" name="pdf_file" required={true} onChange={handlePDFChange} /> 
+        </div>
+        {/* Book Cover */}
+        <div className="flex flex-col">
+          <label htmlFor="book_cover">Upload Book Cover </label>
+          <input type="file" name="book_cover" onChange={handleBookCoverChange} /> 
+        </div>
+        <button className="bg-black hover:bg-primaryRed rounded-md p-2 text-white font-medium transition-all duration-300 ease-out">Submit</button>
+      </div>
     </form>
   );
 };
