@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import CommentForm from "../../components/Forms/CommentForm";
 import RenderComments from "../../components/Renders/RenderComments";
-import Loading from "../../components/Loading";
-import ErrorMsg from "../../components/ErrorMsg";
+import Loading from "../../components/common/Loading";
+import ErrorMsg from "../../components/common/ErrorMsg";
 
 export interface Book {
     id: number,

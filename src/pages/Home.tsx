@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
-import AddBookForm from "../components/Forms/AddBookForm";
 import RenderBooks from "../components/Renders/RenderBooks";
 import { Book } from "../components/Renders/RenderBooks";
-import Loading from "../components/Loading";
-import ErrorMsg from "../components/ErrorMsg";
+import Loading from "../components/common/Loading";
+import ErrorMsg from "../components/common/ErrorMsg";
 import RenderBooksSideInfo from "../components/Renders/RenderBooksSideInfo";
-import Header from "../components/Header";
+import Header from "../components/layout/Header";
 
 
 
