@@ -18,7 +18,7 @@ const Footer = () => {
                 </div>
             </div>
             {/* Services */}
-            <div className="text-center md:text-start">
+            <div className="text-center md:text-start text-gray-600">
                 <p>Privacy and Policy</p>
                 <p>Terms of Services</p>
                 <p>Contact us</p>
