@@ -6,7 +6,7 @@ const RenderBooksSideInfo = ({book}: BookData) => {
   return (
     <article className="grid grid-cols-3 gap-x-4 justify-between mb-4">
         {/* Image Container */}
-        <div className="col-span-1 h-28">
+        <div className="col-span-1 h-28 md:h-36 w-full">
             <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
         </div>
         {/* Infomation Container */}

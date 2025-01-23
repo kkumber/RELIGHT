@@ -23,7 +23,7 @@ const RenderBooks = ({book}: BookData) => {
   return (
         <article className="flex flex-col ">
           {/* Images */}
-          <div className="h-40 w-full">
+          <div className="h-40 md:h-60 w-full">
             <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
           </div>
           {/* Title */}

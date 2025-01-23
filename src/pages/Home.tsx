@@ -6,7 +6,7 @@ import Loading from "../components/common/Loading";
 import ErrorMsg from "../components/common/ErrorMsg";
 import RenderBooksSideInfo from "../components/Renders/RenderBooksSideInfo";
 import Header from "../components/layout/Header";
-
+import Footer from "../components/layout/Footer";
 
 
 export interface FetchData {
@@ -41,17 +41,18 @@ const Home = () => {
 
 
     {/* Main Home Container  */}
-    <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20">
+    <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 mx-auto w-11/12 my-auto min-h-screen">
     
     {isLoading && <Loading />}
     {error && <ErrorMsg error={error} />}
     {/* Popular Uploads */}
     <div className="md:col-span-3">
     <b className="text-lg">Popular Uploads</b>
+    <hr className="bg-primaryRed p-[2px] mb-4 rounded-full"/>
         <section className="flex flex-wrap gap-4">
             {
                 bookList?.results.map(book => 
-                    <div key={book.id} className="h-full w-32">
+                    <div key={book.id} className="h-full w-28 md:w-40">
                         <RenderBooks book={book} />
                     </div>
                 )
@@ -62,6 +63,7 @@ const Home = () => {
     {/* New Uploads */}
     <div className="col-span-2">
         <b className="text-lg">New & Trending</b>
+        <hr className="bg-primaryRed p-[2px] mb-4 rounded-full"/>
         <section className="flex flex-col gap-8">
                 {isLoading && <Loading />}
                 {error && <ErrorMsg error={error} />}
@@ -77,7 +79,9 @@ const Home = () => {
     </div>
         
 
-    </div> 
+    </div>
+
+    <Footer />
     </>
     );
 }
