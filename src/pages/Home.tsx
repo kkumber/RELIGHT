@@ -6,6 +6,8 @@ import { Book } from "../components/Renders/RenderBooks";
 import Loading from "../components/Loading";
 import ErrorMsg from "../components/ErrorMsg";
 import RenderBooksSideInfo from "../components/Renders/RenderBooksSideInfo";
+import Header from "../components/Header";
+
 
 
 export interface FetchData {
@@ -35,18 +37,22 @@ const Home = () => {
     return (    
     <>
     
+    <Header />
+
+
+
     {/* Main Home Container  */}
-    <div className="grid grid-cols-5">
+    <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20">
     
     {isLoading && <Loading />}
     {error && <ErrorMsg error={error} />}
     {/* Popular Uploads */}
-    <div className="col-span-3">
+    <div className="md:col-span-3">
     <b className="text-lg">Popular Uploads</b>
         <section className="flex flex-wrap gap-4">
             {
                 bookList?.results.map(book => 
-                    <div key={book.id}>
+                    <div key={book.id} className="h-full w-32">
                         <RenderBooks book={book} />
                     </div>
                 )
@@ -57,13 +63,14 @@ const Home = () => {
     {/* New Uploads */}
     <div className="col-span-2">
         <b className="text-lg">New & Trending</b>
-        <section className="flex flex-col">
+        <section className="flex flex-col gap-8">
                 {isLoading && <Loading />}
                 {error && <ErrorMsg error={error} />}
                 {
                     bookList?.results.map(book => 
-                        <div key={book.id}>
+                        <div key={book.id} className="">
                             <RenderBooksSideInfo book={book} />
+                        <hr />
                         </div>
                     )
                 }

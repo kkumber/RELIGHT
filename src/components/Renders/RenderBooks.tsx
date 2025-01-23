@@ -21,15 +21,15 @@ export interface BookData {
 const RenderBooks = ({book}: BookData) => {
 
   return (
-        <article className="flex flex-col border-2 ">
+        <article className="flex flex-col ">
           {/* Images */}
-          <div className="h-60 w-40">
-            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-contain" />
+          <div className="h-40 w-full">
+            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
           </div>
           {/* Title */}
           <div className="">
             <Link to={`/details/${book.slug}`}>
-            <b>{book.title}</b>
+            <p className="font-medium">{book.title}</p>
             </Link>
           </div>
           {/* WatchList */}
@@ -46,7 +46,7 @@ const RenderBooks = ({book}: BookData) => {
 
           {/* Author */}
           <div className="text-xs">
-            <p className="border-[1px] p-1 text-primaryRed border-primaryRed">Written by: {book.author} </p>
+            <p className="text-gray-600">Written by: {book.author} </p>
           </div>
 
         </article>

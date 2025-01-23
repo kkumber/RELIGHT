@@ -9,14 +9,13 @@ import Details from "./pages/Subpages/Details"
 import Navigation from "./components/Navigation"
 import AddBookPage from "./pages/Subpages/AddBookPage"
 
-
 function App() {
   return (
     <div className="font-monaSans">
       <BrowserRouter> 
       <Navigation />
       <AuthProvider>
-        <div className="mx-2 md:mx-40">
+        <div className="mx-2 md:mx-20 lg:mx-32">
         <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />
