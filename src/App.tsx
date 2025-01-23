@@ -8,7 +8,6 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import Details from "./pages/Subpages/Details"
 import Navigation from "./components/layout/Navigation"
 import AddBookPage from "./pages/Subpages/AddBookPage"
-import Footer from "./components/layout/Footer"
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         </AuthProvider>
-        <Footer />
       </BrowserRouter>
     </div>
   )

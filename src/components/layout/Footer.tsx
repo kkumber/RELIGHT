@@ -4,7 +4,7 @@ import { faGithub, faDiscord, faFacebook, faInstagram } from "@fortawesome/free-
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-300 p-4 flex items-center justify-evenly flex-wrap-reverse gap-8">
+    <footer className="bg-gray-300 py-16 flex items-center justify-center flex-wrap-reverse gap-20">
             {/* Contact Info */}
             <div className="flex items-center flex-col gap-2">
                 <div className="">
