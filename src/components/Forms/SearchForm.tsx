@@ -8,10 +8,10 @@ const SearchForm = () => {
     };
   return (
     <form onSubmit={handleSubmit} className="flex items-center justify-center">
-        <button className="bg-primaryRed p-2 rounded-l-2xl border-primaryRed border-2">
-            <FontAwesomeIcon icon={faSearch} />
+        <button className="bg-primaryRed p-1 rounded-l-md border-primaryRed border-[1px]">
+            <FontAwesomeIcon icon={faSearch} size="lg"/>
         </button>
-        <input type="search" name="search" placeholder="Search..." className="p-2 border-2 rounded-r-2xl border-black focus:outline-none"/>
+        <input type="search" name="search" placeholder="Search..." className="p-1 border-[1px] rounded-r-2xl border-black focus:outline-none"/>
     </form>
   );
 };

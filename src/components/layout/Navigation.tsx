@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAccessTokenContext } from "../../utils/AuthProvider";
+import SearchForm from "../Forms/SearchForm";
 
 const Navigation = () => {
   const {accessToken, setAccessToken} = useAccessTokenContext();
@@ -12,11 +13,10 @@ const Navigation = () => {
         <li className="font-semibold"><Link to='/'>Homepage</Link></li>
         <li className="font-semibold"><Link to='/addbook'>Add Book</Link></li>
         <li className="font-semibold"><Link to='/browse'>Browse</Link></li>
-        <li className="font-semibold"><Link to='/search'>Search</Link></li>
-
+        <li><SearchForm /></li>
       </ul>
       {/* Authorizations */}
-      <div className="">
+      <div className="flex gap-8">
         <Link to='/login'><button onClick={() => setAccessToken('')} className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:-translate-y-1 hover:shadow-sm hover:shadow-gray-800">
           {accessToken ? 'Sign out' : 'Sign in'}</button>
           </Link>
