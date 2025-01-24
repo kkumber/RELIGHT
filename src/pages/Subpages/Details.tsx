@@ -85,7 +85,7 @@ const RenderBooks = () => {
     {bookError && <ErrorMsg error={bookError} />}
     {book && <article key={book.id}>
             <h3>{book.title}</h3>
-            <img src={book.book_cover} alt={book.title} />
+            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="" />
             <p>Sypnosis: {book.sypnosis} </p>
             <p>Written by: {book.author} </p>
             <p>Upload Date: {book.upload_date} </p>

@@ -1,6 +1,7 @@
 import { BookData } from "./RenderBooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const RenderBooksSideInfo = ({book}: BookData) => {
   return (
@@ -12,7 +13,9 @@ const RenderBooksSideInfo = ({book}: BookData) => {
         {/* Infomation Container */}
         <div className="flex flex-col col-span-2 justify-start">
             <div className="">
-                <p className="font-medium">{book.title}</p>
+                <Link to={`/details/${book.slug}`}>
+                    <p className="font-semibold">{book.title}</p>
+                </Link>
             </div>
             <div className="flex gap-x-4">
                 <div className="flex justify-between items-center gap-x-1">
@@ -24,7 +27,7 @@ const RenderBooksSideInfo = ({book}: BookData) => {
                     <span className="text-gray-600">21k</span>
                 </div>
             </div>
-            <div className="text-xs">
+            <div className="text-xs border-2 p-1 rounded-sm border-gray-400 max-w-40">
                 <p className="text-gray-600">Written by: {book.author} </p>
             </div>
         </div>

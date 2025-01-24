@@ -29,7 +29,7 @@ const RenderBooks = ({book}: BookData) => {
           {/* Title */}
           <div className="">
             <Link to={`/details/${book.slug}`}>
-            <p className="font-medium">{book.title}</p>
+            <p className="font-semibold">{book.title}</p>
             </Link>
           </div>
           {/* WatchList */}
@@ -45,7 +45,7 @@ const RenderBooks = ({book}: BookData) => {
           </div>
 
           {/* Author */}
-          <div className="text-xs">
+          <div className="text-xs border-2 p-1 rounded-sm border-gray-400">
             <p className="text-gray-600">Written by: {book.author} </p>
           </div>
 

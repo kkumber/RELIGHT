@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import Details from "./pages/Subpages/Details"
 import Navigation from "./components/layout/Navigation"
 import AddBookPage from "./pages/Subpages/AddBookPage"
+import Browse from "./pages/Subpages/Browse"
+import Search from "./pages/Subpages/Search"
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/details/:slug" element={<Details />} />
               <Route path="/addbook" element={<AddBookPage />} />
+              <Route path="/browse" element={<Browse />} />
+              <Route path="/search" element={<Search />} />
             </Route>
 
           <Route path="/login" element={<Login />}></Route>
