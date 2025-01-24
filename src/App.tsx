@@ -15,8 +15,8 @@ function App() {
   return (
     <div className="font-monaSans">
       <BrowserRouter> 
-      <Navigation />
       <AuthProvider>
+      <Navigation />
         <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />

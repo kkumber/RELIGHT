@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAccessTokenContext } from "../../utils/AuthProvider";
 
 const Navigation = () => {
+  const {accessToken, setAccessToken} = useAccessTokenContext();
+
   return (
     <nav className="flex justify-between p-4">
       {/* Navigations */}
@@ -14,7 +17,9 @@ const Navigation = () => {
       </ul>
       {/* Authorizations */}
       <div className="">
-        <Link to='/login'><button className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:-translate-y-1 hover:shadow-sm hover:shadow-gray-800">Sign in</button></Link>
+        <Link to='/login'><button onClick={() => setAccessToken('')} className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:-translate-y-1 hover:shadow-sm hover:shadow-gray-800">
+          {accessToken ? 'Sign out' : 'Sign in'}</button>
+          </Link>
       </div>
     </nav>
   );
