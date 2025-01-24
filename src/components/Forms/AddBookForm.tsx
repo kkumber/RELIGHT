@@ -14,7 +14,7 @@ const AddBookForm = () => {
   const {data, isLoading, error, fetchData, postData} = useFetch();
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;
 
     setBookForm({
@@ -69,7 +69,7 @@ const AddBookForm = () => {
         {/* Sypnosis */}
         <div className="flex flex-col">
           <label htmlFor="sypnosis">Sypnosis </label>
-          <input type="text" name="sypnosis" onChange={handleChange} value={bookForm.sypnosis} className="p-2 rounded-md bg-gray-200"/> 
+          <textarea name="sypnosis" onChange={handleChange} value={bookForm.sypnosis} className="p-2 rounded-md bg-gray-200"/> 
         </div>
         {/* PDF File */}
         <div className="flex flex-col">
