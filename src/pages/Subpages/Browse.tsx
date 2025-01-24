@@ -8,28 +8,18 @@ import { useEffect, useState } from "react";
 const Browse = () => {
     const {data, isLoading, error, fetchData} = useFetch();
     const [bookList, setBookList] = useState<FetchData>();
+    const [query, setQuery] = useState<string>();
 
-    const handleFetchPopular = () => {
-
-    };
-
-    const handleFetchExplore = () => {
-
-    };
-
-    const handleFetchNew= () => {
-        
-    };
-    
-    const handleFetchAZList = () => {
-        
-    };
 
     useEffect(() => {
-        if (data) {
-            setBookList(data);
-        }
+        fetchData(`library/books/?sort_by=${query}`);
     }, [])
+
+    useEffect(() => {
+        fetchData(`library/books/?sort_by=${query}`)
+    }, [query])
+
+    
     return ( 
         <div className="min-h-screen flex flex-col">
             <Header />
@@ -37,10 +27,10 @@ const Browse = () => {
             <div className="flex flex-grow">
                 <nav>
                     <ul className="flex gap-4 items-center ">
-                        <li><button onClick={() => handleFetchPopular}>Popular</button></li>
-                        <li><button onClick={() => handleFetchExplore}>Explore</button></li>
-                        <li><button onClick={() => handleFetchNew}>What's New</button></li>
-                        <li><button onClick={() => handleFetchAZList}>A-Z List</button></li>
+                        <li><button onClick={() => setQuery('popular')}>Popular</button></li>
+                        <li><button onClick={() => setQuery('explore')}>Explore</button></li>
+                        <li><button onClick={() => setQuery('upload_date')}>What's New</button></li>
+                        <li><button onClick={() => setQuery('title')}>A-Z List</button></li>
                     </ul>
                     <hr className="bg-primaryRed p-[2px] mb-4 rounded-full"/>
                 </nav>

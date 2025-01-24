@@ -20,9 +20,10 @@ export interface FetchData {
 const Home = () => {
     const {data: returns, isLoading, error, fetchData} = useFetch();
     const [bookList, setBookList] = useState<FetchData>();
+    const [query, setQuery] = useState<string>('title');
 
     useEffect(() => {
-        fetchData('library/books/');
+        fetchData(`library/books/?sort_by=${query}`);
     }, []);
 
     useEffect(() => {
