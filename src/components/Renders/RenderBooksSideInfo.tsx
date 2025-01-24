@@ -8,7 +8,9 @@ const RenderBooksSideInfo = ({book}: BookData) => {
     <article className="grid grid-cols-3 gap-x-4 justify-between mb-4">
         {/* Image Container */}
         <div className="col-span-1 h-28 md:h-36 w-full">
-            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
+            <Link to={`/details/${book.slug}`}>
+                <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
+            </Link>
         </div>
         {/* Infomation Container */}
         <div className="flex flex-col col-span-2 justify-start">

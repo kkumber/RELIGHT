@@ -29,6 +29,7 @@ const Home = () => {
     useEffect(() => {
         if (returns) {
             setBookList(returns);
+            console.log(returns);
         };
     }, [returns])
 

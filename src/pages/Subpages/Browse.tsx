@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const Browse = () => {
     const {data, isLoading, error, fetchData} = useFetch();
     const [bookList, setBookList] = useState<FetchData>();
-    const [query, setQuery] = useState<string>('title');
+    const [query, setQuery] = useState<string>('likes');
 
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const Browse = () => {
             {/* Main Container */}
             <div className="flex flex-grow flex-col">
                 <nav>
-                    <ul className="flex gap-8 items-center ">
+                    <ul className="flex gap-8 items-center font-bold">
                         <li><button onClick={() => setQuery('likes')}>Popular</button></li>
                         <li><button onClick={() => setQuery('views')}>Explore</button></li>
                         <li><button onClick={() => setQuery('upload_date')}>What's New</button></li>

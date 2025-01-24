@@ -23,15 +23,15 @@ const RenderBooks = ({book}: BookData) => {
   return (
         <article className="flex flex-col ">
           {/* Images */}
+          <Link to={`/details/${book.slug}`}>
           <div className="h-40 md:h-60 w-full">
             <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full h-full object-cover rounded-md" />
           </div>
           {/* Title */}
           <div className="">
-            <Link to={`/details/${book.slug}`}>
             <p className="font-semibold">{book.title}</p>
-            </Link>
           </div>
+          </Link>
           {/* WatchList */}
           <div className="flex gap-x-4">
             <div className="flex justify-between items-center gap-x-1">
