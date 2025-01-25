@@ -10,7 +10,7 @@ const Navigation = () => {
       {/* Navigations */}
       <ul className=" flex gap-x-12 items-center">
         <li><Link to='/' className=""><b>RELIGHT</b></Link></li>
-        <li className="font-semibold"><Link to='/'>Homepage</Link></li>
+        <li className="font-semibold"><Link to='/library'>Library</Link></li>
         <li className="font-semibold"><Link to='/addbook'>Add Book</Link></li>
         <li className="font-semibold"><Link to='/browse'>Browse</Link></li>
         <li><SearchForm /></li>
