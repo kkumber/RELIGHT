@@ -5,6 +5,8 @@ import CommentForm from "../../components/Forms/CommentForm";
 import RenderComments from "../../components/Renders/RenderComments";
 import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
 
 export interface Book {
     id: number,
@@ -15,6 +17,8 @@ export interface Book {
     uploaded_by: string,
     book_cover: string,
     pdf_file: File
+    views: number,
+    likes: string[]
 }
 
 
@@ -79,30 +83,82 @@ const RenderBooks = () => {
 
 
   return (
-    <>
+    <div className="flex flex-col">
     <section>
     {bookLoading && <Loading />}
     {bookError && <ErrorMsg error={bookError} />}
     {book && <article key={book.id}>
-            <h3>{book.title}</h3>
-            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="" />
-            <p>Sypnosis: {book.sypnosis} </p>
-            <p>Written by: {book.author} </p>
-            <p>Upload Date: {book.upload_date} </p>
-            <p>Uploaded by: {book.uploaded_by} </p>
+        <div className="relative w-full">
+          {/* Background Blur Image */}
+          <div className="z-0 w-full h-80">
+            <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="w-full" />
+          </div>
+          {/* Details */}
+          <div className="absolute flex left-1/2 top-1/2 justify-center items-center z-10">
+              {/* Book Cover */}
+              <div className="w-40 h-60">
+                <img src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`} alt={book.title} className="" />
+              </div>
+              {/* Book Information */}
+              <div className="flex flex-col">
+                <h3>{book.title}</h3>
+                <p>Author: {book.author}</p>
+                {/* Views and Likes */}
+                <div className="flex gap-4">
+                  <div className="flex flex-col">
+                    <p>Views</p>
+                    <div className="flex">
+                      <FontAwesomeIcon icon={faEye} style={{color: "#ffffff",}} size="lg" />
+                      <p>{book.views}</p>
+                    </div>
+                  </div>
+                  <span className="border-[2px] border-white"></span>
+                  <div className="flex flex-col">
+                    <p>Bookmarked</p>
+                    <div className="flex">
+                      <FontAwesomeIcon icon={faBookmark} style={{color: "#ffffff",}} size="lg" />
+                      <p>{book.likes.length}</p>
+                    </div>
+                  </div>
+                </div>
+                <p>Upload Date: {book.upload_date} </p>
+                <p>Uploaded by: {book.uploaded_by} </p>
+                <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold">Add to Library</button>
+              </div>
+            </div>
+          </div>
+          {/* Sypnosis */}
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-center items-center gap-2">
+              <h2 className="text-2xl font-bold">Sypnosis</h2>
+              <hr className="bg-black w-full p-[.2px]" />
+            </div>
+            <div className="">
+              <p>{book.sypnosis}</p>
+            </div>
+          </div>
         </article>}
     </section>
 
     <section>
-      <h3>Add Comment</h3>
-      <CommentForm setContent={setContent} handleCommentSubmit={handleCommentSubmit} />
+    <div className="flex flex-col gap-4">
+            <div className="flex justify-center items-center gap-2">
+              <h2 className="text-2xl font-bold">Comments</h2>
+              <hr className="bg-black w-full p-[.2px]" />
+            </div>
+            <div className="bg-gray-300 p-4">
+                <p className="text-primaryRed">Please read and apply the rules before posting a comment.</p>
+                <p>By sharing your comment, you agree to all relevant terms.</p>
+            </div>
+      </div>
+      <div className="">
+        <h3 className="font-bold text-2xl">Leave a Review</h3>
+        <CommentForm setContent={setContent} handleCommentSubmit={handleCommentSubmit} />
+      </div>
     </section>
 
     <section>
-      <header>
-        <h2>Comments</h2>
-        {commentsLoading && <Loading />}
-        {commentsError && <ErrorMsg error={commentsError} />}
+      <div>
         { userComments &&
           userComments.map(userComment => 
             <div>
@@ -110,9 +166,9 @@ const RenderBooks = () => {
             </div>
           )
         }
-      </header>
+      </div>
     </section>
-    </>
+    </div>
 
   );
 };

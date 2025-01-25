@@ -11,10 +11,12 @@ export interface UserComment {
 
 const RenderComments = ({userComment}: Prop) => {
   return (
-    <article>
-      <hr />
+    <article className="border-[1px] border-gray-300 p-4">
+      {/* Profile */}
+      <div className="">
         <p>{userComment.owner}</p>
         <p>{userComment.post_date}</p>
+      </div>
         <p>{userComment.content}</p>
     </article>
   );
