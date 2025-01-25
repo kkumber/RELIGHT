@@ -7,7 +7,7 @@ const SearchForm = () => {
 
     };
   return (
-    <form onSubmit={handleSubmit} className="flex items-center justify-center">
+    <form onSubmit={handleSubmit} className="flex">
         <button className="bg-black py-[3px] px-2 rounded-l-md border-primaryRed">
             <FontAwesomeIcon icon={faSearch} size="sm" style={{color: 'white'}}/>
         </button>
