@@ -17,7 +17,7 @@ const Navigation = () => {
             <FontAwesomeIcon icon={faBars} />
           </button>
         </div>
-        <ul className={`flex gap-4 flex-col md:flex-row md:justify-between md:items-center ${isOpen ? 'block' : 'hidden'}`}>
+        <ul className={`md:flex gap-4 flex-col md:flex-row md:justify-between md:items-center ${isOpen ? 'block' : 'hidden'}`}>
           <div className="md:flex gap-x-12">
             <li><Link to='/' className=""><b>RELIGHT</b></Link></li>
             <li className="font-semibold"><Link to='/library'>Library</Link></li>
