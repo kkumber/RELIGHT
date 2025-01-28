@@ -101,13 +101,13 @@ const RenderBooks = () => {
                 />
               </div>
               {/* Details */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-wrap justify-center gap-4 items-center z-10 text-white">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white">
                 {/* Book Cover */}
-                <div className="">
+                <div className="w-36 h-60 md:w-48 md:h-72">
                   <img
                     src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                     alt={book.title}
-                    className="w-full rounded-md"
+                    className="w-full h-full object-cover rounded-md "
                   />
                 </div>
                 {/* Book Information */}
