@@ -52,9 +52,6 @@ const RenderBooks = () => {
     if (slug) {
       await fetchBookDetails(bookURL);
       await fetchBookComments(commentURL);
-      if (bookDetails) {
-        setBook(bookDetails);
-      }
     }
   };
 
@@ -66,7 +63,7 @@ const RenderBooks = () => {
       alert("Comment is empty");
     }
     // Call function again to render
-    getBookDetails();
+    await fetchBookComments(commentURL);
   };
 
   useEffect(() => {
@@ -96,32 +93,32 @@ const RenderBooks = () => {
           <article key={book.id}>
             <div className="relative w-full">
               {/* Background Blur Image */}
-              <div className="z-0 w-full h-80">
+              <div className="z-0 h-full bg-center bg-no-repeat">
                 <img
                   src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                   alt={book.title}
-                  className="w-full"
+                  className="w-full h-[50vh] object-cover blur-lg"
                 />
               </div>
               {/* Details */}
-              <div className="absolute flex left-1/2 top-1/2 justify-center items-center z-10">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-wrap justify-center gap-4 items-center z-10 text-white">
                 {/* Book Cover */}
-                <div className="w-40 h-60">
+                <div className="">
                   <img
                     src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                     alt={book.title}
-                    className=""
+                    className="w-full rounded-md"
                   />
                 </div>
                 {/* Book Information */}
-                <div className="flex flex-col">
-                  <h3>{book.title}</h3>
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-2xl font-bold">{book.title}</h3>
                   <p>Author: {book.author}</p>
                   {/* Views and Likes */}
                   <div className="flex gap-4">
                     <div className="flex flex-col">
                       <p>Views</p>
-                      <div className="flex">
+                      <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faEye}
                           style={{ color: "#ffffff" }}
@@ -130,10 +127,10 @@ const RenderBooks = () => {
                         <p>{book.views}</p>
                       </div>
                     </div>
-                    <span className="border-[2px] border-white"></span>
+                    <span className="border-[1px] border-white"></span>
                     <div className="flex flex-col">
                       <p>Bookmarked</p>
-                      <div className="flex">
+                      <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faBookmark}
                           style={{ color: "#ffffff" }}
