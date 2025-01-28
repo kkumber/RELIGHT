@@ -27,7 +27,7 @@ interface BookComments {
   post_date: string;
 }
 
-const RenderBooks = () => {
+const Details = () => {
   const {
     data: bookDetails,
     isLoading: bookLoading,
@@ -209,4 +209,4 @@ const RenderBooks = () => {
   );
 };
 
-export default RenderBooks;
+export default Details;

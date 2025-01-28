@@ -5,21 +5,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
-  const { data, fetchData } = useFetch();
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchData(`library/books/search/?search_query=${query}`);
-    navigate("/search");
+    navigate(`/search/?query=${query}`);
   };
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
   return (
     <form onSubmit={handleSubmit} className="flex">
       <button className="bg-black py-[3px] px-2 rounded-l-md border-primaryRed">
