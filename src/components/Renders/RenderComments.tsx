@@ -1,21 +1,22 @@
-
 interface Prop {
-    userComment: UserComment
+  userComment: UserComment;
 }
 
 export interface UserComment {
-    owner: string,
-    content: string,
-    post_date: string
+  owner: string;
+  content: string;
+  post_date: string;
 }
 
-const RenderComments = ({userComment}: Prop) => {
+const RenderComments = ({ userComment }: Prop) => {
   return (
-    <article>
-      <hr />
+    <article className="border-[1px] border-gray-300 p-4 rounded-md ">
+      {/* Profile */}
+      <div className="">
         <p>{userComment.owner}</p>
         <p>{userComment.post_date}</p>
-        <p>{userComment.content}</p>
+      </div>
+      <p>{userComment.content}</p>
     </article>
   );
 };

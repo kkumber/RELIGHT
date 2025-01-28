@@ -10,6 +10,7 @@ import Navigation from "./components/layout/Navigation"
 import AddBookPage from "./pages/Subpages/AddBookPage"
 import Browse from "./pages/Subpages/Browse"
 import Search from "./pages/Subpages/Search"
+import Library from "./pages/Library"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/addbook" element={<AddBookPage />} />
               <Route path="/browse" element={<Browse />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/library" element={<Library />} />
             </Route>
 
           <Route path="/login" element={<Login />}></Route>

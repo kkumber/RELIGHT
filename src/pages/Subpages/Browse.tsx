@@ -28,7 +28,7 @@ const Browse = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       {/* Main Container */}
-      <div className="flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col w-9/12 mx-auto mb-20">
         <nav>
           <ul className="flex gap-8 items-center font-bold">
             <li>
@@ -46,7 +46,7 @@ const Browse = () => {
               <button onClick={() => setQuery("title")}>A-Z List</button>
             </li>
           </ul>
-          <hr className="bg-primaryRed p-[2px] mb-4 rounded-full" />
+          <hr className="bg-primaryRed p-[2px] mb-4 rounded-full my-3" />
         </nav>
         <section className="flex flex-wrap gap-12">
           {bookList?.results.map((book) => (
