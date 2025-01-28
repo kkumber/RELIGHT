@@ -1,9 +1,7 @@
+import SearchForm from "../../components/Forms/SearchForm";
 
 const Search = () => {
-    return ( 
-        <div className="flex justify-center items-center">
-        </div>
-     );
-}
- 
+  return <div className="flex justify-center items-center"></div>;
+};
+
 export default Search;
