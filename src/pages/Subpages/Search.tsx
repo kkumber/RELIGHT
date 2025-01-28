@@ -6,6 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import RenderBooks from "../../components/Renders/RenderBooks";
 import { FetchData } from "../Home";
 import { Book } from "../../components/Renders/RenderBooks";
+import Footer from "../../components/layout/Footer";
 
 const Search = () => {
   const { data, isLoading, error, fetchData } = useFetch();
@@ -16,7 +17,6 @@ const Search = () => {
 
   useEffect(() => {
     fetchData(`library/books/search/?search_query=${query}`);
-    console.log(query);
   }, [query]);
 
   useEffect(() => {
@@ -26,14 +26,22 @@ const Search = () => {
   }, [data]);
 
   return (
-    <section className="flex flex-wrap gap-4 w-11/12 m-auto">
-      {searchResult &&
-        searchResult.map((book) => (
-          <div className="" key={book.id}>
-            <RenderBooks book={book} />
-          </div>
-        ))}
-    </section>
+    <>
+      <section className="w-11/12 m-auto min-h-screen flex flex-col gap-4">
+        <h2 className="text-xl font-bold py-1 px-4 bg-primaryRed rounded-md w-40 text-white">
+          Search
+        </h2>
+        <div className="flex flex-wrap gap-4 flex-grow">
+          {searchResult &&
+            searchResult.map((book) => (
+              <div className="" key={book.id}>
+                <RenderBooks book={book} />
+              </div>
+            ))}
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 
