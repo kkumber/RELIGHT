@@ -48,7 +48,7 @@ const Browse = () => {
           </ul>
           <hr className="bg-primaryRed p-[2px] mb-4 rounded-full my-3" />
         </nav>
-        <section className="flex flex-wrap gap-12">
+        <section className="flex flex-wrap gap-4">
           {bookList?.results.map((book) => (
             <div key={book.id} className="h-full w-28 md:w-40">
               <RenderBooks book={book} />

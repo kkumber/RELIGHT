@@ -7,6 +7,7 @@ import ErrorMsg from "../components/common/ErrorMsg";
 import RenderBooksSideInfo from "../components/Renders/RenderBooksSideInfo";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import useConcurrentFetch from "../hooks/useConcurrentFetch";
 
 export interface FetchData {
   count: number;
@@ -16,20 +17,21 @@ export interface FetchData {
 }
 
 const Home = () => {
-  const { data: returns, isLoading, error, fetchData } = useFetch();
   const [bookList, setBookList] = useState<FetchData>();
-  const [query, setQuery] = useState<string>("title");
+  const { data, isLoading, error } = useConcurrentFetch([
+    `library/books/?sort_by=likes`,
+    `library/books/?sort_by=upload_date`,
+  ]);
+  const [popularList, setPopularList] = useState<FetchData>();
+  const [newList, setNewList] = useState<FetchData>();
 
   useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}`);
-  }, []);
-
-  useEffect(() => {
-    if (returns) {
-      setBookList(returns);
-      console.log(returns);
+    if (data) {
+      console.log(data);
+      setPopularList(data[0]);
+      setNewList(data[1]);
     }
-  }, [returns]);
+  }, [data]);
 
   return (
     <>
@@ -44,7 +46,7 @@ const Home = () => {
           <b className="text-lg">Popular Uploads</b>
           <hr className="bg-primaryRed p-[2px] mb-4 rounded-full" />
           <section className="flex flex-wrap gap-4">
-            {bookList?.results.map((book) => (
+            {popularList?.results.map((book) => (
               <div key={book.id} className="">
                 <RenderBooks book={book} />
               </div>
@@ -59,7 +61,7 @@ const Home = () => {
           <section className="flex flex-col gap-8">
             {isLoading && <Loading />}
             {error && <ErrorMsg error={error} />}
-            {bookList?.results.map((book) => (
+            {newList?.results.map((book) => (
               <div key={book.id} className="">
                 <RenderBooksSideInfo book={book} />
                 <hr />

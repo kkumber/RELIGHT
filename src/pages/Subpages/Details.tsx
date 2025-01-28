@@ -101,9 +101,9 @@ const Details = () => {
                 />
               </div>
               {/* Details */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
                 {/* Book Cover */}
-                <div className="w-36 h-60 md:w-48 md:h-72">
+                <div className="w-40 h-60 md:w-48 md:h-72">
                   <img
                     src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                     alt={book.title}
