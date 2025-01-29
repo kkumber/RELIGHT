@@ -8,19 +8,7 @@ import ErrorMsg from "../../components/common/ErrorMsg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
-
-export interface Book {
-  id: number;
-  title: string;
-  author: string;
-  sypnosis: string;
-  upload_date: string;
-  uploaded_by: string;
-  book_cover: string;
-  pdf_file: File;
-  views: number;
-  likes: string[];
-}
+import { Book } from "../../components/Renders/RenderBooks";
 
 interface BookComments {
   owner: string;
