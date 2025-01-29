@@ -10,7 +10,7 @@ export interface UserComment {
 
 const RenderComments = ({ userComment }: Prop) => {
   return (
-    <article className="border-[1px] border-gray-300 p-4 rounded-md ">
+    <article className="border-[1px] border-gray-300 p-4 rounded-md">
       {/* Profile */}
       <div className="">
         <p>{userComment.owner}</p>
