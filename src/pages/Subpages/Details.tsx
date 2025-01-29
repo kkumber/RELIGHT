@@ -84,8 +84,6 @@ const Details = () => {
   return (
     <div className="flex flex-col bg-gray-100">
       <section>
-        {bookLoading && <Loading />}
-        {bookError && <ErrorMsg error={bookError} />}
         {book && (
           <article key={book.id}>
             <div className="relative w-full">
@@ -155,6 +153,8 @@ const Details = () => {
       {/* Bottom Container */}
       <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg">
         {/* Sypnosis Section */}
+        {bookLoading && <Loading />}
+        {bookError && <ErrorMsg error={bookError} />}
         {book && (
           <section className="my-10">
             <div className="flex flex-col gap-4">

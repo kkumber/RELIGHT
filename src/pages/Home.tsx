@@ -35,11 +35,11 @@ const Home = () => {
   return (
     <>
       <Header />
+      {isLoading && <Loading />}
+      {error && <ErrorMsg error={error} />}
 
       {/* Main Home Container  */}
       <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 mx-auto w-11/12 my-auto min-h-screen gap-y-20">
-        {isLoading && <Loading />}
-        {error && <ErrorMsg error={error} />}
         {/* Popular Uploads */}
         <div className="md:col-span-3">
           <b className="text-lg">Popular Uploads</b>
@@ -58,8 +58,6 @@ const Home = () => {
           <b className="text-lg">New & Trending</b>
           <hr className="bg-primaryRed p-[2px] mb-4 rounded-full" />
           <section className="flex flex-col gap-8">
-            {isLoading && <Loading />}
-            {error && <ErrorMsg error={error} />}
             {newList?.results.map((book) => (
               <div key={book.id} className="">
                 <RenderBooksSideInfo book={book} />

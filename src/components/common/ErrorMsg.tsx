@@ -1,6 +1,8 @@
-const ErrorMsg = ({error}: any) => {
+const ErrorMsg = ({ error }: any) => {
   return (
-    <div className="">Error: {error}</div>
+    <div className="text-red-600 bg-gray-100 p-4 rounded-lg">
+      Error: {error}
+    </div>
   );
 };
 
