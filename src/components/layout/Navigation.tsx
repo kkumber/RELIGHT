@@ -3,7 +3,12 @@ import { useAccessTokenContext } from "../../utils/AuthProvider";
 import SearchForm from "../Forms/SearchForm";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faUpload,
+  faBook,
+  faGlobe,
+} from "@fortawesome/free-solid-svg-icons";
 import useFetch from "../../hooks/useFetch";
 
 const Navigation = () => {
@@ -29,19 +34,22 @@ const Navigation = () => {
           isOpen ? "block" : "hidden"
         }`}
       >
-        <div className="md:flex gap-x-12">
+        <div className="flex flex-col md:flex-row gap-x-12 gap-y-2">
           <li>
-            <Link to="/" className="">
+            <Link to="/" className="text-2xl">
               <b>RELIGHT</b>
             </Link>
           </li>
-          <li className="font-semibold">
+          <li className="font-semibold flex md:justify-center items-center gap-1">
+            <FontAwesomeIcon icon={faBook} />
             <Link to="/library">Library</Link>
           </li>
-          <li className="font-semibold">
+          <li className="font-semibold flex md:justify-center items-center gap-1">
+            <FontAwesomeIcon icon={faUpload} />
             <Link to="/addbook">Add Book</Link>
           </li>
-          <li className="font-semibold">
+          <li className="font-semibold flex md:justify-center items-center gap-1">
+            <FontAwesomeIcon icon={faGlobe} />
             <Link to="/browse">Browse</Link>
           </li>
           <li>
