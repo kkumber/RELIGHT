@@ -7,6 +7,7 @@ import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { useUserContext } from "../../utils/AuthProvider";
 
 export interface Book {
   id: number;
@@ -27,13 +28,14 @@ interface BookComments {
   post_date: string;
 }
 
-const RenderBooks = () => {
+const Details = () => {
   const {
     data: bookDetails,
     isLoading: bookLoading,
     error: bookError,
     fetchData: fetchBookDetails,
     postData,
+    updateData,
   } = useFetch();
   const {
     data: bookComments,
@@ -45,6 +47,7 @@ const RenderBooks = () => {
   const [book, setBook] = useState<Book>();
   const [userComments, setUserComments] = useState<BookComments[]>([]);
   const [content, setContent] = useState<string>();
+  const { user } = useUserContext();
   const bookURL = `library/books/details/${slug}/`;
   const commentURL = `library/books/details/${slug}/comments/`;
 
@@ -52,10 +55,11 @@ const RenderBooks = () => {
     if (slug) {
       await fetchBookDetails(bookURL);
       await fetchBookComments(commentURL);
-      if (bookDetails) {
-        setBook(bookDetails);
-      }
     }
+  };
+
+  const handleBookmark = () => {
+    updateData(`library/books/details/${slug}/`, {});
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -66,18 +70,20 @@ const RenderBooks = () => {
       alert("Comment is empty");
     }
     // Call function again to render
-    getBookDetails();
+    await fetchBookComments(commentURL);
   };
 
   useEffect(() => {
     if (slug) {
       getBookDetails();
     }
+    console.log(user);
   }, []);
 
   useEffect(() => {
     if (bookDetails) {
       setBook(bookDetails);
+      console.log(bookDetails);
     }
   }, [bookDetails]);
 
@@ -96,32 +102,32 @@ const RenderBooks = () => {
           <article key={book.id}>
             <div className="relative w-full">
               {/* Background Blur Image */}
-              <div className="z-0 w-full h-80">
+              <div className="z-0 h-full bg-center bg-no-repeat">
                 <img
                   src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                   alt={book.title}
-                  className="w-full"
+                  className="w-full h-[50vh] object-cover blur-lg"
                 />
               </div>
               {/* Details */}
-              <div className="absolute flex left-1/2 top-1/2 justify-center items-center z-10">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
                 {/* Book Cover */}
-                <div className="w-40 h-60">
+                <div className="w-40 h-60 md:w-48 md:h-72">
                   <img
                     src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                     alt={book.title}
-                    className=""
+                    className="w-full h-full object-cover rounded-md "
                   />
                 </div>
                 {/* Book Information */}
-                <div className="flex flex-col">
-                  <h3>{book.title}</h3>
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-2xl font-bold">{book.title}</h3>
                   <p>Author: {book.author}</p>
                   {/* Views and Likes */}
                   <div className="flex gap-4">
                     <div className="flex flex-col">
                       <p>Views</p>
-                      <div className="flex">
+                      <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faEye}
                           style={{ color: "#ffffff" }}
@@ -130,10 +136,10 @@ const RenderBooks = () => {
                         <p>{book.views}</p>
                       </div>
                     </div>
-                    <span className="border-[2px] border-white"></span>
+                    <span className="border-[1px] border-white"></span>
                     <div className="flex flex-col">
                       <p>Bookmarked</p>
-                      <div className="flex">
+                      <div className="flex items-center">
                         <FontAwesomeIcon
                           icon={faBookmark}
                           style={{ color: "#ffffff" }}
@@ -145,7 +151,10 @@ const RenderBooks = () => {
                   </div>
                   <p>Upload Date: {book.upload_date} </p>
                   <p>Uploaded by: {book.uploaded_by} </p>
-                  <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold">
+                  <button
+                    className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold"
+                    onClick={() => handleBookmark()}
+                  >
                     Add to Library
                   </button>
                 </div>
@@ -212,4 +221,4 @@ const RenderBooks = () => {
   );
 };
 
-export default RenderBooks;
+export default Details;

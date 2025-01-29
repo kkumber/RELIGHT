@@ -1,8 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import useFetch from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
-  const handleSubmit = () => {};
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate(`/search/?query=${query}`);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex">
       <button className="bg-black py-[3px] px-2 rounded-l-md border-primaryRed">
@@ -12,6 +22,9 @@ const SearchForm = () => {
         type="search"
         name="search"
         placeholder="Search..."
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setQuery(e.target.value)
+        }
         className="p-1 border-[1px] rounded-r-2xl border-black focus:outline-none text-sm"
       />
     </form>
