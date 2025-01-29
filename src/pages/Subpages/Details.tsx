@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
+import Footer from "../../components/layout/Footer";
 
 interface BookComments {
   owner: string;
@@ -23,7 +24,6 @@ const Details = () => {
     error: bookError,
     fetchData: fetchBookDetails,
     postData,
-    updateData,
   } = useFetch();
   const {
     data: bookComments,
@@ -41,13 +41,14 @@ const Details = () => {
 
   const getBookDetails = async () => {
     if (slug) {
-      await fetchBookDetails(bookURL);
-      await fetchBookComments(commentURL);
+      fetchBookDetails(bookURL);
+      fetchBookComments(commentURL);
     }
   };
 
-  const handleBookmark = () => {
-    updateData(`library/books/details/${slug}/`, {});
+  const handleBookmark = async () => {
+    await postData(`library/books/details/${slug}/likes/`, {});
+    getBookDetails();
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -57,21 +58,18 @@ const Details = () => {
     } else {
       alert("Comment is empty");
     }
-    // Call function again to render
-    await fetchBookComments(commentURL);
+    fetchBookComments(commentURL);
   };
 
   useEffect(() => {
     if (slug) {
       getBookDetails();
     }
-    console.log(user);
   }, []);
 
   useEffect(() => {
     if (bookDetails) {
       setBook(bookDetails);
-      console.log(bookDetails);
     }
   }, [bookDetails]);
 
@@ -131,7 +129,7 @@ const Details = () => {
                           style={{ color: "#ffffff" }}
                           size="lg"
                         />
-                        <p>{book.likes.length - 1}</p>
+                        <p>{book.likes ? book.likes.length : 0}</p>
                       </div>
                     </div>
                   </div>
@@ -204,6 +202,9 @@ const Details = () => {
               ))}
           </div>
         </section>
+      </div>
+      <div className="mt-40">
+        <Footer />
       </div>
     </div>
   );

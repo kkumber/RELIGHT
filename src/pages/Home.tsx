@@ -19,7 +19,7 @@ export interface FetchData {
 const Home = () => {
   const [bookList, setBookList] = useState<FetchData>();
   const { data, isLoading, error } = useConcurrentFetch([
-    `library/books/?sort_by=likes`,
+    `library/books/?sort_by=views`,
     `library/books/?sort_by=upload_date`,
   ]);
   const [popularList, setPopularList] = useState<FetchData>();

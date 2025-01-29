@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const Browse = () => {
   const { data, isLoading, error, fetchData } = useFetch();
   const [bookList, setBookList] = useState<FetchData>();
-  const [query, setQuery] = useState<string>("likes");
+  const [query, setQuery] = useState<string>("views");
 
   const handleNavigation = (search_query: string) => {};
 
@@ -35,9 +35,9 @@ const Browse = () => {
           <ul className="flex gap-8 items-center font-bold">
             <li>
               <button
-                onClick={() => setQuery("likes")}
+                onClick={() => setQuery("views")}
                 className={`${
-                  query === "likes" ? "bg-primaryRed" : undefined
+                  query === "views" ? "bg-primaryRed" : undefined
                 } py-1 px-4 rounded-full transition-all duration-300 linear`}
               >
                 Popular
@@ -45,9 +45,9 @@ const Browse = () => {
             </li>
             <li>
               <button
-                onClick={() => setQuery("views")}
+                onClick={() => setQuery("?")}
                 className={`${
-                  query === "views" ? "bg-primaryRed" : undefined
+                  query === "?" ? "bg-primaryRed" : undefined
                 } py-1 px-4 rounded-full transition-all duration-300 linear`}
               >
                 Explore

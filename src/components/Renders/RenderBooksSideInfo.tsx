@@ -2,13 +2,21 @@ import { BookData } from "./RenderBooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 const RenderBooksSideInfo = ({ book }: BookData) => {
+  const { postData } = useFetch();
+
   return (
     <article className="grid grid-cols-3 gap-x-4 justify-between mb-4">
       {/* Image Container */}
       <div className="col-span-1 h-28 md:h-36 w-full">
-        <Link to={`/details/${book.slug}`}>
+        <Link
+          to={`/details/${book.slug}`}
+          onClick={() =>
+            postData(`library/books/details/${book.slug}/views/`, {})
+          }
+        >
           <img
             src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
             alt={book.title}
