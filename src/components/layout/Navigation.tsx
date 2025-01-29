@@ -17,7 +17,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex md:justify-between p-4 flex-col overflow-hidden">
+    <nav className="flex md:justify-between p-4 flex-col overflow-hidden border-[1px]">
       {/* Navigations */}
       <div className="md:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>

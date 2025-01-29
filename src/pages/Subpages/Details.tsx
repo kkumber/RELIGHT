@@ -82,7 +82,7 @@ const Details = () => {
   }, [bookComments]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gray-100">
       <section>
         {bookLoading && <Loading />}
         {bookError && <ErrorMsg error={bookError} />}
@@ -153,7 +153,7 @@ const Details = () => {
       </section>
 
       {/* Bottom Container */}
-      <div className="w-11/12 md:w-8/12 m-auto">
+      <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg">
         {/* Sypnosis Section */}
         {book && (
           <section className="my-10">
