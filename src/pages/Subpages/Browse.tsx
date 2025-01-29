@@ -34,18 +34,44 @@ const Browse = () => {
         <nav>
           <ul className="flex gap-8 items-center font-bold">
             <li>
-              <button onClick={() => setQuery("likes")}>Popular</button>
+              <button
+                onClick={() => setQuery("likes")}
+                className={`${
+                  query === "likes" ? "bg-primaryRed" : undefined
+                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+              >
+                Popular
+              </button>
             </li>
             <li>
-              <button onClick={() => setQuery("views")}>Explore</button>
+              <button
+                onClick={() => setQuery("views")}
+                className={`${
+                  query === "views" ? "bg-primaryRed" : undefined
+                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+              >
+                Explore
+              </button>
             </li>
             <li>
-              <button onClick={() => setQuery("upload_date")}>
+              <button
+                onClick={() => setQuery("upload_date")}
+                className={`${
+                  query === "upload_date" ? "bg-primaryRed" : undefined
+                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+              >
                 What's New
               </button>
             </li>
             <li>
-              <button onClick={() => setQuery("title")}>A-Z List</button>
+              <button
+                onClick={() => setQuery("title")}
+                className={`${
+                  query === "title" ? "bg-primaryRed" : undefined
+                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+              >
+                A-Z List
+              </button>
             </li>
           </ul>
           <hr className="bg-primaryRed p-[2px] mb-4 rounded-full my-3" />
