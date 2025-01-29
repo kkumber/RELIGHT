@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
 import { useAccessTokenContext } from "../../utils/AuthProvider";
 import SearchForm from "../Forms/SearchForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import useFetch from "../../hooks/useFetch";
 
 const Navigation = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
   const [isOpen, setIsOpen] = useState(false);
+  const { postData } = useFetch();
+
+  const handleSignout = () => {
+    postData("accounts/auth/logout/", {});
+    setAccessToken(null);
+  };
 
   return (
     <nav className="flex md:justify-between p-4 flex-col overflow-hidden">
@@ -44,7 +51,7 @@ const Navigation = () => {
         <div className="flex gap-8 my-2">
           <Link to="/login">
             <button
-              onClick={() => setAccessToken("")}
+              onClick={accessToken ? () => handleSignout() : undefined}
               className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:-translate-y-1 hover:shadow-sm hover:shadow-gray-800"
             >
               {accessToken ? "Sign out" : "Sign in"}

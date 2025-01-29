@@ -145,7 +145,7 @@ const Details = () => {
                           style={{ color: "#ffffff" }}
                           size="lg"
                         />
-                        <p>{book.likes.length}</p>
+                        <p>{book.likes.length - 1}</p>
                       </div>
                     </div>
                   </div>
