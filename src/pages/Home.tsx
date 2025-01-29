@@ -27,7 +27,6 @@ const Home = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setPopularList(data[0]);
       setNewList(data[1]);
     }

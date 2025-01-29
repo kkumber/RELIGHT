@@ -7,6 +7,7 @@ import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { useUserContext } from "../../utils/AuthProvider";
 
 export interface Book {
   id: number;
@@ -34,6 +35,7 @@ const Details = () => {
     error: bookError,
     fetchData: fetchBookDetails,
     postData,
+    updateData,
   } = useFetch();
   const {
     data: bookComments,
@@ -45,6 +47,7 @@ const Details = () => {
   const [book, setBook] = useState<Book>();
   const [userComments, setUserComments] = useState<BookComments[]>([]);
   const [content, setContent] = useState<string>();
+  const { user } = useUserContext();
   const bookURL = `library/books/details/${slug}/`;
   const commentURL = `library/books/details/${slug}/comments/`;
 
@@ -53,6 +56,10 @@ const Details = () => {
       await fetchBookDetails(bookURL);
       await fetchBookComments(commentURL);
     }
+  };
+
+  const handleBookmark = () => {
+    updateData(`library/books/details/${slug}/`, {});
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -70,11 +77,13 @@ const Details = () => {
     if (slug) {
       getBookDetails();
     }
+    console.log(user);
   }, []);
 
   useEffect(() => {
     if (bookDetails) {
       setBook(bookDetails);
+      console.log(bookDetails);
     }
   }, [bookDetails]);
 
@@ -142,7 +151,10 @@ const Details = () => {
                   </div>
                   <p>Upload Date: {book.upload_date} </p>
                   <p>Uploaded by: {book.uploaded_by} </p>
-                  <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold">
+                  <button
+                    className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold"
+                    onClick={() => handleBookmark()}
+                  >
                     Add to Library
                   </button>
                 </div>

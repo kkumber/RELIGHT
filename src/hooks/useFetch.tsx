@@ -12,6 +12,7 @@ interface FetchState<T> {
   error: string | null;
   fetchData: (url: string) => void;
   postData: (url: string, data: object) => Promise<void>;
+  updateData: (url: string, data: object) => Promise<void>;
 }
 
 const useFetch = (): FetchState<T> => {
@@ -52,7 +53,24 @@ const useFetch = (): FetchState<T> => {
     }
   };
 
-  return { data, isLoading, error, fetchData, postData };
+  const updateData = async (url: string, data: object) => {
+    setIsLoading(false);
+    setError(null);
+    try {
+      const res = await api.patch(url, data, {
+        headers: { "Content-type": "multipart/form-data" },
+      });
+      setData(res.data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { data, isLoading, error, fetchData, postData, updateData };
 };
 
 export default useFetch;
