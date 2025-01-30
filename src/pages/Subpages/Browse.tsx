@@ -10,8 +10,6 @@ const Browse = () => {
   const [bookList, setBookList] = useState<FetchData>();
   const [query, setQuery] = useState<string>("views");
 
-  const handleNavigation = (search_query: string) => {};
-
   useEffect(() => {
     fetchData(`library/books/?sort_by=${query}`);
   }, []);

@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState, createContext, ReactNode } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  createContext,
+  ReactNode,
+} from "react";
 
 // Define the types for the context values
 export type UserType = object | null;
@@ -9,7 +15,9 @@ export type CSRFTokenType = string | null;
 export const useUserContext = (): UserContextType => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error("useUserContext must be used within a UserContext.Provider");
+    throw new Error(
+      "useUserContext must be used within a UserContext.Provider"
+    );
   }
   return context;
 };
@@ -17,7 +25,9 @@ export const useUserContext = (): UserContextType => {
 export const useAccessTokenContext = (): AccessTokenContextType => {
   const context = useContext(AccessTokenContext);
   if (!context) {
-    throw new Error("useAccessTokenContext must be used within an AccessTokenContext.Provider");
+    throw new Error(
+      "useAccessTokenContext must be used within an AccessTokenContext.Provider"
+    );
   }
   return context;
 };
@@ -25,7 +35,9 @@ export const useAccessTokenContext = (): AccessTokenContextType => {
 export const useCSRFTokenContext = (): CSRFTokenContextType => {
   const context = useContext(CSRFToken);
   if (!context) {
-    throw new Error("useCSRFTokenContext must be used within a CSRFToken.Provider");
+    throw new Error(
+      "useCSRFTokenContext must be used within a CSRFToken.Provider"
+    );
   }
   return context;
 };
@@ -46,26 +58,25 @@ interface CSRFTokenContextType {
   setcsrf_token: React.Dispatch<React.SetStateAction<CSRFTokenType>>;
 }
 
-
-
 const UserContext = createContext<UserContextType | undefined>(undefined);
-const AccessTokenContext = createContext<AccessTokenContextType | undefined>(undefined);
+const AccessTokenContext = createContext<AccessTokenContextType | undefined>(
+  undefined
+);
 const CSRFToken = createContext<CSRFTokenContextType | undefined>(undefined);
 
-const AuthProvider = ({children}: any) => {
-    const [user, setUser] = useState<UserType>(null);
-    const [accessToken, setAccessToken] = useState<AccessTokenType>(null);
-    const [csrf_token, setcsrf_token] = useState<CSRFTokenType>(null);
-
+const AuthProvider = ({ children }: any) => {
+  const [user, setUser] = useState<UserType>(null);
+  const [accessToken, setAccessToken] = useState<AccessTokenType>(null);
+  const [csrf_token, setcsrf_token] = useState<CSRFTokenType>(null);
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
-    <AccessTokenContext.Provider value={{accessToken, setAccessToken}}>
-      <CSRFToken.Provider value={{csrf_token, setcsrf_token}}>
-      {children}
+    <UserContext.Provider value={{ user, setUser }}>
+      <AccessTokenContext.Provider value={{ accessToken, setAccessToken }}>
+        <CSRFToken.Provider value={{ csrf_token, setcsrf_token }}>
+          {children}
         </CSRFToken.Provider>
-    </AccessTokenContext.Provider>
-  </UserContext.Provider>
+      </AccessTokenContext.Provider>
+    </UserContext.Provider>
   );
 };
 

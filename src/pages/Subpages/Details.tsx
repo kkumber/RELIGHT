@@ -64,6 +64,7 @@ const Details = () => {
   useEffect(() => {
     if (slug) {
       getBookDetails();
+      console.log(user);
     }
   }, []);
 

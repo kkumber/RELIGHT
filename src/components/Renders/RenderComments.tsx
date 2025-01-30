@@ -14,7 +14,7 @@ const RenderComments = ({ userComment }: Prop) => {
       {/* Profile */}
       <div className="">
         <p>{userComment.owner}</p>
-        <p>{userComment.post_date}</p>
+        <p className="text-xs text-gray-500">{userComment.post_date}</p>
       </div>
       <p>{userComment.content}</p>
     </article>

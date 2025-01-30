@@ -11,7 +11,6 @@ interface Prop {
 
 const AuthForm = ({ action }: Prop) => {
   const { data, isLoading, error, getToken, registerUser } = useAuthFetch();
-
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -38,7 +37,6 @@ const AuthForm = ({ action }: Prop) => {
 
   const handleChangeRegisterData = (e: any) => {
     const { name, value } = e.target;
-
     setRegisterData({
       ...registerData,
       [name]: value,

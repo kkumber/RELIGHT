@@ -35,7 +35,7 @@ const useAuthFetch = () => {
       setData(res.data);
       setAccessToken(res.data.access_token);
       setcsrf_token(res.data.csrf_token);
-      setUser(res.data.user.username);
+      setUser(res.data.user);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
