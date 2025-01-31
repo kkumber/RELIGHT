@@ -48,7 +48,7 @@ const Details = () => {
 
   const handleBookmark = async () => {
     await postData(`library/books/details/${slug}/likes/`, {});
-    getBookDetails();
+    fetchBookDetails(bookURL);
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
