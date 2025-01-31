@@ -64,7 +64,6 @@ const Details = () => {
   useEffect(() => {
     if (slug) {
       getBookDetails();
-      console.log(user);
     }
   }, []);
 
@@ -140,7 +139,9 @@ const Details = () => {
                     className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold"
                     onClick={() => handleBookmark()}
                   >
-                    Add to Library
+                    {book.likes.includes(user?.id)
+                      ? "Remove from Library"
+                      : "Add to Library"}
                   </button>
                 </div>
               </div>

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 // Define the types for the context values
-export type UserType = object | null;
+export type UserType = { id: number; username: string } | null;
 export type AccessTokenType = string | null;
 export type CSRFTokenType = string | null;
 
