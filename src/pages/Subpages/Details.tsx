@@ -46,7 +46,8 @@ const Details = () => {
     }
   };
 
-  const handleBookmark = async () => {
+  const handleBookmark = async (e: React.FormEvent) => {
+    e.preventDefault();
     await postData(`library/books/details/${slug}/likes/`, {});
     fetchBookDetails(bookURL);
   };
@@ -135,14 +136,13 @@ const Details = () => {
                   </div>
                   <p>Upload Date: {book.upload_date} </p>
                   <p>Uploaded by: {book.uploaded_by} </p>
-                  <button
-                    className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold"
-                    onClick={() => handleBookmark()}
-                  >
-                    {book.likes.includes(user?.id)
-                      ? "Remove from Library"
-                      : "Add to Library"}
-                  </button>
+                  <form onSubmit={handleBookmark}>
+                    <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold">
+                      {book.likes && book.likes.includes(user?.id)
+                        ? "Remove from Library"
+                        : "Add to Library"}
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
