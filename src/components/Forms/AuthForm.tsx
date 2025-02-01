@@ -75,7 +75,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={loginData.username}
                 onChange={handleChangeLoginData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <div className="flex flex-col">
@@ -86,7 +86,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={loginData.password}
                 onChange={handleChangeLoginData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <Link to={"*"} className="text-end underline text-blue-500">
@@ -124,7 +124,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.username}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <div className="flex flex-col">
@@ -134,7 +134,7 @@ const AuthForm = ({ action }: Prop) => {
                 name="email"
                 value={registerData.email}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <div className="flex flex-col">
@@ -145,7 +145,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.password1}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <div className="flex flex-col">
@@ -156,7 +156,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.password2}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-2 border-gray-300 p-2"
+                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
               />
             </div>
             <button
