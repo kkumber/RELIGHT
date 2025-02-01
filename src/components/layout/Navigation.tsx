@@ -10,6 +10,7 @@ import {
   faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 import useFetch from "../../hooks/useFetch";
+import DarkModeToggle from "../UI/DarkModeToggle";
 
 const Navigation = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
@@ -22,7 +23,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex md:justify-between p-4 flex-col overflow-hidden border-[1px] mb-4">
+    <nav className="flex md:justify-between p-4 flex-col overflow-hidden border-[1px] mb-4 dark:text-white dark:bg-gray-800">
       {/* Navigations */}
       <div className="md:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -57,6 +58,9 @@ const Navigation = () => {
           </li>
         </div>
         <div className="flex gap-8 my-2">
+          <button>
+            <DarkModeToggle />
+          </button>
           <Link to="/login">
             <button
               onClick={accessToken ? () => handleSignout() : undefined}
