@@ -10,9 +10,11 @@ const DarkModeToggle = () => {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
+      document.body.classList.add("bg-gray-900", "text-white");
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      document.body.classList.remove("bg-gray-900", "text-white");
       localStorage.setItem("theme", "light");
     }
   }, [isDark]);
