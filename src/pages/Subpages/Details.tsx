@@ -81,7 +81,7 @@ const Details = () => {
   }, [bookComments]);
 
   return (
-    <div className="flex flex-col bg-gray-100">
+    <div className="flex flex-col bg-gray-100 dark:bg-[#121212]">
       <section>
         {book && (
           <article key={book.id}>
@@ -151,7 +151,7 @@ const Details = () => {
       </section>
 
       {/* Bottom Container */}
-      <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg">
+      <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg dark:bg-[#1E1E1E]">
         {/* Sypnosis Section */}
         {bookLoading && <Loading />}
         {bookError && <ErrorMsg error={bookError} />}

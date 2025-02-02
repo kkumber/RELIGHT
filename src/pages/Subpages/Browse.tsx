@@ -25,10 +25,10 @@ const Browse = () => {
   }, [data]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-[#121212]">
       <Header />
       {/* Main Container */}
-      <div className="flex flex-grow flex-col w-9/12 mx-auto mb-20 bg-white p-8 rounded-lg">
+      <div className="flex flex-grow flex-col w-9/12 mx-auto mb-20 bg-white p-8 rounded-lg dark:bg-[#1E1E1E]">
         <nav>
           <ul className="flex gap-8 items-center font-bold">
             <li>
