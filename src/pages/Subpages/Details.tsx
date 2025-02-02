@@ -137,7 +137,7 @@ const Details = () => {
                   <p>Upload Date: {book.upload_date} </p>
                   <p>Uploaded by: {book.uploaded_by} </p>
                   <form onSubmit={handleBookmark}>
-                    <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold">
+                    <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80">
                       {book.likes && book.likes.includes(user?.id)
                         ? "Remove from Library"
                         : "Add to Library"}

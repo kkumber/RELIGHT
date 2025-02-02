@@ -36,7 +36,7 @@ const Browse = () => {
                 onClick={() => setQuery("views")}
                 className={`${
                   query === "views" ? "bg-primaryRed" : undefined
-                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+                } py-1 px-4 rounded-full transition-all duration-300 linear hover:text-black/40 dark:hover:text-white/40`}
               >
                 Popular
               </button>
@@ -46,7 +46,7 @@ const Browse = () => {
                 onClick={() => setQuery("?")}
                 className={`${
                   query === "?" ? "bg-primaryRed" : undefined
-                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+                } py-1 px-4 rounded-full transition-all duration-300 linear hover:text-black/40 dark:hover:text-white/40`}
               >
                 Explore
               </button>
@@ -56,7 +56,7 @@ const Browse = () => {
                 onClick={() => setQuery("upload_date")}
                 className={`${
                   query === "upload_date" ? "bg-primaryRed" : undefined
-                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+                } py-1 px-4 rounded-full transition-all duration-300 linear hover:text-black/40 dark:hover:text-white/40`}
               >
                 What's New
               </button>
@@ -66,7 +66,7 @@ const Browse = () => {
                 onClick={() => setQuery("title")}
                 className={`${
                   query === "title" ? "bg-primaryRed" : undefined
-                } py-1 px-4 rounded-full transition-all duration-300 linear`}
+                } py-1 px-4 rounded-full transition-all duration-300 linear hover:text-black/40 dark:hover:text-white/40`}
               >
                 A-Z List
               </button>

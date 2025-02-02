@@ -23,7 +23,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex md:justify-between p-4 flex-col overflow-hidden mb-4">
+    <nav className="flex md:justify-between p-4 flex-col overflow-hidden">
       {/* Navigations */}
       <div className="md:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -64,7 +64,7 @@ const Navigation = () => {
           <Link to="/login">
             <button
               onClick={accessToken ? () => handleSignout() : undefined}
-              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:-translate-y-1 hover:shadow-sm hover:shadow-gray-800"
+              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80"
             >
               {accessToken ? "Sign out" : "Sign in"}
             </button>

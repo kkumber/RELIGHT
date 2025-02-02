@@ -14,7 +14,7 @@ const CommentForm = ({ setContent, handleCommentSubmit }: Prop) => {
         rows={5}
       />
       <div className="p-4 border-[1px] border-black/10 dark:border-white/10 justify-end flex rounded-b-sm">
-        <button className="py-2 px-4 bg-primaryRed text-white rounded-lg">
+        <button className="py-2 px-4 bg-primaryRed text-white rounded-lg hover:bg-primaryRed/80">
           Upload Comment
         </button>
       </div>

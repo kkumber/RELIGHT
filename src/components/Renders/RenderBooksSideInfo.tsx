@@ -20,7 +20,7 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
           <img
             src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
             alt={book.title}
-            className="w-full h-full object-cover rounded-md"
+            className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-300 ease-out"
           />
         </Link>
       </div>
