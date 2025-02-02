@@ -160,7 +160,7 @@ const Details = () => {
             <div className="flex flex-col gap-4">
               <div className="flex justify-center items-center gap-2">
                 <h2 className="text-2xl font-bold">Sypnosis</h2>
-                <hr className="bg-black w-full p-[.2px]" />
+                <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
               </div>
               <div>
                 <p>{book.sypnosis}</p>
@@ -174,9 +174,9 @@ const Details = () => {
           <div className="flex flex-col gap-4">
             <div className="flex justify-center items-center gap-2">
               <h2 className="text-2xl font-bold">Comments</h2>
-              <hr className="bg-black w-full p-[.2px]" />
+              <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
             </div>
-            <div className="bg-gray-300 p-4">
+            <div className="bg-gray-300 dark:bg-[#272727] p-4 rounded-sm">
               <p className="text-primaryRed">
                 Please read and apply the rules before posting a comment.
               </p>

@@ -58,7 +58,7 @@ const AddBookForm = () => {
         <p className="text-xl font-semibold">Submit a Book</p>
       </div>
 
-      <div className="border-2 p-4 rounded-b-xl flex flex-col gap-y-8 shadow-2xl shadow-gray-400">
+      <div className="border-2 border-black/10 dark:border-white/10 p-4 rounded-b-xl flex flex-col gap-y-8 shadow-md">
         {/* Title */}
         <div className="flex flex-col">
           <label htmlFor="title">Title </label>
@@ -67,7 +67,7 @@ const AddBookForm = () => {
             name="title"
             onChange={handleChange}
             value={bookForm.title}
-            className="p-2 rounded-md bg-gray-200"
+            className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
           />
         </div>
         {/* Author */}
@@ -78,7 +78,7 @@ const AddBookForm = () => {
             name="author"
             onChange={handleChange}
             value={bookForm.author}
-            className="p-2 rounded-md bg-gray-200"
+            className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
           />
         </div>
         {/* Sypnosis */}
@@ -88,7 +88,7 @@ const AddBookForm = () => {
             name="sypnosis"
             onChange={handleChange}
             value={bookForm.sypnosis}
-            className="p-2 rounded-md bg-gray-200"
+            className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
           />
         </div>
         {/* PDF File */}
@@ -110,7 +110,7 @@ const AddBookForm = () => {
             onChange={handleBookCoverChange}
           />
         </div>
-        <button className="bg-black hover:bg-primaryRed rounded-md p-2 text-white font-medium transition-all duration-300 ease-out">
+        <button className="bg-primaryRed hover:-translate-y-1 rounded-md p-2 text-white font-medium transition-all duration-300 ease-out">
           Submit
         </button>
       </div>

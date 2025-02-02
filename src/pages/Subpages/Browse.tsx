@@ -72,7 +72,7 @@ const Browse = () => {
               </button>
             </li>
           </ul>
-          <hr className="bg-primaryRed p-[2px] mb-4 rounded-full my-3" />
+          <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
         </nav>
         <section className="flex flex-wrap gap-4">
           {bookList?.results.map((book) => (

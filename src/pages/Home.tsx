@@ -43,7 +43,7 @@ const Home = () => {
         {/* Popular Uploads */}
         <div className="md:col-span-3">
           <b className="text-lg">Popular Uploads</b>
-          <hr className="bg-primaryRed p-[2px] mb-4 rounded-full" />
+          <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
           <section className="flex flex-wrap gap-4">
             {popularList?.results.map((book) => (
               <div key={book.id} className="">
@@ -56,12 +56,12 @@ const Home = () => {
         {/* New Uploads */}
         <div className="col-span-2">
           <b className="text-lg">New & Trending</b>
-          <hr className="bg-primaryRed p-[2px] mb-4 rounded-full" />
+          <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
           <section className="flex flex-col gap-8">
             {newList?.results.map((book) => (
               <div key={book.id} className="">
                 <RenderBooksSideInfo book={book} />
-                <hr />
+                <div className="bg-black/10 dark:bg-white/10 p-[0.5px] " />
               </div>
             ))}
           </section>
