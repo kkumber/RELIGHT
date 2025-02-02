@@ -60,7 +60,10 @@ const AuthForm = ({ action }: Prop) => {
   return (
     <>
       {name ? (
-        <form onSubmit={handleLogin} className="mx-auto md:w-1/4">
+        <form
+          onSubmit={handleLogin}
+          className="mx-auto md:w-1/2 bg-white p-8 rounded-md shadow-md dark:bg-[#1e1e1e]"
+        >
           <h1 className="text-4xl">
             <b>Welcome Back</b>
           </h1>
@@ -96,7 +99,7 @@ const AuthForm = ({ action }: Prop) => {
             </Link>
             <button
               type="submit"
-              className="bg-primaryRed text-white py-2 rounded-md hover:bg-primaryRed/80"
+              className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
             >
               {isLoading ? <Loading /> : "Login"}
             </button>
@@ -111,7 +114,10 @@ const AuthForm = ({ action }: Prop) => {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleRegister} className="mx-auto md:w-1/4">
+        <form
+          onSubmit={handleRegister}
+          className="mx-auto md:w-1/2 bg-white p-8 rounded-md shadow-md dark:bg-[#1e1e1e]"
+        >
           <h1 className="text-4xl">
             <b>Ready to be part of the archive?</b>
           </h1>
@@ -165,7 +171,7 @@ const AuthForm = ({ action }: Prop) => {
             </div>
             <button
               type="submit"
-              className="bg-primaryRed text-white py-2 rounded-md hover:bg-primaryRed/80"
+              className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
             >
               {isLoading ? <Loading /> : "Register"}
             </button>

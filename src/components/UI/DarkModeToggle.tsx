@@ -20,7 +20,10 @@ const DarkModeToggle = () => {
   }, [isDark]);
 
   return (
-    <button onClick={() => setIsDark(!isDark)}>
+    <button
+      onClick={() => setIsDark(!isDark)}
+      className="hover:bg-gray-200 dark:hover:bg-[#373737] px-2 border-[1px] border-black/40 dark:border-white/40 rounded-md"
+    >
       <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
     </button>
   );

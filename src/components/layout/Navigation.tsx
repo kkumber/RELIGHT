@@ -41,15 +41,15 @@ const Navigation = () => {
               <b>RELIGHT</b>
             </Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
             <FontAwesomeIcon icon={faBook} />
             <Link to="/library">Library</Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
             <FontAwesomeIcon icon={faUpload} />
             <Link to="/addbook">Add Book</Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
             <FontAwesomeIcon icon={faGlobe} />
             <Link to="/browse">Browse</Link>
           </li>
