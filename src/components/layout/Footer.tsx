@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-300 py-16 flex items-center justify-center flex-wrap-reverse gap-20 mt-20 dark:bg-gray-800">
+    <footer className="bg-gray-300 py-8 flex items-center justify-center flex-wrap-reverse gap-20 mt-20 dark:bg-[#1E1E1E]">
       {/* Contact Info */}
       <div className="flex items-center flex-col gap-2">
         <div className="">
