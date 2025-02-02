@@ -18,7 +18,7 @@ const RenderComments = ({ userComment }: Prop) => {
           {userComment.post_date}
         </p>
       </div>
-      <p>{userComment.content}</p>
+      <p className="mt-8">{userComment.content}</p>
     </article>
   );
 };
