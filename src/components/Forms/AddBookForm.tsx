@@ -110,7 +110,7 @@ const AddBookForm = () => {
             onChange={handleBookCoverChange}
           />
         </div>
-        <button className="bg-primaryRed hover:-translate-y-1 rounded-md p-2 text-white font-medium transition-all duration-300 ease-out">
+        <button className="bg-primaryRed hover:-translate-y-1 rounded-md p-2 text-white font-medium transition-all duration-300 ease-out hover:shadow-md">
           Submit
         </button>
       </div>

@@ -96,7 +96,7 @@ const AuthForm = ({ action }: Prop) => {
             </Link>
             <button
               type="submit"
-              className="bg-primaryRed text-white py-2 rounded-md"
+              className="bg-primaryRed text-white py-2 rounded-md hover:bg-primaryRed/80"
             >
               {isLoading ? <Loading /> : "Login"}
             </button>
@@ -165,7 +165,7 @@ const AuthForm = ({ action }: Prop) => {
             </div>
             <button
               type="submit"
-              className="bg-primaryRed text-white py-2 rounded-md"
+              className="bg-primaryRed text-white py-2 rounded-md hover:bg-primaryRed/80"
             >
               {isLoading ? <Loading /> : "Register"}
             </button>

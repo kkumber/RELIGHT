@@ -15,7 +15,7 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex">
-      <button className="bg-black py-[3px] px-2 rounded-l-md border-primaryRed">
+      <button className="bg-primaryRed px-2 rounded-l-md">
         <FontAwesomeIcon icon={faSearch} size="sm" style={{ color: "white" }} />
       </button>
       <input
@@ -25,7 +25,7 @@ const SearchForm = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setQuery(e.target.value)
         }
-        className="p-1 border-[1px] rounded-r-2xl border-black focus:outline-none text-sm"
+        className="p-1 border-[1px] rounded-r-2xl border-black dark:border-white focus:outline-none text-sm dark:text-black"
       />
     </form>
   );
