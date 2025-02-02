@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import CommentForm from "../../components/Forms/CommentForm";
 import RenderComments from "../../components/Renders/RenderComments";
@@ -10,6 +10,7 @@ import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
+import { Link } from "react-router-dom";
 
 interface BookComments {
   owner: string;
@@ -38,6 +39,7 @@ const Details = () => {
   const { user } = useUserContext();
   const bookURL = `library/books/details/${slug}/`;
   const commentURL = `library/books/details/${slug}/comments/`;
+  const navigate = useNavigate();
 
   const getBookDetails = async () => {
     if (slug) {
@@ -62,6 +64,11 @@ const Details = () => {
     fetchBookComments(commentURL);
   };
 
+  const handleReadNavigate = (pdf_file: string) => {
+    const encodedFileName = encodeURIComponent(pdf_file);
+    navigate(`/read/${encodedFileName}`);
+  };
+
   useEffect(() => {
     if (slug) {
       getBookDetails();
@@ -71,6 +78,7 @@ const Details = () => {
   useEffect(() => {
     if (bookDetails) {
       setBook(bookDetails);
+      console.log(bookDetails);
     }
   }, [bookDetails]);
 
@@ -143,6 +151,9 @@ const Details = () => {
                         : "Add to Library"}
                     </button>
                   </form>
+                  <button onClick={() => handleReadNavigate(book.pdf_file)}>
+                    Read
+                  </button>
                 </div>
               </div>
             </div>
