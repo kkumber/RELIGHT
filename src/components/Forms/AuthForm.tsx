@@ -64,7 +64,9 @@ const AuthForm = ({ action }: Prop) => {
           <h1 className="text-4xl">
             <b>Welcome Back</b>
           </h1>
-          <span className="text-gray-500">Please enter your details</span>
+          <span className="text-black/60 dark:text-white/60">
+            Please enter your details
+          </span>
           {/* User Inputs */}
           <div className="flex flex-col justify-center gap-y-4 mt-4">
             <div className="flex flex-col">
@@ -75,7 +77,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={loginData.username}
                 onChange={handleChangeLoginData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <div className="flex flex-col">
@@ -86,7 +88,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={loginData.password}
                 onChange={handleChangeLoginData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <Link to={"*"} className="text-end underline text-blue-500">
@@ -94,7 +96,7 @@ const AuthForm = ({ action }: Prop) => {
             </Link>
             <button
               type="submit"
-              className="bg-black text-white py-2 rounded-md"
+              className="bg-primaryRed text-white py-2 rounded-md"
             >
               {isLoading ? <Loading /> : "Login"}
             </button>
@@ -113,7 +115,9 @@ const AuthForm = ({ action }: Prop) => {
           <h1 className="text-4xl">
             <b>Ready to be part of the archive?</b>
           </h1>
-          <span className="text-gray-500">Please enter your details</span>
+          <span className="text-black/60 dark:text-white/60">
+            Please enter your details
+          </span>
           {/* User inputs */}
           <div className="flex flex-col justify-center gap-y-4 mt-4">
             <div className="flex flex-col">
@@ -124,7 +128,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.username}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <div className="flex flex-col">
@@ -134,7 +138,7 @@ const AuthForm = ({ action }: Prop) => {
                 name="email"
                 value={registerData.email}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <div className="flex flex-col">
@@ -145,7 +149,7 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.password1}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <div className="flex flex-col">
@@ -156,12 +160,12 @@ const AuthForm = ({ action }: Prop) => {
                 required={true}
                 value={registerData.password2}
                 onChange={handleChangeRegisterData}
-                className="rounded-sm border-[1px] border-gray-300 p-2 dark:bg-gray-800"
+                className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
             <button
               type="submit"
-              className="bg-black text-white py-2 rounded-md"
+              className="bg-primaryRed text-white py-2 rounded-md"
             >
               {isLoading ? <Loading /> : "Register"}
             </button>

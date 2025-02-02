@@ -42,7 +42,9 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
           </div>
         </div> */}
         <div className="text-sm max-w-40">
-          <p className="text-gray-600">Written by: {book.author} </p>
+          <p className="text-black/60 dark:text-white/60">
+            Written by: {book.author}{" "}
+          </p>
         </div>
       </div>
     </article>
