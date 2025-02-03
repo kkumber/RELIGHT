@@ -22,7 +22,7 @@ const useFetch = (): FetchState<T> => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async (url: string) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     try {
       const res = await api.get(url);
@@ -37,7 +37,7 @@ const useFetch = (): FetchState<T> => {
   };
 
   const postData = async (url: string, data: object) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     try {
       const res = await api.post(url, data, {
