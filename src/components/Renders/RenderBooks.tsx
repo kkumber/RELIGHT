@@ -11,7 +11,7 @@ export interface Book {
   upload_date: string;
   uploaded_by: string;
   book_cover: string;
-  pdf_file: File;
+  pdf_file: string;
   slug: string;
   views: number;
   likes: [];
