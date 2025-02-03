@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import Loading from "../common/Loading";
+import ErrorMsg from "../common/ErrorMsg";
 
 const AddBookForm = () => {
   const [bookForm, setBookForm] = useState({
@@ -50,6 +52,11 @@ const AddBookForm = () => {
     formData.append("book_cover", book_Cover || "");
 
     await postData("library/books/", formData);
+    if (error) {
+      alert("Error: " + error);
+    } else {
+      alert("PDF Uploaded");
+    }
   };
 
   return (
@@ -111,7 +118,7 @@ const AddBookForm = () => {
           />
         </div>
         <button className="bg-primaryRed hover:-translate-y-1 rounded-md p-2 text-white font-medium transition-all duration-300 ease-out hover:shadow-md">
-          Submit
+          {isLoading ? <Loading /> : "Submit"}
         </button>
       </div>
     </form>
