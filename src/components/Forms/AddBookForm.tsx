@@ -31,6 +31,9 @@ const AddBookForm = () => {
   const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setPdf_File(e.target.files[0]);
+      if (e.target.files[0].size > 10485760) {
+        alert("File size too big. Maximum of 10MB");
+      }
     }
   };
 
