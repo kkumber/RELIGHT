@@ -151,7 +151,10 @@ const Details = () => {
                         : "Add to Library"}
                     </button>
                   </form>
-                  <button onClick={() => handleReadNavigate(book.pdf_file)}>
+                  <button
+                    onClick={() => handleReadNavigate(book.pdf_file)}
+                    className="bg-primaryRed py-3 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
+                  >
                     Read
                   </button>
                 </div>

@@ -82,6 +82,22 @@ const Browse = () => {
           ))}
         </section>
       </div>
+
+      {/* Next/Previous */}
+      <div className="flex justify-between items-center w-9/12 m-auto">
+        <button
+          onClick={() => fetchData(data.next)}
+          className="bg-transparent py-2 px-4 rounded-full text-primaryRed font-semibold hover:text-primaryRed/50"
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => fetchData(data.previous)}
+          className="bg-transparent py-2 px-4 rounded-full text-primaryRed font-semibold hover:text-primaryRed/50"
+        >
+          Next
+        </button>
+      </div>
       <Footer />
     </div>
   );
