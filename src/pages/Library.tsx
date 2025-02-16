@@ -20,7 +20,7 @@ const Library = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex flex-wrap w-11/12 m-auto flex-grow gap-4">
+      <main className="flex flex-wrap w-11/12 m-auto flex-grow gap-x-4">
         {bookList &&
           bookList.map((book) => (
             <div className="" key={book.id}>
