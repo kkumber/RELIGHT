@@ -144,16 +144,22 @@ const Details = () => {
                   </div>
                   <p>Upload Date: {book.upload_date} </p>
                   <p>Uploaded by: {book.uploaded_by} </p>
-                  <form onSubmit={handleBookmark}>
-                    <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80">
-                      {book.likes && book.likes.includes(user?.id)
-                        ? "Remove from Library"
-                        : "Add to Library"}
+                  {/* Buttons Container */}
+                  <div className="flex justify-content items-center gap-4">
+                    <form onSubmit={handleBookmark}>
+                      <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80">
+                        {book.likes && book.likes.includes(user?.id)
+                          ? "Remove from Library"
+                          : "Add to Library"}
+                      </button>
+                    </form>
+                    <button
+                      onClick={() => handleReadNavigate(book.pdf_file)}
+                      className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
+                    >
+                      Read
                     </button>
-                  </form>
-                  <button onClick={() => handleReadNavigate(book.pdf_file)}>
-                    Read
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
