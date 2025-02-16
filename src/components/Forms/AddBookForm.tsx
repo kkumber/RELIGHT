@@ -189,7 +189,7 @@ const AddBookForm = () => {
   }, [pdf_File]);
 
   return (
-    <div className="flex justify-center items-center flex-col space-y-4">
+    <div className="flex justify-center items-center flex-col">
       <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4 text-pretty w-11/12 m-auto flex flex-wrap">
         <p className="font-semibold">Note:</p>
         <p>

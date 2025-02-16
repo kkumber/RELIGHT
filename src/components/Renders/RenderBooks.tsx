@@ -25,7 +25,7 @@ const RenderBooks = ({ book }: BookData) => {
   const { postData } = useFetch();
 
   return (
-    <article className="flex flex-col ">
+    <article className="flex flex-col">
       {/* Images */}
       <Link
         to={`/details/${book.slug}`}
@@ -42,7 +42,9 @@ const RenderBooks = ({ book }: BookData) => {
         </div>
         {/* Title */}
         <div className="">
-          <p className="font-semibold">{book.title}</p>
+          <p className="font-semibold overflow-hidden text-ellipsis w-32 line-clamp-2">
+            {book.title}
+          </p>
         </div>
       </Link>
       {/* WatchList */}
