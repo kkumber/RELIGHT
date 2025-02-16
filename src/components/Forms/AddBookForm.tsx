@@ -189,8 +189,8 @@ const AddBookForm = () => {
   }, [pdf_File]);
 
   return (
-    <div className="space-y-4">
-      <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4">
+    <div className="flex justify-center items-center flex-col space-y-4">
+      <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4 text-pretty w-11/12 m-auto flex flex-wrap">
         <p className="font-semibold">Note:</p>
         <p>
           This form automatically extracts details from the selected PDF (e.g.,
@@ -207,7 +207,7 @@ const AddBookForm = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="w-1/2 m-auto">
+      <form onSubmit={handleSubmit} className="w-11/12 m-auto">
         <div className="bg-primaryRed p-4 rounded-t-xl">
           <p className="text-xl font-semibold">Submit a Book</p>
         </div>
@@ -221,6 +221,7 @@ const AddBookForm = () => {
               name="title"
               onChange={handleChange}
               value={bookForm.title}
+              placeholder="Title"
               className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black"
             />
           </div>
@@ -233,6 +234,7 @@ const AddBookForm = () => {
               name="author"
               onChange={handleChange}
               value={bookForm.author}
+              placeholder="Author"
               className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black"
             />
           </div>
