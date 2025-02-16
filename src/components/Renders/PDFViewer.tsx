@@ -21,7 +21,6 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   rotation,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const highlightCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const renderPage = async () => {
@@ -34,7 +33,6 @@ const PageRenderer: React.FC<PageRendererProps> = ({
       canvas.height = viewport.height;
       context?.clearRect(0, 0, canvas.width, canvas.height);
       await page.render({ canvasContext: context!, viewport }).promise;
-      // Remove search highlighting for simplicity.
     };
 
     renderPage();
@@ -49,11 +47,6 @@ const PageRenderer: React.FC<PageRendererProps> = ({
         ref={canvasRef}
         className="w-full dark:filter dark:invert dark:brightness-110"
       />
-      {/* You could include a second canvas for highlights if needed */}
-      <canvas
-        ref={highlightCanvasRef}
-        className="absolute top-0 left-0 pointer-events-none"
-      />
     </div>
   );
 };
@@ -63,6 +56,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [scale, setScale] = useState<number>(1.5);
   const [rotation, setRotation] = useState<number>(0);
   const [bookmarks, setBookmarks] = useState<number[]>([]);
+  const [navMode, setNavMode] = useState<"infinite" | "paginated">("infinite");
+  // In paginated mode, pageNum is used; in infinite mode, currentPage is determined by scroll.
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Load PDF document
@@ -83,11 +80,44 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     loadPdf();
   }, [pdfUrl]);
 
+  // Setup IntersectionObserver for infinite scroll mode to detect current page.
+  useEffect(() => {
+    if (navMode !== "infinite" || !scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let maxRatio = 0;
+        let visiblePage = currentPage;
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            const id = entry.target.id; // expected to be "page-X"
+            const match = id.match(/page-(\d+)/);
+            if (match) {
+              visiblePage = parseInt(match[1]);
+            }
+          }
+        });
+        setCurrentPage(visiblePage);
+      },
+      {
+        root: container,
+        threshold: 0.5,
+      }
+    );
+
+    const pageElements = container.querySelectorAll("[id^='page-']");
+    pageElements.forEach((el) => observer.observe(el));
+    return () => {
+      observer.disconnect();
+    };
+  }, [navMode, pdf, currentPage]);
+
   // Rotation Controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
   const handleRotateRight = () => setRotation((prev) => prev + 90);
 
-  // Toggle bookmark for current page (we bookmark the current page number)
+  // Toggle bookmark for current page based on nav mode.
   const toggleBookmark = (page: number) => {
     if (bookmarks.includes(page)) {
       setBookmarks((prev) => prev.filter((num) => num !== page));
@@ -96,17 +126,26 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     }
   };
 
-  // Scroll to a given page by its container id
-  const scrollToPage = (page: number) => {
-    const element = document.getElementById(`page-${page}`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  // Toggle navigation mode
+  const toggleNavMode = () => {
+    setNavMode((prev) => (prev === "infinite" ? "paginated" : "infinite"));
   };
 
   return (
     <div className="p-4">
-      {/* Bookmarks Bar at the Top */}
+      {/* Navigation Mode Toggle */}
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={toggleNavMode}
+          className="px-4 py-2 bg-green-600 text-white rounded-md"
+        >
+          {navMode === "infinite"
+            ? "Switch to Paginated Mode"
+            : "Switch to Infinite Scroll"}
+        </button>
+      </div>
+
+      {/* Bookmarks Bar */}
       {bookmarks.length > 0 && (
         <div className="flex flex-wrap gap-2 justify-center mb-4">
           {bookmarks
@@ -114,7 +153,9 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
             .map((bm) => (
               <button
                 key={bm}
-                onClick={() => scrollToPage(bm)}
+                onClick={() =>
+                  navMode === "infinite" ? scrollToPage(bm) : setPageNum(bm)
+                }
                 className="px-3 py-1 bg-blue-500 text-white rounded-md flex items-center gap-1"
               >
                 <FontAwesomeIcon icon={solidBookmark} size="sm" />
@@ -138,43 +179,104 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
         >
           Rotate Right
         </button>
-        {/* Toggle bookmark for current page */}
         {pdf && (
           <button
-            onClick={() => toggleBookmark(1)} // For infinite scrolling, you might have a "Bookmark" per page.
+            onClick={() =>
+              navMode === "infinite"
+                ? toggleBookmark(currentPage)
+                : toggleBookmark(pageNum)
+            }
             className="px-4 py-2 bg-gray-800 text-white rounded-md"
           >
             <FontAwesomeIcon
-              icon={bookmarks.includes(1) ? solidBookmark : regularBookmark}
+              icon={
+                navMode === "infinite"
+                  ? bookmarks.includes(currentPage)
+                    ? solidBookmark
+                    : regularBookmark
+                  : bookmarks.includes(pageNum)
+                  ? solidBookmark
+                  : regularBookmark
+              }
               size="lg"
             />
-            <span className="ml-1">Bookmark Current</span>
+            <span className="ml-1">
+              Bookmark {navMode === "infinite" ? currentPage : pageNum}
+            </span>
           </button>
         )}
       </div>
 
-      {/* Viewer Container with Infinite Scrolling */}
-      <div
-        ref={scrollContainerRef}
-        className="overflow-auto"
-        style={{ maxHeight: "calc(100vh - 160px)" }}
-      >
-        {pdf ? (
-          Array.from({ length: pdf.numPages }, (_, i) => (
+      {/* Viewer Container */}
+      {navMode === "infinite" ? (
+        <div
+          id="scrollContainer"
+          ref={scrollContainerRef}
+          className="overflow-auto"
+          style={{ maxHeight: "calc(100vh - 160px)" }}
+        >
+          {pdf ? (
+            Array.from({ length: pdf.numPages }, (_, i) => (
+              <PageRenderer
+                key={i + 1}
+                pdf={pdf}
+                pageNumber={i + 1}
+                scale={scale}
+                rotation={rotation}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-800">Loading PDF...</p>
+          )}
+        </div>
+      ) : (
+        // Paginated mode: render only the current page
+        <div className="flex flex-col items-center">
+          {pdf ? (
             <PageRenderer
-              key={i + 1}
               pdf={pdf}
-              pageNumber={i + 1}
+              pageNumber={pageNum}
               scale={scale}
               rotation={rotation}
             />
-          ))
-        ) : (
-          <p className="text-center text-gray-800">Loading PDF...</p>
-        )}
-      </div>
+          ) : (
+            <p className="text-center text-gray-800">Loading PDF...</p>
+          )}
+          <div className="flex gap-4 mt-4">
+            <button
+              onClick={() => setPageNum((prev) => Math.max(prev - 1, 1))}
+              disabled={pageNum === 1}
+              className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="text-gray-800">{`Page ${pageNum} of ${
+              pdf?.numPages || 0
+            }`}</span>
+            <button
+              onClick={() =>
+                setPageNum((prev) =>
+                  pdf ? Math.min(prev + 1, pdf.numPages) : prev
+                )
+              }
+              disabled={!pdf || pageNum === pdf.numPages}
+              className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
+};
+
+// Helper to scroll to a specific page in infinite mode.
+const scrollToPage = (page: number) => {
+  const element = document.getElementById(`page-${page}`);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 };
 
 export default PDFViewer;
