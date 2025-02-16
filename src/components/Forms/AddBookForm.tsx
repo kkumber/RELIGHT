@@ -125,8 +125,6 @@ const AddBookForm = () => {
               .map((line) => line.trim())
               .filter((line) => line.length > 0);
 
-            console.log("Extracted PDF lines:", lines);
-
             // --- Author Extraction ---
             let extractedAuthor = metaAuthor;
             if (!extractedAuthor) {
