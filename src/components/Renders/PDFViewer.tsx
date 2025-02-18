@@ -2,7 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark as solidBookmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark as solidBookmark,
+  faRotateLeft,
+  faRotateRight,
+  faEye,
+  faEyeSlash,
+  faExchangeAlt,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
@@ -25,7 +34,17 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   useEffect(() => {
     const renderPage = async () => {
       const page = await pdf.getPage(pageNumber);
-      const viewport = page.getViewport({ scale, rotation });
+      // Get the inherent rotation from the PDF page (if any)
+      const inherentRotation = page.rotate || 0;
+      // If the inherent rotation is 180°, we assume that means the page is stored upside down.
+      // In that case, we ignore the inherent rotation so that user-controlled rotation is used directly.
+      // Otherwise, we add the inherent rotation.
+      const effectiveRotation =
+        inherentRotation === 180
+          ? rotation
+          : (rotation + inherentRotation) % 360;
+
+      const viewport = page.getViewport({ scale, rotation: effectiveRotation });
       const canvas = canvasRef.current;
       if (!canvas) return;
       const context = canvas.getContext("2d");
@@ -41,7 +60,7 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   return (
     <div
       id={`page-${pageNumber}`}
-      className="w-full max-w-md mx-auto my-4 border shadow-md rounded-lg overflow-hidden"
+      className="w-[70%] mx-auto my-4 border shadow-md rounded-lg overflow-hidden"
     >
       <canvas
         ref={canvasRef}
@@ -56,10 +75,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [scale, setScale] = useState<number>(1.5);
   const [rotation, setRotation] = useState<number>(0);
   const [bookmarks, setBookmarks] = useState<number[]>([]);
-  const [navMode, setNavMode] = useState<"infinite" | "paginated">("infinite");
-  // In paginated mode, pageNum is used; in infinite mode, currentPage is determined by scroll.
+  const [navMode, setNavMode] = useState<"infinite" | "paginated">("paginated");
   const [pageNum, setPageNum] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showControls, setShowControls] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Load PDF document
@@ -80,25 +99,27 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     loadPdf();
   }, [pdfUrl]);
 
-  // Setup IntersectionObserver for infinite scroll mode to detect current page.
+  // Setup IntersectionObserver for infinite scroll mode to detect the visible page.
   useEffect(() => {
     if (navMode !== "infinite" || !scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         let maxRatio = 0;
-        let visiblePage = currentPage;
+        let visiblePage = 0;
         entries.forEach((entry) => {
-          if (entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio;
-            const id = entry.target.id; // expected to be "page-X"
-            const match = id.match(/page-(\d+)/);
-            if (match) {
-              visiblePage = parseInt(match[1]);
+          const match = entry.target.id.match(/page-(\d+)/);
+          if (match) {
+            const pageNumber = parseInt(match[1]);
+            if (entry.intersectionRatio > maxRatio) {
+              maxRatio = entry.intersectionRatio;
+              visiblePage = pageNumber;
             }
           }
         });
-        setCurrentPage(visiblePage);
+        if (visiblePage > 0 && visiblePage !== currentPage) {
+          setCurrentPage(visiblePage);
+        }
       },
       {
         root: container,
@@ -106,14 +127,18 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       }
     );
 
-    const pageElements = container.querySelectorAll("[id^='page-']");
-    pageElements.forEach((el) => observer.observe(el));
+    const observePages = () => {
+      const pageElements = container.querySelectorAll("[id^='page-']");
+      pageElements.forEach((el) => observer.observe(el));
+    };
+    observePages();
+
     return () => {
       observer.disconnect();
     };
-  }, [navMode, pdf, currentPage]);
+  }, [navMode, pdf, pdf?.numPages, currentPage]);
 
-  // Rotation Controls
+  // Rotation controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
   const handleRotateRight = () => setRotation((prev) => prev + 90);
 
@@ -133,20 +158,73 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
 
   return (
     <div className="p-4">
-      {/* Navigation Mode Toggle */}
-      <div className="flex justify-center mb-4">
+      {/* Controls Visibility Toggle */}
+      <div className="flex justify-end mb-4">
         <button
-          onClick={toggleNavMode}
-          className="px-4 py-2 bg-green-600 text-white rounded-md"
+          onClick={() => setShowControls((prev) => !prev)}
+          className="px-4 py-2 bg-purple-600 text-white rounded-md"
         >
-          {navMode === "infinite"
-            ? "Switch to Paginated Mode"
-            : "Switch to Infinite Scroll"}
+          <FontAwesomeIcon icon={showControls ? faEyeSlash : faEye} size="lg" />
         </button>
       </div>
 
+      {showControls && (
+        // All controls in one horizontal line
+        <div className="flex flex-row items-center justify-center gap-4 mb-4">
+          {/* Navigation Mode Toggle */}
+          <button
+            onClick={toggleNavMode}
+            className="px-4 py-2 bg-green-600 text-white rounded-md"
+          >
+            <FontAwesomeIcon icon={faExchangeAlt} size="lg" />
+          </button>
+
+          {/* Rotate Left */}
+          <button
+            onClick={handleRotateLeft}
+            className="px-4 py-2 bg-gray-800 text-white rounded-md"
+          >
+            <FontAwesomeIcon icon={faRotateLeft} size="lg" />
+          </button>
+
+          {/* Rotate Right */}
+          <button
+            onClick={handleRotateRight}
+            className="px-4 py-2 bg-gray-800 text-white rounded-md"
+          >
+            <FontAwesomeIcon icon={faRotateRight} size="lg" />
+          </button>
+
+          {/* Bookmark Toggle with Number */}
+          {pdf && (
+            <button
+              onClick={() =>
+                navMode === "infinite"
+                  ? toggleBookmark(currentPage)
+                  : toggleBookmark(pageNum)
+              }
+              className="px-4 py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
+            >
+              <FontAwesomeIcon
+                icon={
+                  navMode === "infinite"
+                    ? bookmarks.includes(currentPage)
+                      ? solidBookmark
+                      : regularBookmark
+                    : bookmarks.includes(pageNum)
+                    ? solidBookmark
+                    : regularBookmark
+                }
+                size="lg"
+              />
+              <span>{navMode === "infinite" ? currentPage : pageNum}</span>
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Bookmarks Bar */}
-      {bookmarks.length > 0 && (
+      {showControls && bookmarks.length > 0 && (
         <div className="flex flex-wrap gap-2 justify-center mb-4">
           {bookmarks
             .sort((a, b) => a - b)
@@ -164,48 +242,6 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
             ))}
         </div>
       )}
-
-      {/* Controls */}
-      <div className="flex flex-wrap gap-4 justify-center mb-4">
-        <button
-          onClick={handleRotateLeft}
-          className="px-4 py-2 bg-gray-800 text-white rounded-md"
-        >
-          Rotate Left
-        </button>
-        <button
-          onClick={handleRotateRight}
-          className="px-4 py-2 bg-gray-800 text-white rounded-md"
-        >
-          Rotate Right
-        </button>
-        {pdf && (
-          <button
-            onClick={() =>
-              navMode === "infinite"
-                ? toggleBookmark(currentPage)
-                : toggleBookmark(pageNum)
-            }
-            className="px-4 py-2 bg-gray-800 text-white rounded-md"
-          >
-            <FontAwesomeIcon
-              icon={
-                navMode === "infinite"
-                  ? bookmarks.includes(currentPage)
-                    ? solidBookmark
-                    : regularBookmark
-                  : bookmarks.includes(pageNum)
-                  ? solidBookmark
-                  : regularBookmark
-              }
-              size="lg"
-            />
-            <span className="ml-1">
-              Bookmark {navMode === "infinite" ? currentPage : pageNum}
-            </span>
-          </button>
-        )}
-      </div>
 
       {/* Viewer Container */}
       {navMode === "infinite" ? (
@@ -242,13 +278,13 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
           ) : (
             <p className="text-center text-gray-800">Loading PDF...</p>
           )}
-          <div className="flex gap-4 mt-4">
+          <div className="flex flex-row items-center gap-4 mt-4">
             <button
               onClick={() => setPageNum((prev) => Math.max(prev - 1, 1))}
               disabled={pageNum === 1}
               className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50"
             >
-              Previous
+              <FontAwesomeIcon icon={faChevronLeft} size="lg" />
             </button>
             <span className="text-gray-800">{`Page ${pageNum} of ${
               pdf?.numPages || 0
@@ -262,7 +298,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
               disabled={!pdf || pageNum === pdf.numPages}
               className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50"
             >
-              Next
+              <FontAwesomeIcon icon={faChevronRight} size="lg" />
             </button>
           </div>
         </div>
