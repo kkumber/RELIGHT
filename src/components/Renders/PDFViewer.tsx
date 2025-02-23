@@ -166,10 +166,9 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   // useEffect to keep data in sync with bookmarks from backend
   useEffect(() => {
     fetchData(`library/books/create/bookmark/page/${slug}`);
-    console.log(data);
   }, []);
   useEffect(() => {
-    data ? setBookmarks(data) : [];
+    data ? setBookmarks(data.page) : [];
     console.log(data);
   }, [data]);
 
@@ -219,6 +218,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
               >
                 <FontAwesomeIcon
                   icon={
+                    // Nested If
                     navMode === "infinite"
                       ? bookmarks.includes(currentPage)
                         ? solidBookmark
@@ -237,7 +237,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       )}
 
       {/* Bookmarks Bar */}
-      {showControls && bookmarks.length > 0 && (
+      {showControls && bookmarks && (
         <div className="flex flex-wrap gap-2 justify-center mb-4">
           {bookmarks
             .sort((a, b) => a - b)
