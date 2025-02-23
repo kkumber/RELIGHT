@@ -10,7 +10,6 @@ import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
-import { Link } from "react-router-dom";
 
 interface BookComments {
   owner: string;
@@ -26,12 +25,7 @@ const Details = () => {
     fetchData: fetchBookDetails,
     postData,
   } = useFetch();
-  const {
-    data: bookComments,
-    isLoading: commentsLoading,
-    error: commentsError,
-    fetchData: fetchBookComments,
-  } = useFetch();
+  const { data: bookComments, fetchData: fetchBookComments } = useFetch();
   const { slug } = useParams();
   const [book, setBook] = useState<Book>();
   const [userComments, setUserComments] = useState<BookComments[]>([]);
@@ -66,7 +60,7 @@ const Details = () => {
 
   const handleReadNavigate = (pdf_file: string) => {
     const encodedFileName = encodeURIComponent(pdf_file);
-    navigate(`/read/${encodedFileName}`);
+    navigate(`/read/${encodedFileName}/${slug}`);
   };
 
   useEffect(() => {

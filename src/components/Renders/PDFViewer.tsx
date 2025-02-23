@@ -13,6 +13,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
+import useFetch from "../../hooks/useFetch";
+import { useParams } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -60,8 +62,9 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   return (
     <div
       id={`page-${pageNumber}`}
-      className="w-[70%] mx-auto my-4 border shadow-md rounded-lg overflow-hidden"
+      className="w-[70%] mx-auto my-4 last:mb-0 border shadow-md rounded-lg overflow-hidden"
     >
+      {/* For dark mode */}
       <canvas
         ref={canvasRef}
         className="w-full dark:filter dark:invert dark:brightness-110"
@@ -69,6 +72,10 @@ const PageRenderer: React.FC<PageRendererProps> = ({
     </div>
   );
 };
+
+/////////////////////////////////////////////////////////
+//                   MAIN COMPONENT
+/////////////////////////////////////////////////////////
 
 const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy | null>(null);
@@ -80,6 +87,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showControls, setShowControls] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const { slug } = useParams();
+
+  // useFetch HOOK
+  const { data, fetchData, postData, deleteData } = useFetch();
 
   // Load PDF document
   useEffect(() => {
@@ -103,6 +114,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   useEffect(() => {
     if (navMode !== "infinite" || !scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
+    // Use multiple thresholds to get more granular updates.
     const observer = new IntersectionObserver(
       (entries) => {
         let maxRatio = 0;
@@ -123,7 +135,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       },
       {
         root: container,
-        threshold: 0.5,
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
 
@@ -145,11 +157,21 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   // Toggle bookmark for current page based on nav mode.
   const toggleBookmark = (page: number) => {
     if (bookmarks.includes(page)) {
-      setBookmarks((prev) => prev.filter((num) => num !== page));
+      deleteData(`library/books/delete/bookmark/page/${slug}`);
     } else {
-      setBookmarks((prev) => [...prev, page]);
+      postData(`library/books/create/bookmark/page/${slug}`, { page: page });
     }
   };
+
+  // useEffect to keep data in sync with bookmarks from backend
+  useEffect(() => {
+    fetchData(`library/books/create/bookmark/page/${slug}`);
+    console.log(data);
+  }, []);
+  useEffect(() => {
+    data ? setBookmarks(data) : [];
+    console.log(data);
+  }, [data]);
 
   // Toggle navigation mode
   const toggleNavMode = () => {
@@ -157,69 +179,60 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   };
 
   return (
-    <div className="p-4">
-      {/* Controls Visibility Toggle */}
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={() => setShowControls((prev) => !prev)}
-          className="px-4 py-2 bg-purple-600 text-white rounded-md"
-        >
-          <FontAwesomeIcon icon={showControls ? faEyeSlash : faEye} size="lg" />
-        </button>
-      </div>
-
+    <div className="p-4 relative">
       {showControls && (
-        // All controls in one horizontal line
-        <div className="flex flex-row items-center justify-center gap-4 mb-4">
-          {/* Navigation Mode Toggle */}
-          <button
-            onClick={toggleNavMode}
-            className="px-4 py-2 bg-green-600 text-white rounded-md"
-          >
-            <FontAwesomeIcon icon={faExchangeAlt} size="lg" />
-          </button>
-
-          {/* Rotate Left */}
-          <button
-            onClick={handleRotateLeft}
-            className="px-4 py-2 bg-gray-800 text-white rounded-md"
-          >
-            <FontAwesomeIcon icon={faRotateLeft} size="lg" />
-          </button>
-
-          {/* Rotate Right */}
-          <button
-            onClick={handleRotateRight}
-            className="px-4 py-2 bg-gray-800 text-white rounded-md"
-          >
-            <FontAwesomeIcon icon={faRotateRight} size="lg" />
-          </button>
-
-          {/* Bookmark Toggle with Number */}
-          {pdf && (
+        <div className="p-2 mb-4 fixed">
+          <div className="flex flex-col items-center justify-center gap-4">
+            {/* Navigation Mode Toggle */}
             <button
-              onClick={() =>
-                navMode === "infinite"
-                  ? toggleBookmark(currentPage)
-                  : toggleBookmark(pageNum)
-              }
-              className="px-4 py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
+              onClick={toggleNavMode}
+              className="px-4 py-2 bg-green-600 text-white rounded-md"
             >
-              <FontAwesomeIcon
-                icon={
+              <FontAwesomeIcon icon={faExchangeAlt} size="lg" />
+            </button>
+
+            {/* Rotate Left */}
+            <button
+              onClick={handleRotateLeft}
+              className="px-4 py-2 bg-gray-800 text-white rounded-md"
+            >
+              <FontAwesomeIcon icon={faRotateLeft} size="lg" />
+            </button>
+
+            {/* Rotate Right */}
+            <button
+              onClick={handleRotateRight}
+              className="px-4 py-2 bg-gray-800 text-white rounded-md"
+            >
+              <FontAwesomeIcon icon={faRotateRight} size="lg" />
+            </button>
+
+            {/* Bookmark Toggle with Number */}
+            {pdf && (
+              <button
+                onClick={() =>
                   navMode === "infinite"
-                    ? bookmarks.includes(currentPage)
+                    ? toggleBookmark(currentPage)
+                    : toggleBookmark(pageNum)
+                }
+                className="px-4 py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
+              >
+                <FontAwesomeIcon
+                  icon={
+                    navMode === "infinite"
+                      ? bookmarks.includes(currentPage)
+                        ? solidBookmark
+                        : regularBookmark
+                      : bookmarks.includes(pageNum)
                       ? solidBookmark
                       : regularBookmark
-                    : bookmarks.includes(pageNum)
-                    ? solidBookmark
-                    : regularBookmark
-                }
-                size="lg"
-              />
-              <span>{navMode === "infinite" ? currentPage : pageNum}</span>
-            </button>
-          )}
+                  }
+                  size="lg"
+                />
+                <span>{navMode === "infinite" ? currentPage : pageNum}</span>
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -249,7 +262,6 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
           id="scrollContainer"
           ref={scrollContainerRef}
           className="overflow-auto"
-          style={{ maxHeight: "calc(100vh - 160px)" }}
         >
           {pdf ? (
             Array.from({ length: pdf.numPages }, (_, i) => (

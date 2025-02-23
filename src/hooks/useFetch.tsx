@@ -13,6 +13,7 @@ interface FetchState<T> {
   fetchData: (url: string) => void;
   postData: (url: string, data: object) => Promise<void>;
   updateData: (url: string, data: object) => Promise<void>;
+  deleteData: (url: string) => void;
 }
 
 const useFetch = (): FetchState<T> => {
@@ -70,7 +71,32 @@ const useFetch = (): FetchState<T> => {
     }
   };
 
-  return { data, isLoading, error, fetchData, postData, updateData };
+  const deleteData = async (url: string) => {
+    setIsLoading(false);
+    setError(null);
+    try {
+      const res = await api.delete(url, {
+        headers: { "Content-type": "multipart/form-data" },
+      });
+      setData(res.data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return {
+    data,
+    isLoading,
+    error,
+    fetchData,
+    postData,
+    updateData,
+    deleteData,
+  };
 };
 
 export default useFetch;

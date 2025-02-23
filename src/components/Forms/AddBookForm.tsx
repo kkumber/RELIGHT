@@ -192,9 +192,9 @@ const AddBookForm = () => {
         <p className="font-semibold">Note:</p>
         <p>
           This form automatically extracts details from the selected PDF (e.g.,
-          author and cover image). The title is set using the file name. Please
-          verify the extracted details and update them manually if they are
-          incorrect or incomplete.
+          author and cover image). The title is set using the file name while
+          the sypnosis must be entered manually. Please verify the extracted
+          details and update them manually if they are incorrect or incomplete.
         </p>
       </div>
       {/* Loading indicator placed outside the form container */}
@@ -220,7 +220,7 @@ const AddBookForm = () => {
               onChange={handleChange}
               value={bookForm.title}
               placeholder="Title"
-              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black"
+              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
           </div>
 
@@ -233,7 +233,7 @@ const AddBookForm = () => {
               onChange={handleChange}
               value={bookForm.author}
               placeholder="Author"
-              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black"
+              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
           </div>
 
@@ -245,7 +245,7 @@ const AddBookForm = () => {
               onChange={handleChange}
               value={bookForm.sypnosis}
               placeholder="Enter a brief synopsis..."
-              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black"
+              className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
           </div>
 
