@@ -8,7 +8,7 @@ interface FetchState<T> {
   fetchData: (url: string) => void;
   postData: (url: string, data: object) => Promise<void>;
   updateData: (url: string, data: object) => Promise<void>;
-  deleteData: (url: string, data: object) => Promise<void>;
+  deleteData: (url: string) => void;
 }
 
 const useFetch = (): FetchState<T> => {
@@ -66,11 +66,13 @@ const useFetch = (): FetchState<T> => {
     }
   };
 
-  const deleteData = async (url: string, data: object) => {
+  const deleteData = async (url: string) => {
     setIsLoading(false);
     setError(null);
     try {
-      const res = await api.delete(url, data);
+      const res = await api.delete(url, {
+        headers: { "Content-type": "multipart/form-data" },
+      });
       setData(res.data);
     } catch (err) {
       if (err instanceof Error) {
