@@ -166,9 +166,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   // useEffect to keep data in sync with bookmarks from backend
   useEffect(() => {
     fetchData(`library/books/create/bookmark/page/${slug}`);
+    console.log("bookmarks: ", bookmarks);
   }, []);
   useEffect(() => {
-    data ? setBookmarks(data.page) : [];
+    data ? setBookmarks(data[0].page) : [];
     console.log(data);
   }, [data]);
 

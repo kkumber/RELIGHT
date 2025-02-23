@@ -143,13 +143,14 @@ const Details = () => {
                   <p>Uploaded by: {book.uploaded_by}</p>
                   {/* Buttons Container */}
                   <div className="flex items-center space-x-4">
-                    <form onSubmit={handleBookmark}>
-                      <button className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80">
-                        {book.likes && book.likes.includes(user?.id)
-                          ? "Remove from Library"
-                          : "Add to Library"}
-                      </button>
-                    </form>
+                    <button
+                      onClick={() => handleBookmark}
+                      className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
+                    >
+                      {book.likes && book.likes.includes(user?.id)
+                        ? "Remove from Library"
+                        : "Add to Library"}
+                    </button>
                     <button
                       onClick={() => handleReadNavigate(book.pdf_file)}
                       className="bg-primaryRed py-2 rounded-lg text-white font-semibold hover:bg-primaryRed/80 max-w-min px-4"
