@@ -13,6 +13,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
+import useFetch from "../../hooks/useFetch";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -34,8 +35,10 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   useEffect(() => {
     const renderPage = async () => {
       const page = await pdf.getPage(pageNumber);
+
       // Get the inherent rotation from the PDF page (if any)
       const inherentRotation = page.rotate || 0;
+
       // If the inherent rotation is 180°, we assume that means the page is stored upside down.
       // In that case, we ignore the inherent rotation so that user-controlled rotation is used directly.
       // Otherwise, we add the inherent rotation.
@@ -80,6 +83,15 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showControls, setShowControls] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const {
+    data,
+    isLoading,
+    error,
+    postData,
+    fetchData,
+    updateData,
+    deleteData,
+  } = useFetch();
 
   // Load PDF document
   useEffect(() => {
@@ -144,6 +156,8 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
 
   // Toggle bookmark for current page based on nav mode.
   const toggleBookmark = (page: number) => {
+    // Get then if something exist save in let=bookmarks ? update : create -------------- note: might add useEffect for data and save bookmarks in useState
+    // bookmarks.includes(page) ? delete
     if (bookmarks.includes(page)) {
       setBookmarks((prev) => prev.filter((num) => num !== page));
     } else {
