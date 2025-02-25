@@ -25,6 +25,13 @@ interface PageRendererProps {
   rotation: number;
 }
 
+interface BookmarkInterface {
+  book: number;
+  id: number;
+  user: number;
+  page: number[];
+}
+
 const PageRenderer: React.FC<PageRendererProps> = ({
   pdf,
   pageNumber,
@@ -152,30 +159,36 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     };
   }, [navMode, pdf, pdf?.numPages, currentPage]);
 
+  // useEffect to keep data in sync with bookmarks from backend
+  useEffect(() => {
+    fetchData(`library/books/create/bookmark/page/${slug}`);
+  }, []);
+  useEffect(() => {
+    if (data) {
+      setBookmarks(data.map((bookmark: BookmarkInterface) => bookmark.page));
+      console.log(data);
+    }
+  }, [data]);
+
   // Rotation controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
   const handleRotateRight = () => setRotation((prev) => prev + 90);
 
   // Toggle bookmark for current page based on nav mode.
   const toggleBookmark = (page: number) => {
-    // Get then if something exist save in let=bookmarks ? update : create -------------- note: might add useEffect for data and save bookmarks in useState
-    // bookmarks.includes(page) ? delete
-    if (bookmarks.includes(page)) {
-      deleteData(`library/books/delete/bookmark/page/${slug}`);
+    const filteredPage = bookmarks.filter((bookmark) => bookmark === page);
+    const filterID = data.filter(
+      (data: BookmarkInterface) => data.page[0] === page
+    );
+    console.log(`Page: ${page}`);
+    console.log(`Filtered ID: ${filterID}`);
+    console.log(`Filtered Page: ${filteredPage}`);
+    if (filteredPage) {
+      deleteData(`library/books/delete/bookmark/page/${filterID.id}}`);
     } else {
       postData(`library/books/create/bookmark/page/${slug}`, { page: page });
     }
   };
-
-  // useEffect to keep data in sync with bookmarks from backend
-  useEffect(() => {
-    fetchData(`library/books/create/bookmark/page/${slug}`);
-    console.log("bookmarks: ", bookmarks);
-  }, []);
-  useEffect(() => {
-    data ? setBookmarks(data[0].page) : [];
-    console.log(data);
-  }, [data]);
 
   // Toggle navigation mode
   const toggleNavMode = () => {
