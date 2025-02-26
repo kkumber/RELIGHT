@@ -70,10 +70,7 @@ const useFetch = (): FetchState<T> => {
     setIsLoading(false);
     setError(null);
     try {
-      const res = await api.delete(url, {
-        headers: { "Content-type": "multipart/form-data" },
-      });
-      setData(res.data);
+      const res = await api.delete(url);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

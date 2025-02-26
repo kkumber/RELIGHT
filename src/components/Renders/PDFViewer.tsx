@@ -165,8 +165,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   }, []);
   useEffect(() => {
     if (data) {
-      setBookmarks(data.map((bookmark: BookmarkInterface) => bookmark.page));
-      console.log(data);
+      setBookmarks(data.map((bookmark: BookmarkInterface) => bookmark.page[0]));
     }
   }, [data]);
 
@@ -176,15 +175,11 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
 
   // Toggle bookmark for current page based on nav mode.
   const toggleBookmark = (page: number) => {
-    const filteredPage = bookmarks.filter((bookmark) => bookmark === page);
-    const filterID = data.filter(
-      (data: BookmarkInterface) => data.page[0] === page
+    const filteredPage = data.find(
+      (bookmark: BookmarkInterface) => bookmark.page[0] === page
     );
-    console.log(`Page: ${page}`);
-    console.log(`Filtered ID: ${filterID}`);
-    console.log(`Filtered Page: ${filteredPage}`);
     if (filteredPage) {
-      deleteData(`library/books/delete/bookmark/page/${filterID.id}}`);
+      deleteData(`library/books/delete/bookmark/page/${filteredPage.id}`);
     } else {
       postData(`library/books/create/bookmark/page/${slug}`, { page: page });
     }
