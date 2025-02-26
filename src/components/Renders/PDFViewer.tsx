@@ -6,15 +6,13 @@ import {
   faBookmark as solidBookmark,
   faRotateLeft,
   faRotateRight,
-  faEye,
-  faEyeSlash,
   faExchangeAlt,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
-import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import Bookmark from "../UI/Bookmark";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -23,13 +21,6 @@ interface PageRendererProps {
   pageNumber: number;
   scale: number;
   rotation: number;
-}
-
-interface BookmarkInterface {
-  book: number;
-  id: number;
-  user: number;
-  page: number[];
 }
 
 const PageRenderer: React.FC<PageRendererProps> = ({
@@ -90,16 +81,12 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy | null>(null);
   const [scale, setScale] = useState<number>(1.5);
   const [rotation, setRotation] = useState<number>(0);
-  const [bookmarks, setBookmarks] = useState<number[]>([]);
   const [navMode, setNavMode] = useState<"infinite" | "paginated">("paginated");
   const [pageNum, setPageNum] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showControls, setShowControls] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const { slug } = useParams();
-
-  // useFetch HOOK
-  const { data, fetchData, postData, deleteData } = useFetch();
 
   // Load PDF document
   useEffect(() => {
@@ -159,31 +146,9 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     };
   }, [navMode, pdf, pdf?.numPages, currentPage]);
 
-  // useEffect to keep data in sync with bookmarks from backend
-  useEffect(() => {
-    fetchData(`library/books/create/bookmark/page/${slug}`);
-  }, []);
-  useEffect(() => {
-    if (data) {
-      setBookmarks(data.map((bookmark: BookmarkInterface) => bookmark.page[0]));
-    }
-  }, [data]);
-
   // Rotation controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
   const handleRotateRight = () => setRotation((prev) => prev + 90);
-
-  // Toggle bookmark for current page based on nav mode.
-  const toggleBookmark = (page: number) => {
-    const filteredPage = data.find(
-      (bookmark: BookmarkInterface) => bookmark.page[0] === page
-    );
-    if (filteredPage) {
-      deleteData(`library/books/delete/bookmark/page/${filteredPage.id}`);
-    } else {
-      postData(`library/books/create/bookmark/page/${slug}`, { page: page });
-    }
-  };
 
   // Toggle navigation mode
   const toggleNavMode = () => {
@@ -221,51 +186,16 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
 
             {/* Bookmark Toggle with Number */}
             {pdf && (
-              <button
-                onClick={() =>
-                  navMode === "infinite"
-                    ? toggleBookmark(currentPage)
-                    : toggleBookmark(pageNum)
-                }
-                className="px-4 py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
-              >
-                <FontAwesomeIcon
-                  icon={
-                    // Nested If
-                    navMode === "infinite"
-                      ? bookmarks.includes(currentPage)
-                        ? solidBookmark
-                        : regularBookmark
-                      : bookmarks.includes(pageNum)
-                      ? solidBookmark
-                      : regularBookmark
-                  }
-                  size="lg"
-                />
-                <span>{navMode === "infinite" ? currentPage : pageNum}</span>
-              </button>
+              <Bookmark
+                slug={slug}
+                pageNum={pageNum}
+                currentPage={currentPage}
+                navMode={navMode}
+                scrollToPage={scrollToPage}
+                setPageNum={setPageNum}
+              />
             )}
           </div>
-        </div>
-      )}
-
-      {/* Bookmarks Bar */}
-      {showControls && bookmarks && (
-        <div className="flex flex-wrap gap-2 justify-center mb-4">
-          {bookmarks
-            .sort((a, b) => a - b)
-            .map((bm) => (
-              <button
-                key={bm}
-                onClick={() =>
-                  navMode === "infinite" ? scrollToPage(bm) : setPageNum(bm)
-                }
-                className="px-3 py-1 bg-blue-500 text-white rounded-md flex items-center gap-1"
-              >
-                <FontAwesomeIcon icon={solidBookmark} size="sm" />
-                <span>{bm}</span>
-              </button>
-            ))}
         </div>
       )}
 
