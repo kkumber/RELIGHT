@@ -39,7 +39,6 @@ const useFetch = (): FetchState<T> => {
       const res = await api.post(url, data, {
         headers: { "Content-type": "multipart/form-data" },
       });
-      setData(res.data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -56,7 +55,6 @@ const useFetch = (): FetchState<T> => {
       const res = await api.patch(url, data, {
         headers: { "Content-type": "multipart/form-data" },
       });
-      setData(res.data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
