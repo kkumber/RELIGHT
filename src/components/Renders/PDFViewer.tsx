@@ -144,7 +144,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     return () => {
       observer.disconnect();
     };
-  }, [navMode, pdf, pdf?.numPages, currentPage]);
+  }, [navMode, pdf, pdf?.numPages]);
 
   // Rotation controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
@@ -185,16 +185,14 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
             </button>
 
             {/* Bookmark Toggle with Number */}
-            {pdf && (
-              <Bookmark
-                slug={slug}
-                pageNum={pageNum}
-                currentPage={currentPage}
-                navMode={navMode}
-                scrollToPage={scrollToPage}
-                setPageNum={setPageNum}
-              />
-            )}
+            <Bookmark
+              slug={slug}
+              pageNum={pageNum}
+              currentPage={currentPage}
+              navMode={navMode}
+              scrollToPage={scrollToPage}
+              setPageNum={setPageNum}
+            />
           </div>
         </div>
       )}
@@ -204,7 +202,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
         <div
           id="scrollContainer"
           ref={scrollContainerRef}
-          className="overflow-auto"
+          className="overflow-auto h-screen"
         >
           {pdf ? (
             Array.from({ length: pdf.numPages }, (_, i) => (
