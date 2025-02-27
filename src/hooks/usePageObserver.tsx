@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const usePageObserver = () => {
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Setup IntersectionObserver for infinite scroll mode to detect the visible page.
   useEffect(() => {
