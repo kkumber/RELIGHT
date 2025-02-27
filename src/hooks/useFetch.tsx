@@ -50,7 +50,7 @@ const useFetch = (): FetchState<T> => {
   };
 
   const updateData = async (url: string, data: object) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     try {
       const res = await api.patch(url, data, {
@@ -67,7 +67,7 @@ const useFetch = (): FetchState<T> => {
   };
 
   const deleteData = async (url: string) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     try {
       const res = await api.delete(url);

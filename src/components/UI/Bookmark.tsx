@@ -38,22 +38,27 @@ const Bookmark: React.FC<BookmarkProps> = ({
 
   // Update bookmarks state when data changes
   useEffect(() => {
-    if (data) {
+    if (Array.isArray(data)) {
       setBookmarks(data.map((bookmark: BookmarkInterface) => bookmark.page[0]));
     }
   }, [data]);
 
   // Toggle bookmark for a page
-  const toggleBookmark = (page: number) => {
-    const existingBookmark = data.find(
-      (bookmark: BookmarkInterface) => bookmark.page[0] === page
-    );
+  const toggleBookmark = async (page: number) => {
+    if (Array.isArray(data)) {
+      const existingBookmark = data.find(
+        (bookmark: BookmarkInterface) => bookmark.page[0] === page
+      );
 
-    if (existingBookmark) {
-      deleteData(`library/books/delete/bookmark/page/${existingBookmark.id}`);
-    } else {
-      postData(`library/books/create/bookmark/page/${slug}`, { page });
+      if (existingBookmark) {
+        await deleteData(
+          `library/books/delete/bookmark/page/${existingBookmark.id}`
+        );
+      } else {
+        await postData(`library/books/create/bookmark/page/${slug}`, { page });
+      }
     }
+    await fetchData(`library/books/create/bookmark/page/${slug}`);
   };
 
   return (
