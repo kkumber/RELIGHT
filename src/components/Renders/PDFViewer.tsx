@@ -3,14 +3,12 @@ import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBookmark as solidBookmark,
   faRotateLeft,
   faRotateRight,
   faExchangeAlt,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useParams } from "react-router-dom";
 import Bookmark from "../UI/Bookmark";
 
