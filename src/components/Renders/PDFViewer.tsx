@@ -154,16 +154,16 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   };
 
   return (
-    <div className="p-4 relative">
+    <div className="p-2 md:p-4 relative">
       {showControls && (
-        <div className="p-2 mb-4 fixed">
+        <div className="mb-4 fixed z-10">
           <div className="flex flex-col items-center justify-center gap-4">
             {/* Navigation Mode Toggle */}
             <button
               onClick={toggleNavMode}
               className="px-4 py-2 bg-green-600 text-white rounded-md"
             >
-              <FontAwesomeIcon icon={faExchangeAlt} size="lg" />
+              <FontAwesomeIcon icon={faExchangeAlt} size="sm" />
             </button>
 
             {/* Rotate Left */}
@@ -171,7 +171,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
               onClick={handleRotateLeft}
               className="px-4 py-2 bg-gray-800 text-white rounded-md"
             >
-              <FontAwesomeIcon icon={faRotateLeft} size="lg" />
+              <FontAwesomeIcon icon={faRotateLeft} size="sm" />
             </button>
 
             {/* Rotate Right */}
@@ -179,7 +179,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
               onClick={handleRotateRight}
               className="px-4 py-2 bg-gray-800 text-white rounded-md"
             >
-              <FontAwesomeIcon icon={faRotateRight} size="lg" />
+              <FontAwesomeIcon icon={faRotateRight} size="sm" />
             </button>
 
             {/* Bookmark Toggle with Number */}

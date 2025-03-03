@@ -62,7 +62,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
   };
 
   return (
-    <div className="p-4">
+    <div className="">
       {/* Bookmark Toggle Button */}
       <button
         onClick={() =>
@@ -89,7 +89,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
 
       {/* Bookmarks List */}
       {bookmarks.length > 0 && (
-        <div className="flex flex-wrap gap-2 justify-center mt-4">
+        <div className="flex flex-col gap-2 justify-center mt-4">
           {bookmarks
             .sort((a, b) => a - b)
             .map((bm) => (
