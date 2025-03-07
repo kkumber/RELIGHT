@@ -82,7 +82,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
               ? solidBookmark
               : regularBookmark
           }
-          size="lg"
+          size="sm"
         />
         <span>{navMode === "infinite" ? currentPage : pageNum}</span>
       </button>
@@ -98,7 +98,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
                 onClick={() =>
                   navMode === "infinite" ? scrollToPage(bm) : setPageNum(bm)
                 }
-                className="px-3 py-1 bg-blue-500 text-white rounded-md flex items-center gap-1"
+                className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center gap-1"
               >
                 <FontAwesomeIcon icon={solidBookmark} size="sm" />
                 <span>{bm}</span>

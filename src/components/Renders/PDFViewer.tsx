@@ -33,12 +33,8 @@ const PageRenderer: React.FC<PageRendererProps> = ({
     const renderPage = async () => {
       const page = await pdf.getPage(pageNumber);
 
-      // Get the inherent rotation from the PDF page (if any)
+      // Inherent rotation and effective rotation handling.
       const inherentRotation = page.rotate || 0;
-
-      // If the inherent rotation is 180°, we assume that means the page is stored upside down.
-      // In that case, we ignore the inherent rotation so that user-controlled rotation is used directly.
-      // Otherwise, we add the inherent rotation.
       const effectiveRotation =
         inherentRotation === 180
           ? rotation
@@ -60,9 +56,8 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   return (
     <div
       id={`page-${pageNumber}`}
-      className="w-[70%] mx-auto my-4 last:mb-0 border shadow-md rounded-lg overflow-hidden"
+      className="w-full md:w-[70%] mx-auto my-4 last:mb-0 border shadow-md rounded-lg overflow-hidden"
     >
-      {/* For dark mode */}
       <canvas
         ref={canvasRef}
         className="w-full dark:filter dark:invert dark:brightness-110"
@@ -71,10 +66,6 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   );
 };
 
-/////////////////////////////////////////////////////////
-//                   MAIN COMPONENT
-/////////////////////////////////////////////////////////
-
 const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy | null>(null);
   const [scale, setScale] = useState<number>(1.5);
@@ -82,8 +73,9 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [navMode, setNavMode] = useState<"infinite" | "paginated">("paginated");
   const [pageNum, setPageNum] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showControls, setShowControls] = useState<boolean>(true);
+  const [showControls, setShowControls] = useState<boolean>(false);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const controlTimeoutRef = useRef<any>(null);
   const { slug } = useParams();
 
   // Load PDF document
@@ -104,11 +96,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     loadPdf();
   }, [pdfUrl]);
 
-  // Setup IntersectionObserver for infinite scroll mode to detect the visible page.
+  // Setup IntersectionObserver for infinite scroll mode.
   useEffect(() => {
     if (navMode !== "infinite" || !scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
-    // Use multiple thresholds to get more granular updates.
     const observer = new IntersectionObserver(
       (entries) => {
         let maxRatio = 0;
@@ -142,7 +133,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     return () => {
       observer.disconnect();
     };
-  }, [navMode, pdf, pdf?.numPages]);
+  }, [navMode, pdf, pdf?.numPages, currentPage]);
 
   // Rotation controls
   const handleRotateLeft = () => setRotation((prev) => prev - 90);
@@ -153,47 +144,59 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
     setNavMode((prev) => (prev === "infinite" ? "paginated" : "infinite"));
   };
 
+  // Show controls on click and hide them after 5 seconds.
+  const handleViewerClick = () => {
+    setShowControls(true);
+    if (controlTimeoutRef.current) clearTimeout(controlTimeoutRef.current);
+    controlTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 5000);
+  };
+
   return (
-    <div className="p-2 md:p-4 relative">
-      {showControls && (
-        <div className="mb-4 fixed z-10">
-          <div className="flex flex-col items-center justify-center gap-4">
-            {/* Navigation Mode Toggle */}
-            <button
-              onClick={toggleNavMode}
-              className="px-4 py-2 bg-green-600 text-white rounded-md"
-            >
-              <FontAwesomeIcon icon={faExchangeAlt} size="sm" />
-            </button>
+    <div className="p-2 md:p-4 relative" onClick={handleViewerClick}>
+      {/* Controls with fade in/out animation */}
+      <div
+        className={`mb-4 fixed z-10 transition-opacity duration-300 ${
+          showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex flex-col items-center justify-center gap-4">
+          {/* Navigation Mode Toggle */}
+          <button
+            onClick={toggleNavMode}
+            className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center"
+          >
+            <FontAwesomeIcon icon={faExchangeAlt} className="text-lg" />
+          </button>
 
-            {/* Rotate Left */}
-            <button
-              onClick={handleRotateLeft}
-              className="px-4 py-2 bg-gray-800 text-white rounded-md"
-            >
-              <FontAwesomeIcon icon={faRotateLeft} size="sm" />
-            </button>
+          {/* Rotate Left */}
+          <button
+            onClick={handleRotateLeft}
+            className="w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center"
+          >
+            <FontAwesomeIcon icon={faRotateLeft} className="text-lg" />
+          </button>
 
-            {/* Rotate Right */}
-            <button
-              onClick={handleRotateRight}
-              className="px-4 py-2 bg-gray-800 text-white rounded-md"
-            >
-              <FontAwesomeIcon icon={faRotateRight} size="sm" />
-            </button>
+          {/* Rotate Right */}
+          <button
+            onClick={handleRotateRight}
+            className="w-12 h-12 bg-gray-800 text-white rounded-full flex items-center justify-center"
+          >
+            <FontAwesomeIcon icon={faRotateRight} className="text-lg" />
+          </button>
 
-            {/* Bookmark Toggle with Number */}
-            <Bookmark
-              slug={slug}
-              pageNum={pageNum}
-              currentPage={currentPage}
-              navMode={navMode}
-              scrollToPage={scrollToPage}
-              setPageNum={setPageNum}
-            />
-          </div>
+          {/* Bookmark Toggle with Number */}
+          <Bookmark
+            slug={slug}
+            pageNum={pageNum}
+            currentPage={currentPage}
+            navMode={navMode}
+            scrollToPage={scrollToPage}
+            setPageNum={setPageNum}
+          />
         </div>
-      )}
+      </div>
 
       {/* Viewer Container */}
       {navMode === "infinite" ? (
@@ -217,7 +220,7 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
           )}
         </div>
       ) : (
-        // Paginated mode: render only the current page
+        // Paginated mode: render only the current page.
         <div className="flex flex-col items-center">
           {pdf ? (
             <PageRenderer
