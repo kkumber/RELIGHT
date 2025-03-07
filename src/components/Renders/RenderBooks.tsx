@@ -25,7 +25,7 @@ const RenderBooks = ({ book }: BookData) => {
   const { postData } = useFetch();
 
   return (
-    <article className="flex flex-col ">
+    <article className="flex flex-col">
       {/* Images */}
       <Link
         to={`/details/${book.slug}`}
@@ -42,25 +42,11 @@ const RenderBooks = ({ book }: BookData) => {
         </div>
         {/* Title */}
         <div className="">
-          <p className="font-semibold">{book.title}</p>
+          <p className="font-semibold overflow-hidden text-ellipsis w-32 line-clamp-2">
+            {book.title}
+          </p>
         </div>
       </Link>
-      {/* WatchList */}
-      {/* <div className="flex gap-x-4">
-            <div className="flex justify-between items-center gap-x-1">
-              <FontAwesomeIcon icon={faHeart} style={{color: "#8f8f8f",}}/>
-              <span className="text-gray-600">21k</span>
-            </div>
-            <div className="flex justify-between items-center gap-x-1">
-              <FontAwesomeIcon icon={faBookmark} style={{color: "#8f8f8f",}}/>
-              <span className="text-gray-600">21k</span>
-            </div>
-          </div> */}
-
-      {/* Author */}
-      {/* <div className="text-sm">
-        <p className="text-gray-600">Written by: {book.author} </p>
-      </div> */}
     </article>
   );
 };

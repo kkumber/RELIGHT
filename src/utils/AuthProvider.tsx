@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  createContext,
-  ReactNode,
-} from "react";
+import React, { useContext, useState, createContext } from "react";
 
 // Define the types for the context values
 export type UserType = { id: number; username: string } | null;

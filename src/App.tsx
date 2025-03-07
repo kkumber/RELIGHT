@@ -27,7 +27,7 @@ function App() {
               <Route path="/browse" element={<Browse />} />
               <Route path="/search" element={<Search />} />
               <Route path="/library" element={<Library />} />
-              <Route path="/read/:pdf_file" element={<Reader />} />
+              <Route path="/read/:pdf_file/:slug" element={<Reader />} />
             </Route>
 
             <Route path="/login" element={<Login />}></Route>

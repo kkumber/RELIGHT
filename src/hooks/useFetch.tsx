@@ -1,11 +1,6 @@
 import useApi from "../utils/api";
 import { useState } from "react";
 
-interface PostData {
-  url: string;
-  data: object;
-}
-
 interface FetchState<T> {
   data: T | null;
   isLoading: boolean;
@@ -13,6 +8,7 @@ interface FetchState<T> {
   fetchData: (url: string) => void;
   postData: (url: string, data: object) => Promise<void>;
   updateData: (url: string, data: object) => Promise<void>;
+  deleteData: (url: string) => void;
 }
 
 const useFetch = (): FetchState<T> => {
@@ -43,7 +39,6 @@ const useFetch = (): FetchState<T> => {
       const res = await api.post(url, data, {
         headers: { "Content-type": "multipart/form-data" },
       });
-      setData(res.data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -54,13 +49,12 @@ const useFetch = (): FetchState<T> => {
   };
 
   const updateData = async (url: string, data: object) => {
-    setIsLoading(false);
+    setIsLoading(true);
     setError(null);
     try {
       const res = await api.patch(url, data, {
         headers: { "Content-type": "multipart/form-data" },
       });
-      setData(res.data);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -70,7 +64,29 @@ const useFetch = (): FetchState<T> => {
     }
   };
 
-  return { data, isLoading, error, fetchData, postData, updateData };
+  const deleteData = async (url: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await api.delete(url);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return {
+    data,
+    isLoading,
+    error,
+    fetchData,
+    postData,
+    updateData,
+    deleteData,
+  };
 };
 
 export default useFetch;
