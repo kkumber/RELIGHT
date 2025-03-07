@@ -14,10 +14,8 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       try {
         const response = await fetch(pdfUrl, { mode: "cors" }); // Enable CORS if needed
         if (!response.ok) throw new Error("Failed to load PDF");
-
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob); // Create a Blob URL for the PDF file
-
         const loadingTask = pdfjs.getDocument(blobUrl);
         const loadedPdf = await loadingTask.promise;
         setPdf(loadedPdf);
@@ -37,10 +35,8 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       const viewport = page.getViewport({ scale: 1.5 });
       const canvas = canvasRef.current;
       const context = canvas!.getContext("2d");
-
       canvas!.width = viewport.width;
       canvas!.height = viewport.height;
-
       await page.render({ canvasContext: context!, viewport }).promise;
     };
 
