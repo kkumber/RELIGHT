@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 import RenderBooks from "../components/Renders/RenderBooks";
 import { Book } from "../components/Renders/RenderBooks";
 import Loading from "../components/common/Loading";
@@ -17,7 +16,6 @@ export interface FetchData {
 }
 
 const Home = () => {
-  const [bookList, setBookList] = useState<FetchData>();
   const { data, isLoading, error } = useConcurrentFetch([
     `library/books/?sort_by=views`,
     `library/books/?sort_by=upload_date`,
@@ -35,39 +33,42 @@ const Home = () => {
   return (
     <>
       <Header />
-      {isLoading && <Loading />}
-      {error && <ErrorMsg error={error} />}
+      <div className="w-11/12 flex justify-center items-center m-4">
+        {isLoading && <Loading />}
+        {error ? (
+          <ErrorMsg error={error} />
+        ) : (
+          // Main Home Container
+          <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto w-11/12 min-h-screen gap-y-20 lg:w-8/12">
+            {/* Popular Uploads */}
+            <div className="md:col-span-3">
+              <b className="text-lg">Popular Uploads</b>
+              <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
+              <section className="flex flex-wrap gap-4 items-center justify-center sm:justify-normal">
+                {popularList?.results.map((book) => (
+                  <div key={book.id}>
+                    <RenderBooks book={book} />
+                  </div>
+                ))}
+              </section>
+            </div>
 
-      {/* Main Home Container  */}
-      <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 mx-auto w-11/12 my-auto min-h-screen gap-y-20">
-        {/* Popular Uploads */}
-        <div className="md:col-span-3">
-          <b className="text-lg">Popular Uploads</b>
-          <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
-          <section className="flex flex-wrap gap-4">
-            {popularList?.results.map((book) => (
-              <div key={book.id} className="">
-                <RenderBooks book={book} />
-              </div>
-            ))}
-          </section>
-        </div>
-
-        {/* New Uploads */}
-        <div className="col-span-2">
-          <b className="text-lg">New & Trending</b>
-          <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
-          <section className="flex flex-col gap-8">
-            {newList?.results.map((book) => (
-              <div key={book.id} className="">
-                <RenderBooksSideInfo book={book} />
-                <div className="bg-black/10 dark:bg-white/10 p-[0.5px] " />
-              </div>
-            ))}
-          </section>
-        </div>
+            {/* New & Trending */}
+            <div className="col-span-2">
+              <b className="text-lg">New & Trending</b>
+              <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
+              <section className="flex flex-col gap-8">
+                {newList?.results.map((book) => (
+                  <div key={book.id}>
+                    <RenderBooksSideInfo book={book} />
+                    <div className="bg-black/10 dark:bg-white/10 p-[0.5px]" />
+                  </div>
+                ))}
+              </section>
+            </div>
+          </div>
+        )}
       </div>
-
       <Footer />
     </>
   );

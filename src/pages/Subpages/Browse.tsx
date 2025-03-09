@@ -4,6 +4,8 @@ import RenderBooks from "../../components/Renders/RenderBooks";
 import useFetch from "../../hooks/useFetch";
 import { FetchData } from "../Home";
 import { useEffect, useState } from "react";
+import Loading from "../../components/common/Loading";
+import ErrorMsg from "../../components/common/ErrorMsg";
 
 const Browse = () => {
   const { data, isLoading, error, fetchData } = useFetch();
@@ -77,6 +79,10 @@ const Browse = () => {
           </div>
           <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
         </nav>
+        <div className="w-11/12 flex justify-center items-center">
+          {isLoading && <Loading />}
+          {error && <ErrorMsg error={error} />}
+        </div>
         <section className="flex flex-wrap gap-4 md:gap-8 justify-center items-center md:items-start md:justify-normal">
           {bookList?.results.map((book) => (
             <div key={book.id}>

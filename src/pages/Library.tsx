@@ -20,13 +20,15 @@ const Library = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex flex-wrap w-11/12 m-auto flex-grow gap-x-4">
+      <main className="flex flex-wrap w-11/12 m-auto flex-grow gap-x-4 my-12">
         {bookList ? (
-          bookList.map((book) => (
-            <div key={book.id}>
-              <RenderBooks book={book} />
-            </div>
-          ))
+          <section className="gap-4 flex flex-wrap">
+            {bookList.map((book) => (
+              <div key={book.id} className="">
+                <RenderBooks book={book} />
+              </div>
+            ))}
+          </section>
         ) : (
           <span>Nothing here yet...</span>
         )}
