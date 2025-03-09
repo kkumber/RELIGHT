@@ -23,7 +23,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex md:justify-between p-4 flex-col overflow-hidden">
+    <nav className="flex md:justify-between p-4 flex-col overflow-hidden shadow-sm drop-shadow-md border-b-2 border-gray-300 dark:border-primaryRed">
       {/* Navigations */}
       <div className="md:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -37,19 +37,19 @@ const Navigation = () => {
       >
         <div className="flex flex-col md:flex-row gap-x-12 gap-y-2">
           <li>
-            <Link to="/" className="text-2xl">
+            <Link to="/" className="text-2xl hover:text-primaryRed">
               <b>RELIGHT</b>
             </Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
             <FontAwesomeIcon icon={faBook} />
             <Link to="/library">Library</Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
             <FontAwesomeIcon icon={faUpload} />
             <Link to="/addbook">Add Book</Link>
           </li>
-          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-gray-200 dark:hover:bg-[#373737] rounded-sm px-4">
+          <li className="font-semibold flex md:justify-center items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
             <FontAwesomeIcon icon={faGlobe} />
             <Link to="/browse">Browse</Link>
           </li>
