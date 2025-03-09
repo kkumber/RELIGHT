@@ -92,13 +92,13 @@ const Details = () => {
                 <img
                   src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                   alt={book.title}
-                  className="w-full h-[50vh] object-cover blur-lg"
+                  className="w-full h-[50vh] object-cover blur-sm"
                 />
               </div>
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/50 z-5"></div>
               {/* Details Overlay */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
                 {/* Book Cover */}
                 <div className="w-40 h-56 md:w-48 md:h-72">
                   <img
@@ -109,13 +109,13 @@ const Details = () => {
                 </div>
                 {/* Book Information */}
                 <div className="flex flex-col gap-1">
-                  <h3 className="text-lg font-bold text-pretty">
+                  <h3 className="text-md md:text-lg font-bold text-pretty">
                     {book.title}
                   </h3>
-                  <p>Author: {book.author}</p>
+                  <p className="text-sm md:text-md">Author: {book.author}</p>
                   {/* Views and Likes */}
-                  <div className="flex gap-4">
-                    <div className="flex flex-col">
+                  <div className="flex gap-4 text-sm md:text-md">
+                    <div className="flex flex-col ">
                       <p>Views</p>
                       <div className="flex items-center">
                         <FontAwesomeIcon
@@ -127,7 +127,7 @@ const Details = () => {
                       </div>
                     </div>
                     <span className="border border-white"></span>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col text-sm md:text-md">
                       <p>Bookmarked</p>
                       <div className="flex items-center">
                         <FontAwesomeIcon
@@ -139,10 +139,14 @@ const Details = () => {
                       </div>
                     </div>
                   </div>
-                  <p>Upload Date: {book.upload_date}</p>
-                  <p>Uploaded by: {book.uploaded_by}</p>
+                  <p className="text-sm md:text-md">
+                    Upload Date: {book.upload_date}
+                  </p>
+                  <p className="text-sm md:text-md">
+                    Uploaded by: {book.uploaded_by}
+                  </p>
                   {/* Buttons Container */}
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col md:flex-row items-start gap-2 text-sm md:text-md">
                     <button
                       onClick={() => handleBookmark}
                       className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
