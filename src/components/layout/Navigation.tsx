@@ -17,12 +17,27 @@ import DarkModeToggle from "../UI/DarkModeToggle";
 const Navigation = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
   const [isOpen, setIsOpen] = useState(false);
+  // New state to control animation for the overlay
+  const [animateOverlay, setAnimateOverlay] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { postData } = useFetch();
 
   const handleSignout = () => {
     postData("accounts/auth/logout/", {});
     setAccessToken(null);
+  };
+
+  const openOverlay = () => {
+    setIsOpen(true);
+    // Delay to ensure DOM is mounted before triggering transition
+    setTimeout(() => setAnimateOverlay(true), 10);
+  };
+
+  const closeOverlay = () => {
+    // Start exit animation
+    setAnimateOverlay(false);
+    // After animation duration, unmount overlay
+    setTimeout(() => setIsOpen(false), 500);
   };
 
   return (
@@ -34,15 +49,15 @@ const Navigation = () => {
             <b>RELIGHT</b>
           </Link>
           <ul className="flex gap-4 items-center">
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
+            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
               <FontAwesomeIcon icon={faBook} />
               <Link to="/library">Library</Link>
             </li>
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
+            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
               <FontAwesomeIcon icon={faUpload} />
               <Link to="/addbook">Add Book</Link>
             </li>
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-sm px-4">
+            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
               <FontAwesomeIcon icon={faGlobe} />
               <Link to="/browse">Browse</Link>
             </li>
@@ -56,7 +71,7 @@ const Navigation = () => {
           <Link to="/login">
             <button
               onClick={accessToken ? handleSignout : undefined}
-              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80"
+              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80 transition-colors"
             >
               {accessToken ? "Sign out" : "Sign in"}
             </button>
@@ -69,59 +84,60 @@ const Navigation = () => {
         <Link to="/" className="text-2xl hover:text-primaryRed">
           <b>RELIGHT</b>
         </Link>
-        <button onClick={() => setIsOpen(true)}>
+        <button onClick={openOverlay}>
           <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </nav>
 
       {/* Mobile Full-Screen Overlay */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 flex flex-col">
+        <div
+          className={`md:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 flex flex-col transition-transform duration-500 ease-in-out ${
+            animateOverlay ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
           {/* Header */}
           <div className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-primaryRed">
             <Link
               to="/"
-              onClick={() => setIsOpen(false)}
+              onClick={closeOverlay}
               className="text-2xl hover:text-primaryRed"
             >
               <b>RELIGHT</b>
             </Link>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="focus:outline-none"
-            >
+            <button onClick={closeOverlay} className="focus:outline-none">
               <FontAwesomeIcon icon={faTimes} size="lg" />
             </button>
           </div>
           {/* Navigation Column - Left Aligned */}
           <div className="py-6 px-4">
             <ul className="flex flex-col gap-4 items-start">
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
-                <span className="w-8 flex-shrink-0 text-center">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+                <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faBook} size="lg" />
                 </span>
-                <Link to="/library" onClick={() => setIsOpen(false)}>
+                <Link to="/library" onClick={closeOverlay}>
                   Library
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
-                <span className="w-8 flex-shrink-0 text-center">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+                <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faUpload} size="lg" />
                 </span>
-                <Link to="/addbook" onClick={() => setIsOpen(false)}>
+                <Link to="/addbook" onClick={closeOverlay}>
                   Add Book
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
-                <span className="w-8 flex-shrink-0 text-center">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+                <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faGlobe} size="lg" />
                 </span>
-                <Link to="/browse" onClick={() => setIsOpen(false)}>
+                <Link to="/browse" onClick={closeOverlay}>
                   Browse
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
-                <span className="w-8 flex-shrink-0 text-center">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+                <span className="w-12 flex-shrink-0 text-center">
                   <DarkModeToggle />
                 </span>
                 <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -146,7 +162,7 @@ const Navigation = () => {
           </div>
           {/* Sign In/Out Button */}
           <div className="px-4">
-            <Link to="/login" onClick={() => setIsOpen(false)}>
+            <Link to="/login" onClick={closeOverlay}>
               <button
                 onClick={accessToken ? handleSignout : undefined}
                 className="w-full py-2 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80 transition-colors"
