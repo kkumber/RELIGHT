@@ -1,5 +1,4 @@
 import AuthForm from "../../components/Forms/AuthForm";
-import Footer from "../../components/layout/Footer";
 
 const Register = () => {
   return (
@@ -8,9 +7,6 @@ const Register = () => {
       <div className="flex-grow flex justify-center items-center">
         <AuthForm action="Register" />
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

@@ -61,7 +61,7 @@ const AuthForm = ({ action }: Prop) => {
       {name ? (
         <form
           onSubmit={handleLogin}
-          className="mx-auto md:w-1/2 bg-white p-8 rounded-md shadow-md dark:bg-[#1e1e1e]"
+          className="mx-auto my-12 md:w-1/2 bg-white p-8 rounded-md shadow-md dark:bg-[#1e1e1e]"
         >
           <h1 className="text-4xl">
             <b>Welcome Back</b>
@@ -174,6 +174,14 @@ const AuthForm = ({ action }: Prop) => {
             >
               {isLoading ? <Loading /> : "Register"}
             </button>
+            <span className="text-center">
+              Already have an account?{" "}
+              <Link to="/login">
+                <span className="underline underline-offset-auto text-blue-500">
+                  Sign in
+                </span>
+              </Link>
+            </span>
           </div>
         </form>
       )}
