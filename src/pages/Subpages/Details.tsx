@@ -25,14 +25,18 @@ const Details = () => {
     fetchData: fetchBookDetails,
     postData,
   } = useFetch();
+
   const { data: bookComments, fetchData: fetchBookComments } = useFetch();
   const { slug } = useParams();
+  const { user } = useUserContext();
+
   const [book, setBook] = useState<Book>();
   const [userComments, setUserComments] = useState<BookComments[]>([]);
   const [content, setContent] = useState<string>();
-  const { user } = useUserContext();
+
   const bookURL = `library/books/details/${slug}/`;
   const commentURL = `library/books/details/${slug}/comments/`;
+
   const navigate = useNavigate();
 
   const getBookDetails = async () => {
@@ -42,8 +46,7 @@ const Details = () => {
     }
   };
 
-  const handleBookmark = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleBookmark = async () => {
     await postData(`library/books/details/${slug}/likes/`, {});
     fetchBookDetails(bookURL);
   };
@@ -148,7 +151,7 @@ const Details = () => {
                   {/* Buttons Container */}
                   <div className="flex flex-col md:flex-row items-start gap-2 text-sm md:text-md">
                     <button
-                      onClick={() => handleBookmark}
+                      onClick={() => handleBookmark()}
                       className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
                     >
                       {book.likes && book.likes.includes(user?.id)
