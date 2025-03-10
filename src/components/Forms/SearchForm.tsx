@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import useFetch from "../../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
@@ -10,7 +9,7 @@ const SearchForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/search/?query=${query}`);
+    navigate(`/search/?query=${query}&page_size=10`);
   };
 
   return (

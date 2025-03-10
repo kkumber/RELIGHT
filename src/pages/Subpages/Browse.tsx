@@ -13,11 +13,11 @@ const Browse = () => {
   const [query, setQuery] = useState<string>("views");
 
   useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}`);
+    fetchData(`library/books/?sort_by=${query}&page_size=20`);
   }, []);
 
   useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}`);
+    fetchData(`library/books/?sort_by=${query}&page_size=20`);
   }, [query]);
 
   useEffect(() => {

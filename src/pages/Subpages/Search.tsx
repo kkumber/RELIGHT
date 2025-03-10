@@ -1,10 +1,7 @@
-import { useParams } from "react-router-dom";
-import SearchForm from "../../components/Forms/SearchForm";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import RenderBooks from "../../components/Renders/RenderBooks";
-import { FetchData } from "../Home";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
 import Loading from "../../components/common/Loading";
@@ -18,7 +15,7 @@ const Search = () => {
   const [searchResult, setSearchResult] = useState<Book[]>();
 
   useEffect(() => {
-    fetchData(`library/books/search/?search_query=${query}`);
+    fetchData(`library/books/search/?search_query=${query}&page_size=10`);
   }, [query]);
 
   useEffect(() => {
