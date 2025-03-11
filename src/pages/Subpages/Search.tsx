@@ -28,11 +28,11 @@ const Search = () => {
     <>
       {isLoading && <Loading />}
       {error && <ErrorMsg error={error} />}
-      <section className="w-11/12 m-auto min-h-screen flex flex-col gap-4">
+      <section className="w-11/12 m-auto min-h-screen flex flex-col gap-4 my-4">
         <h2 className="text-xl font-bold py-1 px-4 bg-primaryRed rounded-md w-40 text-white">
           Search
         </h2>
-        <div className="flex flex-wrap gap-4 flex-grow">
+        <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
           {searchResult &&
             searchResult.map((book) => (
               <div className="" key={book.id}>

@@ -3,6 +3,8 @@ import RenderBooks from "../components/Renders/RenderBooks";
 import Footer from "../components/layout/Footer";
 import useFetch from "../hooks/useFetch";
 import { Book } from "../components/Renders/RenderBooks";
+import ErrorMsg from "../components/common/ErrorMsg";
+import Loading from "../components/common/Loading";
 
 const Library = () => {
   const { data, isLoading, error, fetchData } = useFetch();
@@ -20,9 +22,11 @@ const Library = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {error && <ErrorMsg error={error} />}
+      {isLoading && <Loading />}
       <main className="flex flex-wrap w-11/12 m-auto flex-grow gap-x-4 my-12">
         {bookList ? (
-          <section className="gap-4 flex flex-wrap">
+          <section className="gap-4 flex flex-wrap ">
             {bookList.map((book) => (
               <div key={book.id} className="">
                 <RenderBooks book={book} />

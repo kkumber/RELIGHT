@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import useFetch from "../../hooks/useFetch";
 
 export interface Book {
