@@ -86,7 +86,7 @@ const Browse = () => {
         <section className="flex flex-wrap gap-4 md:gap-8 justify-center items-center md:items-start md:justify-normal">
           {bookList?.results.map((book) => (
             <div key={book.id}>
-              <RenderBooks book={book} />
+              <RenderBooks book={book} size="h-48 w-32" />
             </div>
           ))}
         </section>

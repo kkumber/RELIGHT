@@ -36,7 +36,7 @@ const Search = () => {
           {searchResult &&
             searchResult.map((book) => (
               <div className="" key={book.id}>
-                <RenderBooks book={book} />
+                <RenderBooks book={book} size="h-48 w-32" />
               </div>
             ))}
         </div>

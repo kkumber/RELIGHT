@@ -17,13 +17,14 @@ export interface Book {
 
 export interface BookData {
   book: Book;
+  size: string;
 }
 
-const RenderBooks = ({ book }: BookData) => {
+const RenderBooks = ({ book, size }: BookData) => {
   const { postData } = useFetch();
 
   return (
-    <article className="flex flex-col">
+    <article className="flex flex-col max-h-min">
       {/* Images */}
       <Link
         to={`/details/${book.slug}`}
@@ -31,7 +32,7 @@ const RenderBooks = ({ book }: BookData) => {
           postData(`library/books/details/${book.slug}/views/`, {})
         }
       >
-        <div className="h-48 w-32">
+        <div className={`${size}`}>
           <img
             src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
             alt={book.title}

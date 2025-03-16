@@ -47,7 +47,7 @@ const Home = () => {
               <section className="flex flex-wrap gap-4 items-center justify-center sm:justify-normal">
                 {popularList?.results.map((book) => (
                   <div key={book.id}>
-                    <RenderBooks book={book} />
+                    <RenderBooks book={book} size="h-52 w-36" />
                   </div>
                 ))}
               </section>
@@ -60,7 +60,7 @@ const Home = () => {
               <section className="flex flex-col gap-8">
                 {newList?.results.map((book) => (
                   <div key={book.id}>
-                    <RenderBooksSideInfo book={book} />
+                    <RenderBooksSideInfo book={book} size="h-48 w-32" />
                     <div className="bg-black/10 dark:bg-white/10 p-[0.5px]" />
                   </div>
                 ))}

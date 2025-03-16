@@ -1,6 +1,4 @@
 import { BookData } from "./RenderBooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 
@@ -31,16 +29,6 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
             <p className="font-semibold">{book.title}</p>
           </Link>
         </div>
-        {/* <div className="flex gap-x-4">
-          <div className="flex justify-between items-center gap-x-1">
-            <FontAwesomeIcon icon={faHeart} style={{ color: "#8f8f8f" }} />
-            <span className="text-gray-600">21k</span>
-          </div>
-          <div className="flex justify-between items-center gap-x-1">
-            <FontAwesomeIcon icon={faBookmark} style={{ color: "#8f8f8f" }} />
-            <span className="text-gray-600">21k</span>
-          </div>
-        </div> */}
         <div className="text-sm max-w-40">
           <p className="text-black/60 dark:text-white/60">
             Written by: {book.author}{" "}

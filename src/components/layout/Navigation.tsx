@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAccessTokenContext } from "../../utils/AuthProvider";
 import SearchForm from "../Forms/SearchForm";
 import { useState } from "react";
@@ -21,6 +21,7 @@ const Navigation = () => {
   const [animateOverlay, setAnimateOverlay] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const { postData } = useFetch();
+  const location = useLocation();
 
   const handleSignout = () => {
     postData("accounts/auth/logout/", {});
@@ -45,19 +46,34 @@ const Navigation = () => {
       {/* Desktop Navbar */}
       <nav className="hidden md:flex justify-between p-4 overflow-hidden shadow-sm drop-shadow-md border-b-2 border-gray-300 dark:border-primaryRed">
         <div className="flex items-center gap-12">
-          <Link to="/" className="text-2xl hover:text-primaryRed">
+          <Link
+            to="/"
+            className="text-2xl hover:text-primaryRed transition-all duration-500 ease-in-out"
+          >
             <b>RELIGHT</b>
           </Link>
           <ul className="flex gap-4 items-center">
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
+            <li
+              className={`${
+                location.pathname === "/library" ? "bg-primaryRed" : undefined
+              } font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out`}
+            >
               <FontAwesomeIcon icon={faBook} />
               <Link to="/library">Library</Link>
             </li>
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
+            <li
+              className={`${
+                location.pathname === "/addbook" ? "bg-primaryRed" : undefined
+              } font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out`}
+            >
               <FontAwesomeIcon icon={faUpload} />
               <Link to="/addbook">Add Book</Link>
             </li>
-            <li className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 transition-colors py-1">
+            <li
+              className={`${
+                location.pathname === "/browse" ? "bg-primaryRed" : undefined
+              } font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out`}
+            >
               <FontAwesomeIcon icon={faGlobe} />
               <Link to="/browse">Browse</Link>
             </li>
@@ -71,7 +87,7 @@ const Navigation = () => {
           <Link to="/login">
             <button
               onClick={accessToken ? handleSignout : undefined}
-              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80 transition-colors"
+              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80"
             >
               {accessToken ? "Sign out" : "Sign in"}
             </button>
@@ -112,7 +128,7 @@ const Navigation = () => {
           {/* Navigation Column - Left Aligned */}
           <div className="py-6 px-4">
             <ul className="flex flex-col gap-4 items-start">
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
                 <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faBook} size="lg" />
                 </span>
@@ -120,7 +136,7 @@ const Navigation = () => {
                   Library
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
                 <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faUpload} size="lg" />
                 </span>
@@ -128,7 +144,7 @@ const Navigation = () => {
                   Add Book
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
                 <span className="w-12 flex-shrink-0 text-center">
                   <FontAwesomeIcon icon={faGlobe} size="lg" />
                 </span>
@@ -136,7 +152,7 @@ const Navigation = () => {
                   Browse
                 </Link>
               </li>
-              <li className="flex items-center font-semibold hover:text-primaryRed gap-4 transition-colors">
+              <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
                 <span className="w-12 flex-shrink-0 text-center">
                   <DarkModeToggle />
                 </span>
@@ -153,7 +169,7 @@ const Navigation = () => {
             ) : (
               <button
                 onClick={() => setShowSearch(true)}
-                className="w-full py-2 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                className="w-full py-2 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
               >
                 <FontAwesomeIcon icon={faSearch} className="mr-2" />
                 Search
@@ -165,7 +181,7 @@ const Navigation = () => {
             <Link to="/login" onClick={closeOverlay}>
               <button
                 onClick={accessToken ? handleSignout : undefined}
-                className="w-full py-2 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80 transition-colors"
+                className="w-full py-2 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80"
               >
                 {accessToken ? "Sign out" : "Sign in"}
               </button>
