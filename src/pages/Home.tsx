@@ -33,13 +33,13 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="w-11/12 flex justify-center items-center m-4">
+      <div className="flex flex-col justify-center items-center m-4">
         {isLoading && <Loading />}
         {error ? (
           <ErrorMsg error={error} />
         ) : (
           // Main Home Container
-          <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto w-11/12 min-h-screen gap-y-20 lg:w-8/12">
+          <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto min-h-screen gap-y-20 lg:w-8/12">
             {/* Popular Uploads */}
             <div className="md:col-span-3">
               <b className="text-lg">Popular Uploads</b>
@@ -47,7 +47,7 @@ const Home = () => {
               <section className="flex flex-wrap gap-4 items-center justify-center sm:justify-normal">
                 {popularList?.results.map((book) => (
                   <div key={book.id}>
-                    <RenderBooks book={book} size="h-52 w-36" />
+                    <RenderBooks book={book} size="h-48 w-32 md:h-52 md:w-36" />
                   </div>
                 ))}
               </section>
