@@ -1,20 +1,27 @@
 import { useEffect, useState, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
-import useAuthFetch from "../hooks/useAuthFetch";
 import { useAccessTokenContext, useUserContext } from "../utils/AuthProvider";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import useApi from "../utils/api";
 
 const ProtectedRoute = () => {
-  const { data, isLoading, error, getRefreshToken } = useAuthFetch();
-  const { accessToken } = useAccessTokenContext();
+  const { accessToken, setAccessToken } = useAccessTokenContext();
   const { setUser } = useUserContext();
   const nav = useNavigate();
+  const api = useApi();
 
   const refreshToken = async () => {
-    await getRefreshToken();
+    const res = await api.post(
+      "accounts/auth/token/refresh/",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    const newToken = res.data.access_token;
+    setAccessToken(newToken);
   };
 
-  // PRoblem: Context refreshes when page reloads
   const auth = () => {
     if (accessToken) {
       const decoded = jwtDecode(accessToken);
@@ -23,9 +30,6 @@ const ProtectedRoute = () => {
       if (expTime! < now) {
         refreshToken();
       }
-      return nav("/");
-    } else {
-      return nav("/login");
     }
   };
 

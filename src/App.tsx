@@ -21,12 +21,12 @@ function AppContent() {
     <>
       {!noNavRoutes.includes(location.pathname) && <Navigation />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/browse" element={<Browse />} />
-        <Route path="/details/:slug" element={<Details />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/read/:pdf_file/:slug" element={<Reader />} />
         <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/details/:slug" element={<Details />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/read/:pdf_file/:slug" element={<Reader />} />
           <Route path="/addbook" element={<AddBookPage />} />
           <Route path="/library" element={<Library />} />
         </Route>
