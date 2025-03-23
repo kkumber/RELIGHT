@@ -96,7 +96,7 @@ const Navigation = () => {
       </nav>
 
       {/* Mobile Top Bar */}
-      <nav className="md:hidden p-4 shadow-sm drop-shadow-md border-b-2 border-gray-300 dark:border-primaryRed flex justify-between items-center">
+      <nav className="md:hidden p-4 shadow-sm drop-shadow-md flex justify-between items-center">
         <Link to="/" className="text-2xl hover:text-primaryRed">
           <b>RELIGHT</b>
         </Link>
