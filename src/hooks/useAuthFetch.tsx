@@ -45,33 +45,10 @@ const useAuthFetch = () => {
     }
   };
 
-  const getRefreshToken = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await api.post(
-        "accounts/auth/token/refresh/",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      setData(res.data);
-      setAccessToken(res.data.access_token);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const registerUser = async (registerData: UserRegisterData) => {
     setIsLoading(true);
     setError(null);
     try {
-      console.log(registerData);
       const res = await api.post("accounts/register/", registerData);
       setData(res.data);
     } catch (err) {
@@ -83,7 +60,7 @@ const useAuthFetch = () => {
     }
   };
 
-  return { data, isLoading, error, getToken, getRefreshToken, registerUser };
+  return { data, isLoading, error, getToken, registerUser };
 };
 
 export default useAuthFetch;
