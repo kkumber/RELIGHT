@@ -6,7 +6,7 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
   const { postData } = useFetch();
 
   return (
-    <article className="grid grid-cols-3 gap-x-4 justify-between mb-4">
+    <article className="grid grid-cols-3 gap-x-4 justify-between mb-4 md:flex md:flex-col">
       {/* Image Container */}
       <div className="col-span-1 h-28 md:h-36 w-full">
         <Link

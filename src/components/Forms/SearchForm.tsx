@@ -24,7 +24,7 @@ const SearchForm = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setQuery(e.target.value)
         }
-        className="p-1 border-[1px] rounded-r-2xl border-black/60 bg-gray-200 dark:border-white/60 focus:outline-none text-sm dark:bg-[#2b2a2a]"
+        className="p-1 border-[1px] rounded-r-2xl border-black/40 bg-gray-200 dark:border-white/40 focus:outline-none text-sm dark:bg-[#2b2a2a]"
       />
     </form>
   );

@@ -29,6 +29,12 @@ const useApi = () => {
     },
     async (error) => {
       const originalRequest = error.config;
+
+      // If this is the refresh endpoint, simply reject to avoid infinite calls
+      if (originalRequest.url.includes("accounts/auth/token/refresh/")) {
+        return Promise.reject(error);
+      }
+
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {

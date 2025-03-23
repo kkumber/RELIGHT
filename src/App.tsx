@@ -3,7 +3,7 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import AuthProvider from "./utils/AuthProvider";
+import AuthProvider, { useAccessTokenContext } from "./utils/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Details from "./pages/Subpages/Details";
 import Navigation from "./components/layout/Navigation";

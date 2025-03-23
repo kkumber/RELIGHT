@@ -31,7 +31,7 @@ const Home = () => {
   }, [data]);
 
   return (
-    <>
+    <div className="">
       <Header />
       <div className="flex flex-col justify-center items-center m-4">
         {isLoading && <Loading />}
@@ -39,7 +39,7 @@ const Home = () => {
           <ErrorMsg error={error} />
         ) : (
           // Main Home Container
-          <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto min-h-screen gap-y-20 lg:w-8/12">
+          <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto min-h-screen gap-y-20 lg:w-10/12">
             {/* Popular Uploads */}
             <div className="md:col-span-3">
               <b className="text-lg">Popular Uploads</b>
@@ -70,7 +70,7 @@ const Home = () => {
         )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -30,7 +30,7 @@ const Browse = () => {
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-[#121212]">
       <Header />
       {/* Main Container */}
-      <div className="flex flex-grow flex-col w-full md:w-9/12 mx-auto mb-20 bg-white px-2 py-8 md:p-8 rounded-lg dark:bg-[#1E1E1E]">
+      <div className="flex flex-grow flex-col w-full md:w-9/12 mx-auto mb-20 bg-white px-2 py-8 md:p-8 rounded-lg dark:bg-[#1E1E1E] shadow-lg">
         <nav>
           {/* Wrapper div enables horizontal scrolling on mobile */}
           <div className="overflow-x-auto scrollbar-hide">
