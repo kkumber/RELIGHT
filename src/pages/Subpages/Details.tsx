@@ -14,6 +14,7 @@ import {
 import {
   faHeart as SolidHeart,
   faPlay,
+  faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
@@ -187,6 +188,12 @@ const Details = () => {
                       >
                         <FontAwesomeIcon icon={faPlay} size="xl" />
                         <p>Read</p>
+                      </button>
+                    </div>
+                    <div className="">
+                      <button>
+                        <FontAwesomeIcon icon={faShareNodes} size="xl" />
+                        <p>Share</p>
                       </button>
                     </div>
                   </div>
