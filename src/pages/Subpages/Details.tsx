@@ -75,6 +75,17 @@ const Details = () => {
     navigate(`/read/${encodedFileName}/${slug}`);
   };
 
+  const copyCurrentLink = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        alert("Link copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy the link: ", err);
+      });
+  };
+
   useEffect(() => {
     if (slug) {
       getBookDetails();
@@ -191,7 +202,7 @@ const Details = () => {
                       </button>
                     </div>
                     <div className="">
-                      <button>
+                      <button onClick={() => copyCurrentLink()}>
                         <FontAwesomeIcon icon={faShareNodes} size="xl" />
                         <p>Share</p>
                       </button>
