@@ -44,7 +44,7 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="hidden md:flex justify-between p-4 overflow-hidden shadow-sm drop-shadow-md">
+      <nav className="hidden md:flex shrink justify-between p-4 overflow-hidden shadow-sm drop-shadow-md">
         <div className="flex items-center gap-12">
           <Link
             to="/"
@@ -52,7 +52,7 @@ const Navigation = () => {
           >
             <b>RELIGHT</b>
           </Link>
-          <ul className="flex gap-4 items-center">
+          <ul className="flex gap-4 items-center shrink">
             <li
               className={`${
                 location.pathname === "/library" ? "bg-primaryRed" : undefined
@@ -82,7 +82,7 @@ const Navigation = () => {
             <SearchForm />
           </div>
         </div>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 shrink">
           <DarkModeToggle />
           <Link to="/login">
             <button

@@ -6,7 +6,15 @@ import RenderComments from "../../components/Renders/RenderComments";
 import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import {
+  faEye,
+  faBookmark,
+  faHeart as ClassicHeart,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart as SolidHeart,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
@@ -100,6 +108,7 @@ const Details = () => {
               </div>
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/50 z-5"></div>
+
               {/* Details Overlay */}
               <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
                 {/* Book Cover */}
@@ -110,12 +119,14 @@ const Details = () => {
                     className="w-full h-full object-cover rounded-md"
                   />
                 </div>
+
                 {/* Book Information */}
                 <div className="flex flex-col gap-1">
                   <h3 className="text-md md:text-lg font-bold text-pretty">
                     {book.title}
                   </h3>
                   <p className="text-sm md:text-md">Author: {book.author}</p>
+
                   {/* Views and Likes */}
                   <div className="flex gap-4 text-sm md:text-md">
                     <div className="flex flex-col ">
@@ -129,7 +140,9 @@ const Details = () => {
                         <p>{book.views}</p>
                       </div>
                     </div>
+
                     <span className="border border-white"></span>
+
                     <div className="flex flex-col text-sm md:text-md">
                       <p>Bookmarked</p>
                       <div className="flex items-center">
@@ -142,28 +155,40 @@ const Details = () => {
                       </div>
                     </div>
                   </div>
+
                   <p className="text-sm md:text-md">
                     Upload Date: {book.upload_date}
                   </p>
                   <p className="text-sm md:text-md">
                     Uploaded by: {book.uploaded_by}
                   </p>
+
                   {/* Buttons Container */}
-                  <div className="flex flex-col md:flex-row items-start gap-2 text-sm md:text-md">
-                    <button
-                      onClick={() => handleBookmark()}
-                      className="bg-primaryRed py-2 px-4 rounded-lg text-white font-semibold hover:bg-primaryRed/80"
-                    >
-                      {book.likes && book.likes.includes(user?.id)
-                        ? "Remove from Library"
-                        : "Add to Library"}
-                    </button>
-                    <button
-                      onClick={() => handleReadNavigate(book.pdf_file)}
-                      className="bg-primaryRed py-2 rounded-lg text-white font-semibold hover:bg-primaryRed/80 max-w-min px-4"
-                    >
-                      Read
-                    </button>
+                  <div className="flex flex-col md:flex-row items-start gap-6 text-sm md:text-md">
+                    <div className="">
+                      <button onClick={() => handleBookmark()} className="">
+                        {book.likes && book.likes.includes(user?.id) ? (
+                          <>
+                            <FontAwesomeIcon icon={SolidHeart} size="xl" />
+                            <p>In Library</p>
+                          </>
+                        ) : (
+                          <>
+                            <FontAwesomeIcon icon={ClassicHeart} size="xl" />
+                            <p>Add to Library</p>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <div className="">
+                      <button
+                        onClick={() => handleReadNavigate(book.pdf_file)}
+                        className=""
+                      >
+                        <FontAwesomeIcon icon={faPlay} size="xl" />
+                        <p>Read</p>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -175,8 +200,6 @@ const Details = () => {
       {/* Bottom Container */}
       <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg dark:bg-[#1E1E1E] mt-12">
         {/* Sypnosis Section */}
-        {bookLoading && <Loading />}
-        {bookError && <ErrorMsg error={bookError} />}
         {book && (
           <section className="my-10">
             <div className="flex flex-col gap-4">
