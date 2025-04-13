@@ -6,18 +6,20 @@ import { FetchData } from "../Home";
 import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
+import SkeletonBookListAnimation from "../../components/common/SkeletonBookListAnimation";
 
 const Browse = () => {
   const { data, isLoading, error, fetchData } = useFetch();
   const [bookList, setBookList] = useState<FetchData>();
   const [query, setQuery] = useState<string>("views");
+  const [pageSize, setPageSize] = useState<number>(20);
 
   useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}&page_size=20`);
+    fetchData(`library/books/?sort_by=${query}&page_size=${pageSize}`);
   }, []);
 
   useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}&page_size=20`);
+    fetchData(`library/books/?sort_by=${query}&page_size=${pageSize}`);
   }, [query]);
 
   useEffect(() => {
@@ -80,15 +82,18 @@ const Browse = () => {
           <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
         </nav>
         <div className="w-11/12 flex justify-center items-center">
-          {isLoading && <Loading />}
           {error && <ErrorMsg error={error} />}
         </div>
         <section className="flex flex-wrap gap-4 md:gap-8 justify-center items-center md:items-start md:justify-normal">
-          {bookList?.results.map((book) => (
-            <div key={book.id}>
-              <RenderBooks book={book} size="h-48 w-32" />
-            </div>
-          ))}
+          {isLoading
+            ? Array.from({ length: pageSize }, (_, i) => (
+                <SkeletonBookListAnimation key={i} />
+              ))
+            : bookList?.results.map((book) => (
+                <div key={book.id}>
+                  <RenderBooks book={book} size="h-48 w-32" />
+                </div>
+              ))}
         </section>
       </div>
 
