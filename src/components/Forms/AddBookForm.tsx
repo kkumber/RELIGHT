@@ -52,6 +52,9 @@ const AddBookForm = () => {
       if (file.size > 10485760) {
         alert("File size too big. Maximum of 10MB");
         return;
+      } else if (file.type !== "application/pdf") {
+        alert("Only PDF files allowed");
+        return;
       }
       // Set the title directly from the PDF file name (without extension)
       const titleFromFile = file.name.replace(/\.[^/.]+$/, "");
@@ -256,6 +259,7 @@ const AddBookForm = () => {
               type="file"
               name="pdf_file"
               required
+              accept="application/pdf"
               onChange={handlePDFChange}
             />
           </div>
@@ -266,6 +270,7 @@ const AddBookForm = () => {
             <input
               type="file"
               name="book_cover"
+              accept="image/*"
               onChange={handleBookCoverChange}
             />
             {coverPreview && (

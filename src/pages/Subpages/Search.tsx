@@ -7,6 +7,7 @@ import Footer from "../../components/layout/Footer";
 import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
 import SkeletonBookListAnimation from "../../components/common/SkeletonBookListAnimation";
+import NotFound from "../NotFound";
 
 const Search = () => {
   const { data, isLoading, error, fetchData } = useFetch();
@@ -15,6 +16,24 @@ const Search = () => {
   const query = queryParams.get("query");
   const [searchResult, setSearchResult] = useState<Book[]>();
   const [pageSize, setPageSize] = useState<number>(10);
+
+  const renderSearchResult = () => {
+    if (isLoading) {
+      return Array.from({ length: pageSize }, (_, i) => (
+        <SkeletonBookListAnimation key={i} />
+      ));
+    } else if (error) {
+      return <ErrorMsg error={error} />;
+    } else if (!searchResult?.length) {
+      return <span>No books found</span>;
+    } else {
+      return searchResult.map((book) => (
+        <div className="" key={book.id}>
+          <RenderBooks book={book} size="h-48 w-32" />
+        </div>
+      ));
+    }
+  };
 
   useEffect(() => {
     fetchData(
@@ -26,6 +45,7 @@ const Search = () => {
     if (data?.results) {
       setSearchResult(data.results);
     }
+    renderSearchResult();
   }, [data]);
 
   return (
@@ -35,17 +55,7 @@ const Search = () => {
           Search
         </h2>
         <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
-          {error && <ErrorMsg error={error} />}
-          {isLoading
-            ? Array.from({ length: pageSize }, (_, i) => (
-                <SkeletonBookListAnimation key={i} />
-              ))
-            : searchResult &&
-              searchResult.map((book) => (
-                <div className="" key={book.id}>
-                  <RenderBooks book={book} size="h-48 w-32" />
-                </div>
-              ))}
+          <>{renderSearchResult()}</>
         </div>
       </section>
       <Footer />
