@@ -44,7 +44,7 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="hidden md:flex shrink justify-between p-4 overflow-hidden shadow-sm drop-shadow-md">
+      <nav className="hidden md:flex shrink justify-between p-4 overflow-hidden shadow-sm drop-shadow-md bg-transparent">
         <div className="flex items-center gap-12">
           <Link
             to="/"

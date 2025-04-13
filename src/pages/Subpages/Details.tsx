@@ -111,18 +111,18 @@ const Details = () => {
           <article key={book.id}>
             <div className="relative w-full">
               {/* Background Blur Image */}
-              <div className="z-0 h-full bg-center bg-no-repeat">
+              <div className="z-0 bg-center bg-no-repeat">
                 <img
                   src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
                   alt={book.title}
-                  className="w-full h-[50vh] object-cover blur-sm"
+                  className="w-full h-[70vh] object-cover"
                 />
               </div>
               {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black/50 z-5"></div>
+              <div className="absolute inset-0 backdrop-blur-md bg-gradient-to-b from-black/60 to-[#121212]"></div>
 
               {/* Details Overlay */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 items-center z-10 text-white w-11/12 m-auto">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 z-10 text-white w-11/12 m-auto">
                 {/* Book Cover */}
                 <div className="max-w-48 max-h-54">
                   <img
@@ -134,22 +134,24 @@ const Details = () => {
 
                 {/* Book Information */}
                 <div className="flex flex-col gap-1">
-                  <h3 className="text-md md:text-lg font-bold text-pretty">
+                  <h3 className="text-lg md:text-2xl font-semibold text-pretty">
                     {book.title}
                   </h3>
-                  <p className="text-sm md:text-md">Author: {book.author}</p>
+                  <p className="text-sm md:text-md">
+                    Author: <span className="font-semibold">{book.author}</span>
+                  </p>
 
                   {/* Views and Likes */}
                   <div className="flex gap-4 text-sm md:text-md">
                     <div className="flex flex-col ">
                       <p>Views</p>
-                      <div className="flex items-center">
+                      <div className="flex items-center gap-1">
                         <FontAwesomeIcon
                           icon={faEye}
                           style={{ color: "#ffffff" }}
                           size="lg"
                         />
-                        <p>{book.views}</p>
+                        <p className="font-semibold">{book.views}</p>
                       </div>
                     </div>
 
@@ -157,22 +159,26 @@ const Details = () => {
 
                     <div className="flex flex-col text-sm md:text-md">
                       <p>Bookmarked</p>
-                      <div className="flex items-center">
+                      <div className="flex items-center gap-1">
                         <FontAwesomeIcon
                           icon={faBookmark}
                           style={{ color: "#ffffff" }}
                           size="lg"
                         />
-                        <p>{book.likes ? book.likes.length : 0}</p>
+                        <p className="font-semibold">
+                          {book.likes ? book.likes.length : 0}
+                        </p>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-sm md:text-md">
-                    Upload Date: {book.upload_date}
+                  <p className="text-sm md:text-md flex gap-1">
+                    Upload Date:
+                    <p className="font-semibold">{book.upload_date}</p>
                   </p>
-                  <p className="text-sm md:text-md">
-                    Uploaded by: {book.uploaded_by}
+                  <p className="text-sm md:text-md flex gap-1">
+                    Uploaded by:
+                    <p className="font-semibold">{book.uploaded_by}</p>
                   </p>
                   {/* Buttons Container */}
                   <div className="flex flex-row items-start gap-6 text-sm md:text-md">
@@ -215,7 +221,7 @@ const Details = () => {
       </section>
 
       {/* Bottom Container */}
-      <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg dark:bg-[#1E1E1E] mt-12">
+      <div className="w-11/12 md:w-8/12 m-auto bg-white px-8 py-4 rounded-lg dark:bg-[#1E1E1E] mt-12 shadow-md">
         {/* Sypnosis Section */}
         {book && (
           <section className="my-10">
