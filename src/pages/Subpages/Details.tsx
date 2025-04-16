@@ -18,7 +18,7 @@ import { FaBookOpen } from "react-icons/fa";
 import { BsShare, BsShareFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 
-import { useUserContext } from "../../utils/AuthProvider";
+import { useUserContext } from "../Auth/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
 

@@ -4,7 +4,7 @@ import {
   useAccessTokenContext,
   useUserContext,
   useCSRFTokenContext,
-} from "../utils/AuthProvider";
+} from "../pages/Auth/AuthProvider";
 
 interface UserAuth {
   username: string;

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useAccessTokenContext } from "../../utils/AuthProvider";
+import { useAccessTokenContext } from "../../pages/Auth/AuthProvider";
 import SearchForm from "../Forms/SearchForm";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
