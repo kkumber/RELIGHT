@@ -10,6 +10,8 @@ import {
   faEye,
   faBookmark,
   faHeart as ClassicHeart,
+  faCalendar,
+  faUser,
 } from "@fortawesome/free-regular-svg-icons";
 import {
   faHeart as SolidHeart,
@@ -122,14 +124,14 @@ const Details = () => {
               </div>
 
               {/* Details Overlay */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 z-10 text-gray-900 dark:text-gray-100 w-full m-auto">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-1 p-2 md:gap-4 z-10 text-gray-900 dark:text-gray-100 w-full m-auto">
                 {/* Book Information */}
                 <div className="flex flex-col gap-12 text-center">
                   <div className="">
-                    <h3 className="text-2xl md:text-4xl font-semibold text-pretty">
+                    <h3 className="text-lg md:text-2xl font-semibold text-pretty">
                       {book.title}
                     </h3>
-                    <p className="text-mg md:text-lg">
+                    <p className="text-md md:text-lg">
                       <span className="font-semibold">{book.author}</span>
                     </p>
                   </div>
@@ -141,7 +143,7 @@ const Details = () => {
                         onClick={() => handleReadNavigate(book.pdf_file)}
                         className=""
                       >
-                        <FontAwesomeIcon icon={faPlay} size="2xl" />
+                        <FontAwesomeIcon icon={faPlay} size="xl" />
                         <p>Read</p>
                       </button>
                     </div>
@@ -149,12 +151,12 @@ const Details = () => {
                       <button onClick={() => handleBookmark()} className="">
                         {book.likes && book.likes.includes(user?.id) ? (
                           <>
-                            <FontAwesomeIcon icon={SolidHeart} size="2xl" />
+                            <FontAwesomeIcon icon={SolidHeart} size="xl" />
                             <p>In Library</p>
                           </>
                         ) : (
                           <>
-                            <FontAwesomeIcon icon={ClassicHeart} size="2xl" />
+                            <FontAwesomeIcon icon={ClassicHeart} size="xl" />
                             <p>Add to Library</p>
                           </>
                         )}
@@ -162,19 +164,18 @@ const Details = () => {
                     </div>
                     <div className="">
                       <button onClick={() => copyCurrentLink()}>
-                        <FontAwesomeIcon icon={faShareNodes} size="2xl" />
+                        <FontAwesomeIcon icon={faShareNodes} size="xl" />
                         <p>Share</p>
                       </button>
                     </div>
                   </div>
 
                   {/* Statistics */}
-                  <div className="flex flex-wrap justify-center gap-x-2 md:gap-6 text-sm md:text-md mt-6 px-4">
+                  <div className="flex justify-center gap-x-6 text-xs md:text-sm mt-6 px-4">
                     {/* Views */}
                     <div className="flex items-center gap-1">
                       <FontAwesomeIcon icon={faEye} size="lg" />
                       <p className="font-semibold">{book.views}</p>
-                      <p>Views</p>
                     </div>
 
                     {/* Bookmarked */}
@@ -183,18 +184,17 @@ const Details = () => {
                       <p className="font-semibold">
                         {book.likes ? book.likes.length : 0}
                       </p>
-                      <p>Bookmarked</p>
                     </div>
 
                     {/* Upload Date */}
                     <div className="flex items-center gap-1">
-                      <p>Upload Date:</p>
+                      <FontAwesomeIcon icon={faCalendar} size="lg" />
                       <p className="font-semibold">{book.upload_date}</p>
                     </div>
 
                     {/* Uploaded By */}
                     <div className="flex items-center gap-1">
-                      <p>Uploaded by:</p>
+                      <FontAwesomeIcon icon={faUser} size="lg" />
                       <p className="font-semibold">{book.uploaded_by}</p>
                     </div>
                   </div>
