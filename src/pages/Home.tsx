@@ -46,7 +46,7 @@ const Home = () => {
             <b className="text-lg">Popular Uploads</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
 
-            <section className="flex flex-wrap gap-4 items-center justify-center sm:justify-normal">
+            <section className="flex flex-wrap gap-4 items-center justify-start sm:justify-normal">
               {isLoading
                 ? Array.from({ length: viewsPageSize }, (_, i) => (
                     <SkeletonBookListAnimation key={i} />

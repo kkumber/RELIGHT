@@ -34,7 +34,7 @@ const useApi = () => {
 
       if (error.response && error.response.status === 401 && !originalRequest._retry) {
         try {
-          originalRequest._retry = true;
+          originalRequest._retry = true; // Set up a flag for this to not cause infinite loop tries
 
           const res = await axios.post(`${import.meta.env.VITE_API_URL}accounts/auth/token/refresh/` , {}, {withCredentials: true});
           const newAccessToken = res.data.access_token;
