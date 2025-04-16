@@ -122,15 +122,14 @@ const Details = () => {
               </div>
 
               {/* Details Overlay */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 z-10 text-black dark:text-white w-full m-auto">
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-4 z-10 text-gray-900 dark:text-gray-100 w-full m-auto">
                 {/* Book Information */}
                 <div className="flex flex-col gap-12 text-center">
                   <div className="">
                     <h3 className="text-2xl md:text-4xl font-semibold text-pretty">
                       {book.title}
                     </h3>
-                    <p className="text-sm md:text-md">
-                      Author:{" "}
+                    <p className="text-mg md:text-lg">
                       <span className="font-semibold">{book.author}</span>
                     </p>
                   </div>
@@ -168,6 +167,37 @@ const Details = () => {
                       </button>
                     </div>
                   </div>
+
+                  {/* Statistics */}
+                  <div className="flex flex-wrap justify-center gap-x-2 md:gap-6 text-sm md:text-md mt-6 px-4">
+                    {/* Views */}
+                    <div className="flex items-center gap-1">
+                      <FontAwesomeIcon icon={faEye} size="lg" />
+                      <p className="font-semibold">{book.views}</p>
+                      <p>Views</p>
+                    </div>
+
+                    {/* Bookmarked */}
+                    <div className="flex items-center gap-1">
+                      <FontAwesomeIcon icon={faBookmark} size="lg" />
+                      <p className="font-semibold">
+                        {book.likes ? book.likes.length : 0}
+                      </p>
+                      <p>Bookmarked</p>
+                    </div>
+
+                    {/* Upload Date */}
+                    <div className="flex items-center gap-1">
+                      <p>Upload Date:</p>
+                      <p className="font-semibold">{book.upload_date}</p>
+                    </div>
+
+                    {/* Uploaded By */}
+                    <div className="flex items-center gap-1">
+                      <p>Uploaded by:</p>
+                      <p className="font-semibold">{book.uploaded_by}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,41 +206,7 @@ const Details = () => {
       </section>
 
       {/* Bottom Container */}
-      <div className="w-11/12 md:w-8/12 mx-auto mt-4 bg-white px-8 py-4 rounded-lg dark:bg-[#1E1E1E] shadow-md">
-        <div className="">
-          {/* Views and Likes
-                  <div className="flex gap-4 text-sm md:text-md">
-                    <div className="flex flex-col ">
-                      <p>Views</p>
-                      <div className="flex items-center gap-1">
-                        <FontAwesomeIcon icon={faEye} size="lg" />
-                        <p className="font-semibold">{book.views}</p>
-                      </div>
-                    </div>
-
-                    <span className="border border-white"></span>
-
-                    <div className="flex flex-col text-sm md:text-md">
-                      <p>Bookmarked</p>
-                      <div className="flex items-center gap-1">
-                        <FontAwesomeIcon icon={faBookmark} size="lg" />
-                        <p className="font-semibold">
-                          {book.likes ? book.likes.length : 0}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-sm md:text-md flex gap-1">
-                    Upload Date:
-                    <p className="font-semibold">{book.upload_date}</p>
-                  </p>
-                  <p className="text-sm md:text-md flex gap-1">
-                    Uploaded by:
-                    <p className="font-semibold">{book.uploaded_by}</p>
-                  </p> */}
-        </div>
-
+      <div className="w-11/12 md:w-8/12 mx-auto mt-4 bg-white px-4 md:px-8 py-4 rounded-lg dark:bg-[#1E1E1E] shadow-md">
         {/* Sypnosis Section */}
         {book && (
           <section className="my-10">
@@ -219,8 +215,15 @@ const Details = () => {
                 <h2 className="text-2xl font-bold">Sypnosis</h2>
                 <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
               </div>
-              <div>
+              <div className="flex flex-wrap justify-between">
                 <p>{book.sypnosis}</p>
+                <div className="bg-center bg-no-repeat rounded-md">
+                  <img
+                    src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
+                    alt={book.title}
+                    className="w-full md:w-60 h-40 md:h-80 object-cover rounded-md"
+                  />
+                </div>
               </div>
             </div>
           </section>
@@ -242,7 +245,7 @@ const Details = () => {
           </div>
 
           <div className="my-10 flex flex-col gap-4">
-            <h3 className="font-bold text-2xl">Leave a Review</h3>
+            <h3 className="font-bold text-2xl">Leave a Comment</h3>
             <CommentForm
               setContent={setContent}
               handleCommentSubmit={handleCommentSubmit}
