@@ -9,15 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
   faBookmark,
-  faHeart as ClassicHeart,
   faCalendar,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
-import {
-  faHeart as SolidHeart,
-  faPlay,
-  faShareNodes,
-} from "@fortawesome/free-solid-svg-icons";
+
+import { LuBook } from "react-icons/lu";
+import { FaBookOpen } from "react-icons/fa";
+import { BsShare, BsShareFill } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
+
 import { useUserContext } from "../../utils/AuthProvider";
 import { Book } from "../../components/Renders/RenderBooks";
 import Footer from "../../components/layout/Footer";
@@ -44,6 +44,7 @@ const Details = () => {
   const [book, setBook] = useState<Book>();
   const [userComments, setUserComments] = useState<BookComments[]>([]);
   const [content, setContent] = useState<string>();
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const bookURL = `library/books/details/${slug}/`;
   const commentURL = `library/books/details/${slug}/comments/`;
@@ -136,42 +137,80 @@ const Details = () => {
                     </p>
                   </div>
 
-                  {/* Buttons Container */}
+                  {/* Action Buttons Container */}
                   <div className="flex flex-row items-start gap-6 text-sm md:text-md justify-center">
-                    <div className="">
+                    <div>
                       <button
                         onClick={() => handleReadNavigate(book.pdf_file)}
-                        className=""
+                        className="flex flex-col gap-2 w-min"
+                        onMouseEnter={() => setHovered("read")}
+                        onMouseLeave={() => setHovered(null)}
                       >
-                        <FontAwesomeIcon icon={faPlay} size="xl" />
-                        <p>Read</p>
+                        <div className="flex justify-center items-center">
+                          {hovered === "read" ? (
+                            <FaBookOpen size={25} />
+                          ) : (
+                            <LuBook size={25} />
+                          )}
+                        </div>
+                        <div>
+                          <p>Read</p>
+                        </div>
                       </button>
                     </div>
-                    <div className="">
-                      <button onClick={() => handleBookmark()} className="">
+                    <div>
+                      <button
+                        onClick={() => handleBookmark()}
+                        className="flex flex-col gap-2"
+                        onMouseEnter={() => setHovered("heart")}
+                        onMouseLeave={() => setHovered(null)}
+                      >
                         {book.likes && book.likes.includes(user?.id) ? (
                           <>
-                            <FontAwesomeIcon icon={SolidHeart} size="xl" />
+                            <div className="flex justify-center items-center">
+                              {hovered === "heart" ? (
+                                <FaRegHeart size={25} />
+                              ) : (
+                                <FaHeart size={25} />
+                              )}
+                            </div>
                             <p>In Library</p>
                           </>
                         ) : (
                           <>
-                            <FontAwesomeIcon icon={ClassicHeart} size="xl" />
+                            <div className="flex justify-center items-center">
+                              {hovered ? (
+                                <FaRegHeart size={25} />
+                              ) : (
+                                <FaHeart size={25} />
+                              )}
+                            </div>
                             <p>Add to Library</p>
                           </>
                         )}
                       </button>
                     </div>
-                    <div className="">
-                      <button onClick={() => copyCurrentLink()}>
-                        <FontAwesomeIcon icon={faShareNodes} size="xl" />
+                    <div>
+                      <button
+                        onClick={() => copyCurrentLink()}
+                        className="flex flex-col gap-2"
+                        onMouseEnter={() => setHovered("share")}
+                        onMouseLeave={() => setHovered(null)}
+                      >
+                        <div className="flex justify-center items-center">
+                          {hovered === "share" ? (
+                            <BsShareFill size={25} />
+                          ) : (
+                            <BsShare size={25} />
+                          )}
+                        </div>
                         <p>Share</p>
                       </button>
                     </div>
                   </div>
 
                   {/* Statistics */}
-                  <div className="flex justify-center gap-x-6 text-xs md:text-sm mt-6 px-4">
+                  <div className="flex justify-center gap-x-4 md:gap-x-8 text-xs md:text-sm mt-6 px-4">
                     {/* Views */}
                     <div className="flex items-center gap-1">
                       <FontAwesomeIcon icon={faEye} size="lg" />
@@ -236,7 +275,7 @@ const Details = () => {
               <h2 className="text-2xl font-bold">Comments</h2>
               <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
             </div>
-            <div className="bg-gray-300 dark:bg-[#272727] p-4 rounded-sm">
+            <div className="bg-gray-250 dark:bg-[#272727] p-4 rounded-sm">
               <p className="text-primaryRed">
                 Please read and apply the rules before posting a comment.
               </p>
