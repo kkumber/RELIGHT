@@ -1,44 +1,52 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useAccessTokenContext, useUserContext } from "../utils/AuthProvider";
+import {
+  useAccessTokenContext,
+  useUserContext,
+} from "../pages/Auth/AuthProvider";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import useApi from "../utils/api";
+import axios from "axios";
 
 const ProtectedRoute = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
   const { setUser } = useUserContext();
-  const nav = useNavigate();
-  const api = useApi();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const refreshToken = async () => {
-    const res = await api.post(
-      "accounts/auth/token/refresh/",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    const newToken = res.data.access_token;
-    setAccessToken(newToken);
-  };
-
-  const auth = () => {
-    if (accessToken) {
-      const decoded = jwtDecode(accessToken);
-      const expTime = decoded.exp;
-      const now = Date.now() / 1000;
-      if (expTime! < now) {
-        refreshToken();
-      }
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}accounts/auth/token/refresh/`,
+        {},
+        { withCredentials: true }
+      );
+      const newToken = res.data.access_token;
+      setAccessToken(newToken);
+      setUser(res.data.user);
+    } catch (error) {
+      console.error("Token refresh failed:", error);
+      navigate("/login");
     }
   };
 
   useEffect(() => {
-    auth();
-  }, []);
+    const authenticate = async () => {
+      if (accessToken) {
+        const decoded = jwtDecode(accessToken);
+        const now = Math.floor(Date.now() / 1000);
+        if (decoded?.exp && decoded.exp < now) {
+          await refreshToken();
+        }
+      } else {
+        await refreshToken();
+      }
+      setLoading(false);
+    };
+    authenticate();
+  }, [accessToken]);
 
-  const render = accessToken ? <Outlet /> : <Navigate to="/login" />;
-  return render;
+  if (loading) return <div>Loading...</div>;
+  return accessToken ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

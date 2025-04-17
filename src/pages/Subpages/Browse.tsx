@@ -84,9 +84,9 @@ const Browse = () => {
         <div className="w-11/12 flex justify-center items-center">
           {error && <ErrorMsg error={error} />}
         </div>
-        <section className="flex flex-wrap gap-4 md:gap-8 justify-center items-center md:items-start md:justify-normal">
+        <section className="flex flex-wrap gap-4 md:gap-8 justify-start items-center md:items-start md:justify-normal">
           {isLoading
-            ? Array.from({ length: pageSize }, (_, i) => (
+            ? Array.from({ length: 1 }, (_, i) => (
                 <SkeletonBookListAnimation key={i} />
               ))
             : bookList?.results.map((book) => (
