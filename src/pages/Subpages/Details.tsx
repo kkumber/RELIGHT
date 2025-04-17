@@ -215,7 +215,7 @@ const Details = () => {
                 <h2 className="text-2xl font-bold">Sypnosis</h2>
                 <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
               </div>
-              <div className="flex flex-wrap justify-between">
+              <div className="flex flex-wrap justify-between gap-y-4">
                 <p>{book.sypnosis}</p>
                 <div className="bg-center bg-no-repeat rounded-md">
                   <img
