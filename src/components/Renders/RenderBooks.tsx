@@ -24,13 +24,14 @@ const RenderBooks = ({ book, size }: BookData) => {
   const { postData } = useFetch();
 
   return (
-    <article className="flex flex-col max-h-min">
+    <>
       {/* Images */}
       <Link
         to={`/details/${book.slug}`}
         onClick={() =>
           postData(`library/books/details/${book.slug}/views/`, {})
         }
+        className="flex flex-col gap-1"
       >
         <div className={`${size}`}>
           <img
@@ -40,13 +41,13 @@ const RenderBooks = ({ book, size }: BookData) => {
           />
         </div>
         {/* Title */}
-        <div className="">
-          <p className="font-semibold overflow-hidden text-ellipsis w-32 line-clamp-2">
+        <div className="flex">
+          <p className="font-medium overflow-hidden text-ellipsis w-36 line-clamp-2">
             {book.title}
           </p>
         </div>
       </Link>
-    </article>
+    </>
   );
 };
 

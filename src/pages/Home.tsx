@@ -46,17 +46,14 @@ const Home = () => {
             <b className="text-lg">Popular Uploads</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
 
-            <section className="flex flex-wrap gap-4 items-center justify-start sm:justify-normal">
+            <section className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4">
               {isLoading
                 ? Array.from({ length: viewsPageSize }, (_, i) => (
                     <SkeletonBookListAnimation key={i} />
                   ))
                 : popularList?.results.map((book) => (
                     <div key={book.id}>
-                      <RenderBooks
-                        book={book}
-                        size="h-48 w-32 md:h-52 md:w-36"
-                      />
+                      <RenderBooks book={book} size="h-48 w-36 " />
                     </div>
                   ))}
             </section>

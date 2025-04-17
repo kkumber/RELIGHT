@@ -1,5 +1,9 @@
 import axios from "axios";
-import { useAccessTokenContext, useCSRFTokenContext, useUserContext } from "../pages/Auth/AuthProvider";
+import {
+  useAccessTokenContext,
+  useCSRFTokenContext,
+  useUserContext,
+} from "../pages/Auth/AuthProvider";
 
 const useApi = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
@@ -32,18 +36,27 @@ const useApi = () => {
     async (error) => {
       const originalRequest = error.config; // Get the original request that caused the error
 
-      if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      // Interceptor for 401 status code
+      if (
+        error.response &&
+        error.response.status === 401 &&
+        !originalRequest._retry
+      ) {
         try {
           originalRequest._retry = true; // Set up a flag for this to not cause infinite loop tries
 
-          const res = await axios.post(`${import.meta.env.VITE_API_URL}accounts/auth/token/refresh/` , {}, {withCredentials: true});
+          const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}accounts/auth/token/refresh/`,
+            {},
+            { withCredentials: true }
+          );
           const newAccessToken = res.data.access_token;
           setAccessToken(newAccessToken);
           setcsrf_token(res.data.csrf_token);
           setUser(res.data.user);
 
           // Retry the original request before the error with the new access token
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return api(originalRequest);
         } catch (e) {
           return Promise.reject(e);

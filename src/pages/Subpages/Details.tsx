@@ -169,20 +169,25 @@ const Details = () => {
                           <>
                             <div className="flex justify-center items-center">
                               {hovered === "heart" ? (
-                                <FaRegHeart size={25} />
+                                <div className="flex flex-col gap-2 justify-center items-center">
+                                  <FaRegHeart size={25} />
+                                  <p>Remove</p>
+                                </div>
                               ) : (
-                                <FaHeart size={25} />
+                                <div className="flex flex-col gap-2 justify-center items-center">
+                                  <FaHeart size={25} />
+                                  <p>In Library</p>
+                                </div>
                               )}
                             </div>
-                            <p>In Library</p>
                           </>
                         ) : (
                           <>
                             <div className="flex justify-center items-center">
                               {hovered ? (
-                                <FaRegHeart size={25} />
-                              ) : (
                                 <FaHeart size={25} />
+                              ) : (
+                                <FaRegHeart size={25} />
                               )}
                             </div>
                             <p>Add to Library</p>
@@ -254,7 +259,7 @@ const Details = () => {
                 <h2 className="text-2xl font-bold">Sypnosis</h2>
                 <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
               </div>
-              <div className="flex flex-wrap justify-between gap-y-4">
+              <div className="flex flex-wrap justify-between">
                 <p>{book.sypnosis}</p>
                 <div className="bg-center bg-no-repeat rounded-md">
                   <img
