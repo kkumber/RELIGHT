@@ -11,7 +11,7 @@ import {
   faGlobe,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import useFetch from "../../hooks/useFetch";
+import useAuthFetch from "../../hooks/useAuthFetch";
 import DarkModeToggle from "../UI/DarkModeToggle";
 
 const Navigation = () => {
@@ -20,11 +20,11 @@ const Navigation = () => {
   // New state to control animation for the overlay
   const [animateOverlay, setAnimateOverlay] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { postData } = useFetch();
+  const { signOutUser } = useAuthFetch();
   const location = useLocation();
 
-  const handleSignout = () => {
-    postData("accounts/auth/logout/", {});
+  const handleSignout = async () => {
+    await signOutUser();
     setAccessToken(null);
   };
 

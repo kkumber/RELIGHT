@@ -60,7 +60,22 @@ const useAuthFetch = () => {
     }
   };
 
-  return { data, isLoading, error, getToken, registerUser };
+  const signOutUser = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await api.post("accounts/auth/logout/", {});
+      setData(res.data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { data, isLoading, error, getToken, registerUser, signOutUser };
 };
 
 export default useAuthFetch;

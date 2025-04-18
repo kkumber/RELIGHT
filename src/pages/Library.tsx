@@ -23,13 +23,11 @@ const Library = () => {
     <div className="">
       {error && <ErrorMsg error={error} />}
       {isLoading && <Loading />}
-      <main className="w-11/12 m-auto flex-grow gap-x-4 my-12 justify-center items-center">
+      <main className="w-11/12 m-auto gap-x-4 my-12">
         {bookList ? (
-          <section className="gap-4 grid grid-cols-2 md:flex md:flex-wrap">
+          <section className="gap-2 md:gap-4 grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap">
             {bookList.map((book) => (
-              <div key={book.id} className="max-h-min">
-                <RenderBooks book={book} size="h-60 w-36" />
-              </div>
+              <RenderBooks book={book} size="h-60 w-36" key={book.id} />
             ))}
           </section>
         ) : (
