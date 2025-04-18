@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div className="">
       <Header />
-      <div className="flex flex-col justify-center items-center m-4">
+      <div className="flex flex-col justify-center items-center my-4 mx-2 sm:mx-4">
         {error && <ErrorMsg error={error} />}
 
         <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto min-h-screen gap-y-20 lg:w-10/12">

@@ -84,7 +84,7 @@ const Browse = () => {
         <div className="w-11/12 flex justify-center items-center">
           {error && <ErrorMsg error={error} />}
         </div>
-        <section className="flex flex-wrap gap-4 md:gap-8 justify-start items-center md:items-start md:justify-normal">
+        <section className="grid grid-cols-[repeat(auto-fit,minmax(120px,140px))] gap-y-4">
           {isLoading
             ? Array.from({ length: 1 }, (_, i) => (
                 <SkeletonBookListAnimation key={i} />

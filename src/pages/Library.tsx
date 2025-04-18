@@ -20,21 +20,19 @@ const Library = () => {
   }, [data]);
 
   return (
-    <div className="">
+    <main className="w-max-screen-lg mx-auto px-2 sm:px-4">
       {error && <ErrorMsg error={error} />}
       {isLoading && <Loading />}
-      <main className="w-11/12 m-auto gap-x-4 my-12">
-        {bookList ? (
-          <section className="gap-2 md:gap-4 grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap">
-            {bookList.map((book) => (
-              <RenderBooks book={book} size="h-60 w-36" key={book.id} />
-            ))}
-          </section>
-        ) : (
-          <span>Nothing here yet...</span>
-        )}
-      </main>
-    </div>
+      {bookList ? (
+        <section className="gap-4 grid grid-cols-[repeat(auto-fit,minmax(120px,140px))]">
+          {bookList.map((book) => (
+            <RenderBooks book={book} size="h-60 w-36" key={book.id} />
+          ))}
+        </section>
+      ) : (
+        <span>Nothing here yet...</span>
+      )}
+    </main>
   );
 };
 
