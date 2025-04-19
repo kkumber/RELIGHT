@@ -50,7 +50,7 @@ const Search = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <section className="mx-4 flex flex-col flex-grow">
+      <section className="mx-4 flex flex-col flex-grow gap-4">
         <h2 className="text-xl font-bold dark:text-white">Search</h2>
         <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
           <>{renderSearchResult()}</>

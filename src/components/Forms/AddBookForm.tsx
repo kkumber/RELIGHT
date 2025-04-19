@@ -61,8 +61,14 @@ const AddBookForm = () => {
   };
 
   const handleBookCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setBook_Cover(e.target.files[0]);
+    const imageFile = e.target.files;
+    if (imageFile) {
+      if (imageFile[0].type !== "image/*") {
+        alert("Incorrect Image Format");
+        imageFile[0].slice(1);
+        return;
+      }
+      setBook_Cover(imageFile[0]);
     }
   };
 
@@ -187,8 +193,8 @@ const AddBookForm = () => {
   }, [pdf_File]);
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4 text-pretty w-11/12 m-auto flex flex-wrap">
+    <div className="w-full">
+      <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4 text-pretty max-w-screen-sm m-auto flex flex-wrap">
         <p className="font-semibold">Note:</p>
         <p>
           This form automatically extracts details from the selected PDF (e.g.,
@@ -201,16 +207,18 @@ const AddBookForm = () => {
       {isExtracting && (
         <div className="flex items-center justify-center p-4">
           <Loading />
-          <span className="ml-2 text-gray-700">Extracting details...</span>
+          <span className="ml-2 text-gray-700 animate-pulse">
+            Extracting details...
+          </span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="w-11/12 m-auto">
+      <form onSubmit={handleSubmit} className="">
         <div className="bg-primaryRed p-4 rounded-t-xl">
           <p className="text-xl font-semibold">Submit a Book</p>
         </div>
 
-        <div className="border-2 border-black/10 dark:border-white/10 p-4 rounded-b-xl flex flex-col gap-y-8 shadow-md">
+        <div className="border-2 border-black/10 dark:border-white/10 p-4 rounded-b-xl flex flex-col gap-y-8 shadow-lg">
           {/* Title */}
           <div className="flex flex-col">
             <label htmlFor="title">Title</label>
@@ -255,6 +263,7 @@ const AddBookForm = () => {
             <input
               type="file"
               name="pdf_file"
+              accept="application/pdf"
               required
               onChange={handlePDFChange}
             />
@@ -266,6 +275,7 @@ const AddBookForm = () => {
             <input
               type="file"
               name="book_cover"
+              accept="image/*"
               onChange={handleBookCoverChange}
             />
             {coverPreview && (

@@ -4,7 +4,6 @@ import RenderBooks from "../../components/Renders/RenderBooks";
 import useFetch from "../../hooks/useFetch";
 import { FetchData } from "../Home";
 import { useEffect, useState } from "react";
-import Loading from "../../components/common/Loading";
 import ErrorMsg from "../../components/common/ErrorMsg";
 import SkeletonBookListAnimation from "../../components/common/SkeletonBookListAnimation";
 
@@ -32,7 +31,7 @@ const Browse = () => {
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-[#121212]">
       <Header />
       {/* Main Container */}
-      <div className="flex flex-grow flex-col w-full md:w-9/12 mx-auto mb-20 bg-white px-2 py-8 md:p-8 rounded-lg dark:bg-[#1E1E1E] shadow-lg">
+      <div className="flex flex-grow flex-col w-full md:w-9/12 mx-auto mb-20 bg-white px-2 py-8 md:p-8 rounded-lg dark:bg-[#1E1E1E] shadow-lg max-w-screen-lg">
         <nav>
           {/* Wrapper div enables horizontal scrolling on mobile */}
           <div className="overflow-x-auto scrollbar-hide">
@@ -98,7 +97,7 @@ const Browse = () => {
       </div>
 
       {/* Next/Previous */}
-      <div className="flex justify-between items-center w-9/12 m-auto">
+      <div className="flex justify-between items-center w-9/12 m-auto max-w-screen-lg">
         <button
           onClick={() => fetchData(data.next)}
           disabled={!bookList?.previous}

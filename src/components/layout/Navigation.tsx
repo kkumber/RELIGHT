@@ -44,15 +44,15 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="hidden md:flex shrink justify-between p-4 overflow-hidden shadow-sm drop-shadow-md bg-transparent">
-        <div className="flex items-center gap-12">
+      <nav className="hidden md:flex shrink justify-between p-4 overflow-hidden shadow-sm drop-shadow-md bg-transparent gap-2">
+        <div className="flex items-center gap-4">
           <Link
             to="/"
             className="text-2xl hover:text-primaryRed transition-all duration-500 ease-in-out"
           >
             <b>RELIGHT</b>
           </Link>
-          <ul className="flex gap-4 items-center shrink">
+          <ul className="flex gap-1 items-center shrink">
             <li
               className={`${
                 location.pathname === "/library" ? "bg-primaryRed" : undefined
@@ -67,7 +67,7 @@ const Navigation = () => {
               } font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out`}
             >
               <FontAwesomeIcon icon={faUpload} />
-              <Link to="/addbook">Add Book</Link>
+              <Link to="/addbook">Upload</Link>
             </li>
             <li
               className={`${
@@ -90,14 +90,14 @@ const Navigation = () => {
                 <p>Search</p>
               </li>
             )}
+            <DarkModeToggle />
           </ul>
         </div>
-        <div className="flex items-center gap-8 shrink">
-          <DarkModeToggle />
+        <div className="flex items-center gap-1 shrink">
           <Link to="/login">
             <button
               onClick={accessToken ? handleSignout : undefined}
-              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80"
+              className="py-1 px-4 rounded-xl bg-primaryRed text-white hover:bg-primaryRed/80 text-sm"
             >
               {accessToken ? "Sign out" : "Sign in"}
             </button>
@@ -151,7 +151,7 @@ const Navigation = () => {
                   <FontAwesomeIcon icon={faUpload} size="lg" />
                 </span>
                 <Link to="/addbook" onClick={closeOverlay}>
-                  Add Book
+                  Upload
                 </Link>
               </li>
               <li className="flex items-center font-semibold hover:text-primaryRed gap-4">
