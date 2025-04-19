@@ -77,10 +77,20 @@ const Navigation = () => {
               <FontAwesomeIcon icon={faGlobe} />
               <Link to="/browse">Browse</Link>
             </li>
+            {showSearch ? (
+              <div className="flex-auto">
+                <SearchForm />
+              </div>
+            ) : (
+              <li
+                onClick={() => setShowSearch(true)}
+                className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out"
+              >
+                <FontAwesomeIcon icon={faSearch} />
+                <Link to="/search">Search</Link>
+              </li>
+            )}
           </ul>
-          <div>
-            <SearchForm />
-          </div>
         </div>
         <div className="flex items-center gap-8 shrink">
           <DarkModeToggle />
