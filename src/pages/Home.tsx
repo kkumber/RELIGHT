@@ -40,9 +40,9 @@ const Home = () => {
       <div className="flex flex-col justify-center items-center my-4 mx-2 sm:mx-4">
         {error && <ErrorMsg error={error} />}
 
-        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto min-h-screen gap-y-20 lg:w-10/12">
+        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 m-auto gap-y-20 max-w-screen-lg">
           {/* Popular Uploads */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-3 max-md:grid max-md:m-auto">
             <b className="text-lg">Popular Uploads</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
 
