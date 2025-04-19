@@ -50,8 +50,11 @@ const Search = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <section className="mx-4 flex flex-col flex-grow gap-4">
-        <h2 className="text-xl font-bold dark:text-white">Search</h2>
+      <section className="mx-4 flex flex-col flex-grow gap-4 mt-4">
+        <span className="text-gray-500">
+          Search the archive for your favorite light novel and read it for free
+        </span>
+        <h2 className="text-3xl font-bold dark:text-white/80">Search</h2>
         <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
           <>{renderSearchResult()}</>
         </div>
