@@ -49,17 +49,15 @@ const Search = () => {
   }, [data]);
 
   return (
-    <>
-      <section className="w-11/12 m-auto min-h-screen flex flex-col gap-4 my-4">
-        <h2 className="text-xl font-bold py-1 px-4 bg-primaryRed rounded-md w-40 text-white">
-          Search
-        </h2>
+    <div className="min-h-screen flex flex-col">
+      <section className="mx-4 flex flex-col flex-grow">
+        <h2 className="text-xl font-bold dark:text-white">Search</h2>
         <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
           <>{renderSearchResult()}</>
         </div>
       </section>
       <Footer />
-    </>
+    </div>
   );
 };
 

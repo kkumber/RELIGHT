@@ -87,7 +87,7 @@ const Navigation = () => {
                 className="font-semibold flex items-center gap-1 hover:bg-primaryRed rounded-lg px-4 py-1 transition-all duration-500 ease-in-out"
               >
                 <FontAwesomeIcon icon={faSearch} />
-                <Link to="/search">Search</Link>
+                <p>Search</p>
               </li>
             )}
           </ul>
