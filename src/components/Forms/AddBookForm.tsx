@@ -36,7 +36,7 @@ const AddBookForm = () => {
     const { name, value } = e.target;
     const cleanedValue = sanitizeString(value);
     if (value !== cleanedValue) {
-      alert("No special characters allowed except: [':', ',', '.', '-']");
+      alert("Invalid characters detected. Only ':', ',', '.', '-' are allowed");
     }
 
     setBookForm((prev) => ({ ...prev, [name]: cleanedValue }));
@@ -82,7 +82,7 @@ const AddBookForm = () => {
     e.preventDefault();
     const formData = new FormData();
     for (let [key, value] of Object.entries(bookForm)) {
-      formData.append(key, value);
+      formData.append(key, value.trim());
     }
     if (pdf_File) formData.append("pdf_file", pdf_File);
     if (book_Cover) formData.append("book_cover", book_Cover);
