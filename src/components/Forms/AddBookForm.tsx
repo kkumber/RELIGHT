@@ -1,25 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../common/Loading";
 import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url"; // Import the PDF.js worker
+import dataURLtoFile from "../../utils/dataURLtoFile";
+import sanitizeString from "../../utils/sanitizeString";
 
 // Configure PDF.js to use the worker
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
-
-// Helper to convert a data URL to a File object.
-const dataURLtoFile = (dataurl: string, filename: string): File => {
-  const arr = dataurl.split(",");
-  const mimeMatch = arr[0].match(/:(.*?);/);
-  const mime = mimeMatch ? mimeMatch[1] : "";
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
-};
 
 const AddBookForm = () => {
   const [bookForm, setBookForm] = useState({
@@ -37,38 +25,56 @@ const AddBookForm = () => {
   const [isExtracting, setIsExtracting] = useState<boolean>(false);
   const { isLoading, error, postData } = useFetch();
 
+  const imageRef = useRef<HTMLInputElement>(null);
+  const pdfRef = useRef<HTMLInputElement>(null);
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setBookForm((prev) => ({ ...prev, [name]: value }));
+    const cleanedValue = sanitizeString(value);
+    if (value !== cleanedValue) {
+      alert("No special characters allowed except: [':', ',', '.', '-']");
+    }
+
+    setBookForm((prev) => ({ ...prev, [name]: cleanedValue }));
   };
 
   const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
+      if (file.type !== "application/pdf") {
+        alert("Incorrect File type");
+        pdfRef.current!.value = "";
+        return;
+      }
       if (file.size > 10485760) {
         alert("File size too big. Maximum of 10MB");
+        pdfRef.current!.value = "";
         return;
       }
       // Set the title directly from the PDF file name (without extension)
       const titleFromFile = file.name.replace(/\.[^/.]+$/, "");
-      setBookForm((prev) => ({ ...prev, title: titleFromFile }));
+      const cleanedValue = sanitizeString(titleFromFile);
+      setBookForm((prev) => ({ ...prev, title: cleanedValue }));
       setPdf_File(file);
     }
   };
 
   const handleBookCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files;
-    if (imageFile) {
-      if (imageFile[0].type !== "image/*") {
+    if (imageFile?.length) {
+      const file = imageFile[0];
+      if (!file.type.startsWith("image/")) {
         alert("Incorrect Image Format");
-        imageFile[0].slice(1);
+        if (imageRef.current) {
+          imageRef.current.value = "";
+        }
         return;
       }
-      setBook_Cover(imageFile[0]);
+      setBook_Cover(file);
     }
   };
 
@@ -227,6 +233,7 @@ const AddBookForm = () => {
               name="title"
               onChange={handleChange}
               value={bookForm.title}
+              required
               placeholder="Title"
               className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
@@ -240,6 +247,7 @@ const AddBookForm = () => {
               name="author"
               onChange={handleChange}
               value={bookForm.author}
+              required
               placeholder="Author"
               className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
@@ -252,6 +260,7 @@ const AddBookForm = () => {
               name="sypnosis"
               onChange={handleChange}
               value={bookForm.sypnosis}
+              required
               placeholder="Enter a brief synopsis..."
               className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-primaryRed text-black dark:border-white/10 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242] dark:text-white/80"
             />
@@ -264,6 +273,7 @@ const AddBookForm = () => {
               type="file"
               name="pdf_file"
               accept="application/pdf"
+              ref={pdfRef}
               required
               onChange={handlePDFChange}
             />
@@ -276,6 +286,8 @@ const AddBookForm = () => {
               type="file"
               name="book_cover"
               accept="image/*"
+              required
+              ref={imageRef}
               onChange={handleBookCoverChange}
             />
             {coverPreview && (
