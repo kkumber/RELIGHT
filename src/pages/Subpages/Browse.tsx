@@ -31,11 +31,11 @@ const Browse = () => {
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-[#121212]">
       <Header />
       {/* Main Container */}
-      <div className="flex flex-grow flex-col w-full md:w-9/12 mx-auto mb-20 bg-white px-2 py-8 md:p-8 rounded-lg dark:bg-[#1E1E1E] shadow-lg max-w-screen-lg">
-        <nav>
+      <div className="flex flex-grow flex-col w-full mx-auto mb-20 bg-white rounded-lg dark:bg-[#1E1E1E] shadow-lg max-w-screen-lg">
+        <nav className="p-4">
           {/* Wrapper div enables horizontal scrolling on mobile */}
           <div className="overflow-x-auto scrollbar-hide">
-            <ul className="flex gap-8 items-center font-bold whitespace-nowrap">
+            <ul className="flex gap-4 md:gap-8 items-center font-bold whitespace-nowrap">
               <li>
                 <button
                   onClick={() => setQuery("views")}
@@ -80,12 +80,12 @@ const Browse = () => {
           </div>
           <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
         </nav>
-        <div className="w-11/12 flex justify-center items-center">
+        <div className="flex justify-center items-center">
           {error && <ErrorMsg error={error} />}
         </div>
-        <section className="grid grid-cols-[repeat(auto-fit,minmax(120px,140px))] gap-y-4">
+        <section className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 px-4 pb-4">
           {isLoading
-            ? Array.from({ length: 1 }, (_, i) => (
+            ? Array.from({ length: 10 }, (_, i) => (
                 <SkeletonBookListAnimation key={i} />
               ))
             : bookList?.results.map((book) => (
