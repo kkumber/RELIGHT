@@ -184,7 +184,7 @@ const Details = () => {
                         ) : (
                           <>
                             <div className="flex justify-center items-center">
-                              {hovered ? (
+                              {hovered === "heart" ? (
                                 <FaHeart size={25} />
                               ) : (
                                 <FaRegHeart size={25} />

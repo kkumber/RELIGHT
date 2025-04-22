@@ -11,60 +11,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import Bookmark from "../UI/Bookmark";
+import PageRenderer from "./PageRender";
+import scrollToPage from "../../utils/scrollToPage";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
-interface PageRendererProps {
+export interface PageRendererProps {
   pdf: pdfjs.PDFDocumentProxy;
   pageNumber: number;
   scale: number;
   rotation: number;
 }
-
-const PageRenderer: React.FC<PageRendererProps> = ({
-  pdf,
-  pageNumber,
-  scale,
-  rotation,
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const renderPage = async () => {
-      const page = await pdf.getPage(pageNumber);
-
-      // Inherent rotation and effective rotation handling.
-      const inherentRotation = page.rotate || 0;
-      const effectiveRotation =
-        inherentRotation === 180
-          ? rotation
-          : (rotation + inherentRotation) % 360;
-
-      const viewport = page.getViewport({ scale, rotation: effectiveRotation });
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const context = canvas.getContext("2d");
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      context?.clearRect(0, 0, canvas.width, canvas.height);
-      await page.render({ canvasContext: context!, viewport }).promise;
-    };
-
-    renderPage();
-  }, [pdf, pageNumber, scale, rotation]);
-
-  return (
-    <div
-      id={`page-${pageNumber}`}
-      className="w-full md:w-[70%] mx-auto my-4 last:mb-0 border shadow-md rounded-lg overflow-hidden"
-    >
-      <canvas
-        ref={canvasRef}
-        className="w-full dark:filter dark:invert dark:brightness-110"
-      />
-    </div>
-  );
-};
 
 const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy | null>(null);
@@ -259,14 +216,6 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
       )}
     </div>
   );
-};
-
-// Helper to scroll to a specific page in infinite mode.
-const scrollToPage = (page: number) => {
-  const element = document.getElementById(`page-${page}`);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 };
 
 export default PDFViewer;

@@ -3,8 +3,8 @@ import useFetch from "../../hooks/useFetch";
 import Loading from "../common/Loading";
 import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url"; // Import the PDF.js worker
-import dataURLtoFile from "../../utils/dataURLtoFile";
 import sanitizeString from "../../utils/sanitizeString";
+import dataURLtoFile from "../../utils/dataURLtoFile";
 
 // Configure PDF.js to use the worker
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
