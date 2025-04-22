@@ -5,7 +5,7 @@ const AddBookPage = () => {
   return (
     <div className="min-h-screen flex flex-col mt-4">
       <div className="flex-grow flex items-center justify-center px-4">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-md">
           <AddBookForm />
         </div>
       </div>
