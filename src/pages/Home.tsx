@@ -46,7 +46,7 @@ const Home = () => {
             <b className="text-lg">Popular Uploads</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
 
-            <section className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
+            <section className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3">
               {isLoading
                 ? Array.from({ length: viewsPageSize }, (_, i) => (
                     <SkeletonBookListAnimation key={i} />
