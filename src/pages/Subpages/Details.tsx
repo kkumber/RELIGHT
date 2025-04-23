@@ -12,7 +12,7 @@ import {
   faCalendar,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
-
+import StarRating from "../../components/UI/StarRating";
 import { LuBook } from "react-icons/lu";
 import { FaBookOpen } from "react-icons/fa";
 import { BsShare, BsShareFill } from "react-icons/bs";
@@ -273,23 +273,23 @@ const Details = () => {
           </section>
         )}
 
-        {/* Comments Section */}
+        {/* Review Section */}
         <section>
           <div className="flex flex-col gap-4">
             <div className="flex justify-center items-center gap-2">
-              <h2 className="text-2xl font-bold">Comments</h2>
+              <h2 className="text-2xl font-bold">Review</h2>
               <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
             </div>
             <div className="bg-gray-250 dark:bg-[#272727] p-4 rounded-sm">
               <p className="text-primaryRed">
-                Please read and apply the rules before posting a comment.
+                Please read and apply the rules before posting a review.
               </p>
-              <p>By sharing your comment, you agree to all relevant terms.</p>
+              <p>By sharing your review, you agree to all relevant terms.</p>
             </div>
           </div>
 
           <div className="my-10 flex flex-col gap-4">
-            <h3 className="font-bold text-2xl">Leave a Comment</h3>
+            <h3 className="font-bold text-2xl">Leave a Review</h3>
             <CommentForm
               setContent={setContent}
               handleCommentSubmit={handleCommentSubmit}
