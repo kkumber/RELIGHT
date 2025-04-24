@@ -5,7 +5,7 @@ import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import AuthProvider, { useAccessTokenContext } from "./pages/Auth/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Details from "./pages/Subpages/Details";
+import Details from "./pages/Subpages/DetailsPage/Details";
 import Navigation from "./components/layout/Navigation";
 import AddBookPage from "./pages/Subpages/AddBookPage";
 import Browse from "./pages/Subpages/Browse";

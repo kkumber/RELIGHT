@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import CommentForm from "../../components/Forms/CommentForm";
-import RenderComments from "../../components/Renders/RenderComments";
+import useFetch from "../../../hooks/useFetch";
+import CommentForm from "../../../components/Forms/CommentForm";
+import RenderComments from "../../../components/Renders/RenderComments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
@@ -10,15 +10,16 @@ import {
   faCalendar,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
+import StarRating from "../../../components/UI/StarRating";
 
-import { LuBook } from "react-icons/lu";
-import { FaBookOpen } from "react-icons/fa";
-import { BsShare, BsShareFill } from "react-icons/bs";
-import { FaHeart, FaRegHeart } from "react-icons/fa6";
-
-import { useUserContext } from "../Auth/AuthProvider";
-import { Book } from "../../components/Renders/RenderBooks";
-import Footer from "../../components/layout/Footer";
+import { useUserContext } from "../../Auth/AuthProvider";
+import { Book } from "../../../components/Renders/RenderBooks";
+import Footer from "../../../components/layout/Footer";
+import Header from "./components/Header";
+import ReadButton from "./components/ReadButton";
+import AddToLibraryButton from "./components/AddToLibraryButton";
+import CopyLinkButton from "./components/CopyLinkButton";
+import Statistic from "./components/Statistic";
 
 interface BookComments {
   owner: string;
@@ -76,15 +77,9 @@ const Details = () => {
     navigate(`/read/${encodedFileName}/${slug}`);
   };
 
-  const copyCurrentLink = () => {
-    navigator.clipboard
-      .writeText(window.location.href)
-      .then(() => {
-        alert("Link copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Failed to copy the link: ", err);
-      });
+  // For Dynamic Action Buttons
+  const handleHover = (btn: string | null) => {
+    setHovered(btn);
   };
 
   useEffect(() => {
@@ -111,16 +106,7 @@ const Details = () => {
         {book && (
           <article key={book.id}>
             <div className="relative w-full">
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 backdrop-blur-xs bg-gradient-to-b from-black/40 to-gray-100 dark:from-black/60 dark:to-[#121212] overflow-hidden"></div>
-              {/* Background Blur Image */}
-              <div className="z-0 bg-center bg-no-repeat">
-                <img
-                  src={`https://res.cloudinary.com/dkhgtdh3i/${book.book_cover}`}
-                  alt={book.title}
-                  className="w-full h-[50vh] md:h-[70vh] object-cover"
-                />
-              </div>
+              <Header book_cover={book.book_cover} title={book.title} />
 
               {/* Details Overlay */}
               <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-1 p-2 md:gap-4 z-10 text-gray-900 dark:text-gray-100 w-full m-auto">
@@ -138,107 +124,46 @@ const Details = () => {
                   {/* Action Buttons Container */}
                   <div className="flex flex-row items-start gap-6 text-sm md:text-md justify-center">
                     <div>
-                      <button
-                        onClick={() => handleReadNavigate(book.pdf_file)}
-                        className="flex flex-col gap-2 w-min"
-                        onMouseEnter={() => setHovered("read")}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        <div className="flex justify-center items-center">
-                          {hovered === "read" ? (
-                            <FaBookOpen size={25} />
-                          ) : (
-                            <LuBook size={25} />
-                          )}
-                        </div>
-                        <div>
-                          <p>Read</p>
-                        </div>
-                      </button>
+                      <ReadButton
+                        handleReadNavigate={handleReadNavigate}
+                        handleHover={handleHover}
+                        hovered={hovered}
+                        pdf_file={book.pdf_file}
+                      />
                     </div>
                     <div>
-                      <button
-                        onClick={() => handleBookmark()}
-                        className="flex flex-col gap-2"
-                        onMouseEnter={() => setHovered("heart")}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        {book.likes && book.likes.includes(user?.id) ? (
-                          <>
-                            <div className="flex justify-center items-center">
-                              {hovered === "heart" ? (
-                                <div className="flex flex-col gap-2 justify-center items-center">
-                                  <FaRegHeart size={25} />
-                                  <p>Remove</p>
-                                </div>
-                              ) : (
-                                <div className="flex flex-col gap-2 justify-center items-center">
-                                  <FaHeart size={25} />
-                                  <p>In Library</p>
-                                </div>
-                              )}
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="flex justify-center items-center">
-                              {hovered === "heart" ? (
-                                <FaHeart size={25} />
-                              ) : (
-                                <FaRegHeart size={25} />
-                              )}
-                            </div>
-                            <p>Add to Library</p>
-                          </>
-                        )}
-                      </button>
+                      <AddToLibraryButton
+                        handleBookmark={handleBookmark}
+                        handleHover={handleHover}
+                        likes={book.likes}
+                        userId={user?.id}
+                        hovered={hovered}
+                      />
                     </div>
                     <div>
-                      <button
-                        onClick={() => copyCurrentLink()}
-                        className="flex flex-col gap-2"
-                        onMouseEnter={() => setHovered("share")}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        <div className="flex justify-center items-center">
-                          {hovered === "share" ? (
-                            <BsShareFill size={25} />
-                          ) : (
-                            <BsShare size={25} />
-                          )}
-                        </div>
-                        <p>Share</p>
-                      </button>
+                      <CopyLinkButton
+                        handleHover={handleHover}
+                        hovered={hovered}
+                      />
                     </div>
                   </div>
 
                   {/* Statistics */}
                   <div className="flex justify-center gap-x-4 md:gap-x-8 text-xs md:text-sm mt-6 px-4">
                     {/* Views */}
-                    <div className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faEye} size="lg" />
-                      <p className="font-semibold">{book.views}</p>
-                    </div>
+                    <Statistic icon={faEye} data={book.views} />
 
                     {/* Bookmarked */}
-                    <div className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faBookmark} size="lg" />
-                      <p className="font-semibold">
-                        {book.likes ? book.likes.length : 0}
-                      </p>
-                    </div>
+                    <Statistic
+                      icon={faBookmark}
+                      data={book.likes ? book.likes.length : 0}
+                    />
 
                     {/* Upload Date */}
-                    <div className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faCalendar} size="lg" />
-                      <p className="font-semibold">{book.upload_date}</p>
-                    </div>
+                    <Statistic icon={faCalendar} data={book.upload_date} />
 
                     {/* Uploaded By */}
-                    <div className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faUser} size="lg" />
-                      <p className="font-semibold">{book.uploaded_by}</p>
-                    </div>
+                    <Statistic icon={faUser} data={book.uploaded_by} />
                   </div>
                 </div>
               </div>
@@ -271,23 +196,23 @@ const Details = () => {
           </section>
         )}
 
-        {/* Comments Section */}
+        {/* Review Section */}
         <section>
           <div className="flex flex-col gap-4">
             <div className="flex justify-center items-center gap-2">
-              <h2 className="text-2xl font-bold">Comments</h2>
+              <h2 className="text-2xl font-bold">Review</h2>
               <div className="bg-black/10 dark:bg-white/10 w-full p-[.8px] rounded-full" />
             </div>
             <div className="bg-gray-250 dark:bg-[#272727] p-4 rounded-sm">
               <p className="text-primaryRed">
-                Please read and apply the rules before posting a comment.
+                Please read and apply the rules before posting a review.
               </p>
-              <p>By sharing your comment, you agree to all relevant terms.</p>
+              <p>By sharing your review, you agree to all relevant terms.</p>
             </div>
           </div>
 
           <div className="my-10 flex flex-col gap-4">
-            <h3 className="font-bold text-2xl">Leave a Comment</h3>
+            <h3 className="font-bold text-2xl">Leave a Review</h3>
             <CommentForm
               setContent={setContent}
               handleCommentSubmit={handleCommentSubmit}

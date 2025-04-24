@@ -13,6 +13,7 @@ export interface Book {
   slug: string;
   views: number;
   likes: [];
+  average_rating: number;
 }
 
 export interface BookData {
