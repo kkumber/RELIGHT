@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import CommentForm from "../../components/Forms/CommentForm";
 import RenderComments from "../../components/Renders/RenderComments";
-import Loading from "../../components/common/Loading";
-import ErrorMsg from "../../components/common/ErrorMsg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
