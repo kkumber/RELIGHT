@@ -1,6 +1,7 @@
 import { BookData } from "./RenderBooks";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { IoIosStar } from "react-icons/io";
 
 const RenderBooksSideInfo = ({ book }: BookData) => {
   const { postData } = useFetch();
@@ -8,7 +9,7 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
   return (
     <div className="grid grid-cols-3 gap-x-4 justify-between mb-4 md:flex md:flex-col gap-2">
       {/* Image Container */}
-      <div className="col-span-1 h-28 md:h-36 w-full">
+      <div className="col-span-1 h-28 md:h-36 w-full relative">
         <Link
           to={`/details/${book.slug}`}
           onClick={() =>
@@ -20,6 +21,11 @@ const RenderBooksSideInfo = ({ book }: BookData) => {
             alt={book.title}
             className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-300 ease-out"
           />
+          {/* Star Rating */}
+          <div className="bg-black rounded-tr-md p-1 absolute bottom-0 flex items-center gap-1">
+            <IoIosStar className="w-4 h-4 text-white" />
+            <p className="text-xs">{book.average_rating.toFixed(1)}</p>
+          </div>
         </Link>
       </div>
       {/* Infomation Container */}

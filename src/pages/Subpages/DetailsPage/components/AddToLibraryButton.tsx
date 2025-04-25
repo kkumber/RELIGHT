@@ -15,7 +15,6 @@ const AddToLibraryButton = ({
   userId,
   hovered,
 }: Prop) => {
-  console.log(userId);
   return (
     <button
       onClick={() => handleBookmark()}
@@ -23,7 +22,7 @@ const AddToLibraryButton = ({
       onMouseEnter={() => handleHover("heart")}
       onMouseLeave={() => handleHover(null)}
     >
-      {likes && likes.includes(2) ? (
+      {likes && likes.includes(userId!) ? (
         <div className="flex justify-center items-center">
           {hovered === "heart" ? (
             <div className="flex flex-col gap-2 justify-center items-center">

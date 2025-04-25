@@ -51,7 +51,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
     localStorage.setItem("navMode", JSON.stringify(navMode));
   }, [navMode]);
 
-  // Auto-scale logic
+  // Auto-scale
   useEffect(() => {
     if (!pdf || !viewerRef.current) return;
     const computeScale = async () => {

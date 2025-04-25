@@ -10,7 +10,7 @@ import {
   faCalendar,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
-import StarRating from "../../../components/UI/StarRating";
+import { IoIosStar } from "react-icons/io";
 
 import { useUserContext } from "../../Auth/AuthProvider";
 import { Book } from "../../../components/Renders/RenderBooks";
@@ -20,6 +20,7 @@ import ReadButton from "./components/ReadButton";
 import AddToLibraryButton from "./components/AddToLibraryButton";
 import CopyLinkButton from "./components/CopyLinkButton";
 import Statistic from "./components/Statistic";
+import { FaTrophy } from "react-icons/fa";
 
 interface BookComments {
   owner: string;
@@ -44,8 +45,10 @@ const Details = () => {
   const [userComments, setUserComments] = useState<BookComments[]>([]);
   const [content, setContent] = useState<string>();
   const [hovered, setHovered] = useState<string | null>(null);
+  const [selectedRating, setSelectedRating] = useState<number>(0);
 
   const bookURL = `library/books/details/${slug}/`;
+  const bookRatingURL = `library/books/details/${slug}/rating/`;
   const commentURL = `library/books/details/${slug}/comments/`;
 
   const navigate = useNavigate();
@@ -66,10 +69,15 @@ const Details = () => {
     e.preventDefault();
     if (content) {
       await postData(commentURL, { content: content });
+      await postData(bookRatingURL, { score: selectedRating });
     } else {
       alert("Comment is empty");
     }
     fetchBookComments(commentURL);
+  };
+
+  const handleStarRating = (index: number) => {
+    setSelectedRating(index);
   };
 
   const handleReadNavigate = (pdf_file: string) => {
@@ -111,18 +119,39 @@ const Details = () => {
               {/* Details Overlay */}
               <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center gap-1 p-2 md:gap-4 z-10 text-gray-900 dark:text-gray-100 w-full m-auto">
                 {/* Book Information */}
-                <div className="flex flex-col gap-12 text-center">
+                <div className="flex flex-col gap-8 text-center">
                   <div className="">
-                    <h3 className="text-lg md:text-2xl font-semibold text-pretty">
+                    <h3 className="text-3xl font-semibold text-pretty">
                       {book.title}
                     </h3>
-                    <p className="text-md md:text-lg">
-                      <span className="font-semibold">{book.author}</span>
+                    <p className="text-md md:text-lg flex items-center justify-center gap-1">
+                      <p>Author: </p>
+                      <p>{book.author}</p>
                     </p>
+                    {/* Ratings */}
+                    <div className="flex items-center gap-1 justify-center">
+                      <FaTrophy className="w-6 h-6 text-yellow-300" />
+                      <p className="text-lg font-bold text-yellow-300">
+                        Ratings:
+                      </p>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <IoIosStar
+                          key={star}
+                          className={`w-6 h-6 ${
+                            book.average_rating > star
+                              ? "text-yellow-500"
+                              : "text-white"
+                          }`}
+                        />
+                      ))}
+                      <p className="text-lg font-semibold">
+                        {book.average_rating}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Action Buttons Container */}
-                  <div className="flex flex-row items-start gap-6 text-sm md:text-md justify-center">
+                  <div className="flex items-start gap-6 text-sm md:text-md justify-center">
                     <div>
                       <ReadButton
                         handleReadNavigate={handleReadNavigate}
@@ -216,6 +245,8 @@ const Details = () => {
             <CommentForm
               setContent={setContent}
               handleCommentSubmit={handleCommentSubmit}
+              handleStarRating={handleStarRating}
+              selectedRating={selectedRating}
             />
           </div>
         </section>

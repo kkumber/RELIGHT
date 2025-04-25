@@ -64,8 +64,6 @@ const InfiniteViewer: React.FC<InfiniteViewerProps> = ({
     [pdf, scale, rotation, setCurrentPage]
   );
 
-  // Removed the auto-scroll effect to allow manual scrolling only
-
   const containerHeight = viewerRef.current?.clientHeight || window.innerHeight;
   const itemHeight = containerHeight + GAP;
 

@@ -10,7 +10,7 @@ const StarRating = ({ selectedRating, handleStarRating }: StarRatingProp) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="flex space-y-2 gap-2">
       <div className="flex space-x-1 items-center">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
@@ -22,7 +22,7 @@ const StarRating = ({ selectedRating, handleStarRating }: StarRatingProp) => {
             className="transition-transform transform hover:scale-110 duration-200 ease-out"
           >
             <FaStar
-              className={`w-8 h-8 ${
+              className={`w-5 h-5 ${
                 (hoverRating || selectedRating) >= star
                   ? "text-yellow-500"
                   : "text-gray-300"
