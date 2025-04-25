@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +27,9 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy | null>(null);
   const [scale, setScale] = useState<number>(1.5);
   const [rotation, setRotation] = useState<number>(0);
-  const [navMode, setNavMode] = useState<"infinite" | "paginated">("paginated");
+  const [navMode, setNavMode] = useState<string>(
+    JSON.parse(localStorage.getItem("navMode")!) || "paginated"
+  );
   const [pageNum, setPageNum] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showControls, setShowControls] = useState<boolean>(false);
@@ -100,6 +102,10 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
   const toggleNavMode = () => {
     setNavMode((prev) => (prev === "infinite" ? "paginated" : "infinite"));
   };
+
+  useEffect(() => {
+    localStorage.setItem("navMode", JSON.stringify(navMode));
+  }, [navMode]);
 
   // Show controls on click and hide them after 5 seconds.
   const handleViewerClick = () => {
@@ -189,6 +195,8 @@ const PDFViewer = ({ pdfUrl }: { pdfUrl: string }) => {
           ) : (
             <p className="text-center text-gray-800">Loading PDF...</p>
           )}
+
+          {/* Buttons for page navigation (next/prev) */}
           <div className="flex flex-row items-center gap-4 mt-4">
             <button
               onClick={() => setPageNum((prev) => Math.max(prev - 1, 1))}
