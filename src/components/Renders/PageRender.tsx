@@ -1,7 +1,14 @@
 import { useEffect, useRef } from "react";
-import { PageRendererProps } from "./PDFViewer";
+import { PDFDocumentProxy, PDFPageProxy, PageViewport } from "pdfjs-dist";
 
-const PageRenderer: React.FC<PageRendererProps> = ({
+export interface PageRenderProps {
+  pdf: PDFDocumentProxy;
+  pageNumber: number;
+  scale: number;
+  rotation: number;
+}
+
+const PageRenderer: React.FC<PageRenderProps> = ({
   pdf,
   pageNumber,
   scale,
@@ -36,7 +43,7 @@ const PageRenderer: React.FC<PageRendererProps> = ({
   return (
     <div
       id={`page-${pageNumber}`}
-      className="w-full md:w-[70%] mx-auto my-4 last:mb-0 border shadow-md rounded-lg overflow-hidden"
+      className="w-full md:w-[80%] mx-auto last:mb-0 border shadow-md rounded-lg overflow-hidden"
     >
       <canvas
         ref={canvasRef}

@@ -70,7 +70,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
             ? toggleBookmark(currentPage)
             : toggleBookmark(pageNum)
         }
-        className="px-4 py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
+        className="py-1 px-2 md:px-4 md:py-2 bg-gray-800 text-white rounded-md flex items-center gap-2"
       >
         <FontAwesomeIcon
           icon={
@@ -84,7 +84,9 @@ const Bookmark: React.FC<BookmarkProps> = ({
           }
           size="sm"
         />
-        <span>{navMode === "infinite" ? currentPage : pageNum}</span>
+        <span className="text-sm">
+          {navMode === "infinite" ? currentPage : pageNum}
+        </span>
       </button>
 
       {/* Bookmarks List */}
@@ -98,10 +100,10 @@ const Bookmark: React.FC<BookmarkProps> = ({
                 onClick={() =>
                   navMode === "infinite" ? scrollToPage(bm) : setPageNum(bm)
                 }
-                className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center gap-1"
+                className="p-1 md:px-4 md:py-2 bg-blue-500 text-white rounded-md flex items-center gap-1"
               >
                 <FontAwesomeIcon icon={solidBookmark} size="sm" />
-                <span>{bm}</span>
+                <span className="text-sm">{bm}</span>
               </button>
             ))}
         </div>
