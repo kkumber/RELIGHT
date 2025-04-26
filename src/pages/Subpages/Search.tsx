@@ -44,6 +44,7 @@ const Search = () => {
   useEffect(() => {
     if (data?.results) {
       setSearchResult(data.results);
+      console.log(data.results);
     }
     renderSearchResult();
   }, [data]);

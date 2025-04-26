@@ -37,8 +37,23 @@ const Home = () => {
   return (
     <div className="">
       <Header />
+
       <div className="flex flex-col justify-center items-center my-4 mx-2 sm:mx-4">
         {error && <ErrorMsg error={error} />}
+
+        <div className="rounded-md border-[1px] border-gray-500 p-4 bg-gray-100 dark:bg-[#1e1e1e] w-full max-w-screen-lg mb-12">
+          <article className="">
+            <h2 className="font-bold text-xl">Welcome to Relight</h2>
+            <p className="dark:text-white text-black">
+              Dive into your favorite worlds—store your personal PDF library of
+              light novels, bookmark every chapter, and share your discoveries
+              with fellow readers. Whether you’re chasing the next epic
+              adventure or reliving classic tales, Relight makes it effortless
+              to organize, read, and connect. Upload your PDFs, build your
+              collection, and join a community where every story finds its home.
+            </p>
+          </article>
+        </div>
 
         <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 gap-y-20 max-w-screen-lg m-auto">
           {/* Popular Uploads */}
