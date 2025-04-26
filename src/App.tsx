@@ -3,7 +3,7 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import AuthProvider, { useAccessTokenContext } from "./pages/Auth/AuthProvider";
+import AuthProvider from "./pages/Auth/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Details from "./pages/Subpages/DetailsPage/Details";
 import Navigation from "./components/layout/Navigation";
@@ -12,6 +12,7 @@ import Browse from "./pages/Subpages/Browse";
 import Search from "./pages/Subpages/Search";
 import Library from "./pages/Library";
 import Reader from "./pages/Subpages/Reader";
+import ResetPassword from "./pages/Auth/ResetPassword";
 
 function AppContent() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function AppContent() {
           <Route path="/library" element={<Library />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/reset" element={<ResetPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

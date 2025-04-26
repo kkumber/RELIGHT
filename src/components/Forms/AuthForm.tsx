@@ -93,7 +93,7 @@ const AuthForm = ({ action }: Prop) => {
                 className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
               />
             </div>
-            <Link to={"*"} className="text-end underline text-blue-500">
+            <Link to="/reset" className="text-end underline text-blue-500">
               Forgot password
             </Link>
             <button
@@ -141,6 +141,7 @@ const AuthForm = ({ action }: Prop) => {
               <input
                 type="email"
                 name="email"
+                required={true}
                 value={registerData.email}
                 onChange={handleChangeRegisterData}
                 className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
