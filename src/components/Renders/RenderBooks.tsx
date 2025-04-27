@@ -43,8 +43,10 @@ const RenderBooks = ({ book, size }: BookData) => {
           {/* Star Rating */}
           {book.average_rating && (
             <div className="bg-black rounded-tr-md p-1 absolute bottom-0 flex items-center gap-1">
-              <IoIosStar className="w-4 h-4 text-white" />
-              <p className="text-xs">{book.average_rating.toFixed(1)}</p>
+              <IoIosStar className="w-4 h-4 text-gray-300" />
+              <p className="text-xs text-gray-300">
+                {book.average_rating.toFixed(1)}
+              </p>
             </div>
           )}
         </div>

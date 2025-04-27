@@ -8,7 +8,7 @@ interface Prop {
 
 const Statistic = ({ icon, data }: Prop) => {
   return (
-    <div className="flex items-center gap-1 text-gray-300">
+    <div className="flex items-center gap-1 text-gray-800 dark:text-gray-300">
       <FontAwesomeIcon icon={icon} size="lg" />
       <p className="font-semibold">{data}</p>
     </div>
