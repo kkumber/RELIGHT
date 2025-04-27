@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { IoIosStar } from "react-icons/io";
 
@@ -23,8 +23,6 @@ export interface BookData {
 }
 
 const RenderBooks = ({ book, size }: BookData) => {
-  const location = useLocation();
-  const noRatingRender: string[] = ["/library"];
   const { postData } = useFetch();
   return (
     <>
@@ -43,7 +41,7 @@ const RenderBooks = ({ book, size }: BookData) => {
             className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-300 ease-out"
           />
           {/* Star Rating */}
-          {!noRatingRender.includes(location.pathname) && (
+          {book.average_rating && (
             <div className="bg-black rounded-tr-md p-1 absolute bottom-0 flex items-center gap-1">
               <IoIosStar className="w-4 h-4 text-white" />
               <p className="text-xs">{book.average_rating.toFixed(1)}</p>

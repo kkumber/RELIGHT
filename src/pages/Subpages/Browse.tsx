@@ -83,14 +83,14 @@ const Browse = () => {
         <div className="flex justify-center items-center">
           {error && <ErrorMsg error={error} />}
         </div>
-        <section className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 px-4 pb-4">
+        <section className="grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2 px-4 pb-4">
           {isLoading
             ? Array.from({ length: 10 }, (_, i) => (
                 <SkeletonBookListAnimation key={i} />
               ))
             : bookList?.results.map((book) => (
                 <div key={book.id}>
-                  <RenderBooks book={book} size="h-48 w-32" />
+                  <RenderBooks book={book} size="h-64 w-full" />
                 </div>
               ))}
         </section>

@@ -28,9 +28,7 @@ const Search = () => {
       return <span>No books found</span>;
     } else {
       return searchResult.map((book) => (
-        <div className="" key={book.id}>
-          <RenderBooks book={book} size="h-48 w-32" />
-        </div>
+        <RenderBooks book={book} size="h-64 w-full max-w-40" key={book.id} />
       ));
     }
   };
@@ -44,7 +42,6 @@ const Search = () => {
   useEffect(() => {
     if (data?.results) {
       setSearchResult(data.results);
-      console.log(data.results);
     }
     renderSearchResult();
   }, [data]);
@@ -52,11 +49,21 @@ const Search = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <section className="mx-4 flex flex-col flex-grow gap-4 mt-4">
-        <span className="text-gray-500">
-          Search the archive for your favorite light novel and read it for free
-        </span>
-        <h2 className="text-3xl font-bold dark:text-white/80">Search</h2>
-        <div className="flex flex-wrap gap-4 flex-grow justify-center md:justify-normal">
+        <h1 className="text-3xl font-bold dark:text-white/80">Search</h1>
+
+        <div className="rounded-md border-[1px] border-gray-500 p-4 bg-gray-100 dark:bg-[#1e1e1e] w-full mb-12">
+          <article className="">
+            <h2 className="font-bold text-xl">
+              Dive into the World of Light Novels
+            </h2>
+            <p className="dark:text-white text-black">
+              Explore a vast collection of captivating stories—from heartwarming
+              romances to thrilling adventures. Discover your next favorite
+              light novel today!
+            </p>
+          </article>
+        </div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-3">
           <>{renderSearchResult()}</>
         </div>
       </section>

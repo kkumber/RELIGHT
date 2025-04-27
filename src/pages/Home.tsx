@@ -55,19 +55,19 @@ const Home = () => {
           </article>
         </div>
 
-        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-20 gap-y-20 max-w-screen-lg m-auto">
+        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-64 gap-y-20 max-w-screen-lg m-auto">
           {/* Popular Uploads */}
-          <div className="max-md:w-full md:col-span-3 max-md:grid">
+          <div className="w-full md:col-span-3 max-md:grid">
             <b className="text-lg">Popular Uploads</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
 
-            <section className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3">
+            <section className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-4">
               {isLoading
                 ? Array.from({ length: viewsPageSize }, (_, i) => (
                     <SkeletonBookListAnimation key={i} />
                   ))
                 : popularList?.results.map((book, index) => (
-                    <RenderBooks book={book} size="h-48 w-full" key={index} />
+                    <RenderBooks book={book} size="h-56 w-full" key={index} />
                   ))}
             </section>
           </div>
