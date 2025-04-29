@@ -5,6 +5,7 @@ import * as pdfjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker?url"; // Import the PDF.js worker
 import sanitizeString from "../../utils/sanitizeString";
 import dataURLtoFile from "../../utils/dataURLtoFile";
+import Uploading from "../common/Uploading";
 
 // Configure PDF.js to use the worker
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
@@ -219,6 +220,12 @@ const AddBookForm = () => {
         </div>
       )}
 
+      {isLoading && (
+        <p className="animate-pulse text-center mb-4 text-gray-700">
+          Please Wait. Upload may take a while
+        </p>
+      )}
+
       <form onSubmit={handleSubmit} className="">
         <div className="bg-primaryRed p-4 rounded-t-xl">
           <p className="text-xl font-semibold">Submit a Book</p>
@@ -286,7 +293,6 @@ const AddBookForm = () => {
               type="file"
               name="book_cover"
               accept="image/*"
-              required
               ref={imageRef}
               onChange={handleBookCoverChange}
             />
@@ -299,8 +305,8 @@ const AddBookForm = () => {
             )}
           </div>
 
-          <button className="bg-primaryRed hover:-translate-y-1 rounded-md p-2 text-white font-medium transition-all">
-            {isLoading ? <Loading /> : "Submit"}
+          <button className="bg-primaryRed hover:bg-primaryRed/80 rounded-md p-2 text-white font-medium transition-all">
+            {isLoading ? <Uploading /> : "Submit"}
           </button>
         </div>
       </form>
