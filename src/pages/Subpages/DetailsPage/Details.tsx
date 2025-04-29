@@ -138,14 +138,14 @@ const Details = () => {
                         <IoIosStar
                           key={star}
                           className={`w-6 h-6 ${
-                            book.average_rating > star
+                            Math.floor(book.average_rating) >= star
                               ? "text-yellow-500"
                               : "text-white"
                           }`}
                         />
                       ))}
                       <p className="text-lg font-semibold">
-                        {book.average_rating}
+                        {book.average_rating.toFixed(1)}
                       </p>
                     </div>
                   </div>

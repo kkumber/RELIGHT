@@ -41,7 +41,7 @@ const RenderBooks = ({ book, size }: BookData) => {
             className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-300 ease-out"
           />
           {/* Star Rating */}
-          {book.average_rating && (
+          {book.hasOwnProperty("average_rating") && (
             <div className="bg-black rounded-tr-md p-1 absolute bottom-0 flex items-center gap-1">
               <IoIosStar className="w-4 h-4 text-gray-300" />
               <p className="text-xs text-gray-300">

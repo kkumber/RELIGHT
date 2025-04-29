@@ -55,7 +55,7 @@ const Home = () => {
           </article>
         </div>
 
-        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-64 gap-y-20 max-w-screen-lg m-auto">
+        <div className="flex flex-wrap md:grid md:grid-cols-5 md:gap-x-32 lg:gap-x-64 gap-y-20 max-w-screen-lg m-auto">
           {/* Popular Uploads */}
           <div className="w-full md:col-span-3 max-md:grid">
             <b className="text-lg">Popular Uploads</b>
@@ -73,7 +73,7 @@ const Home = () => {
           </div>
 
           {/* New & Trending */}
-          <div className="col-span-2">
+          <div className="col-span-2 w-full">
             <b className="text-lg">New & Trending</b>
             <div className="h-[2px] bg-primaryRed/80 w-full my-4 rounded-full" />
             <section className="flex flex-col gap-8">
