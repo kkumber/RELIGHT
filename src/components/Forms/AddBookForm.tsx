@@ -94,6 +94,7 @@ const AddBookForm = () => {
     } else {
       alert("PDF Uploaded");
     }
+    pdfRef.current!.value = "";
   };
 
   // Extract details (author and book cover) from the PDF when a file is selected.
