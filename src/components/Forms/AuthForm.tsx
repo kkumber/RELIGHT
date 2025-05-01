@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { useNavigate } from "react-router-dom";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../../hooks/useAuthFetch";
+import { UserRegisterData } from "../../hooks/useAuthFetch";
+import { User } from "../../hooks/useAuthFetch";
 
 interface Prop {
   action: string;
 }
 
+interface Auth {
+  data: User | undefined;
+  isLoading: boolean;
+  error: string | null | undefined;
+  getToken: (data: UserAuth) => void;
+  registerUser: (data: UserRegisterData) => void;
+}
+
 const AuthForm = ({ action }: Prop) => {
-  const { data, isLoading, error, getToken, registerUser } = useAuthFetch();
+  const { data, isLoading, error, getToken, registerUser }: Auth =
+    useAuthFetch();
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -30,7 +42,7 @@ const AuthForm = ({ action }: Prop) => {
     const { name, value } = e.target;
     setLoginData({
       ...loginData,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
 
@@ -38,7 +50,7 @@ const AuthForm = ({ action }: Prop) => {
     const { name, value } = e.target;
     setRegisterData({
       ...registerData,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
 
@@ -46,7 +58,6 @@ const AuthForm = ({ action }: Prop) => {
     e.preventDefault();
     if (loginData.username !== "" && loginData.password !== "") {
       await getToken(loginData);
-      navigate("/");
     }
   };
 
@@ -66,9 +77,13 @@ const AuthForm = ({ action }: Prop) => {
           <h1 className="text-4xl">
             <b>Welcome Back</b>
           </h1>
-          <span className="text-black/60 dark:text-white/60">
+          <p className="text-black/60 dark:text-white/60">
             Please enter your details
-          </span>
+          </p>
+          {data && !data.success && (
+            <p className="text-red-400 italic">{data.message}</p>
+          )}
+
           {/* User Inputs */}
           <div className="flex flex-col justify-center gap-y-4 mt-4">
             <div className="flex flex-col">

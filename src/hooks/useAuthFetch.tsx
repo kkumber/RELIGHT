@@ -6,23 +6,31 @@ import {
   useCSRFTokenContext,
 } from "../pages/Auth/AuthProvider";
 
-interface UserAuth {
+export interface UserAuth {
   username: string;
   password: string;
 }
 
-interface UserRegisterData {
+export interface UserRegisterData {
   username: string;
   email: string;
   password1: string;
   password2: string;
 }
 
+export interface User {
+  success: boolean;
+  message: string;
+  access_token: string | null | undefined;
+  csrf_token: string | null | undefined;
+  user: object | undefined | null;
+}
+
 const useAuthFetch = () => {
   const api = useApi();
-  const [data, setData] = useState();
+  const [data, setData] = useState<User>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<string | null | undefined>();
   const { accessToken, setAccessToken } = useAccessTokenContext();
   const { csrf_token, setcsrf_token } = useCSRFTokenContext();
   const { user, setUser } = useUserContext();
