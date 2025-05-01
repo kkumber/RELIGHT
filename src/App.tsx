@@ -12,11 +12,17 @@ import Browse from "./pages/Subpages/Browse";
 import Search from "./pages/Subpages/Search";
 import Library from "./pages/Library";
 import Reader from "./pages/Subpages/Reader";
-import ResetPassword from "./pages/Auth/ResetPassword";
+import ResetPasswordRequest from "./pages/Auth/ResetPasswordRequest";
+import ResetPasswordConfirm from "./pages/Auth/ResetPasswordConfirm";
 
 function AppContent() {
   const location = useLocation();
-  const noNavRoutes = ["/login", "/register"];
+  const noNavRoutes = [
+    "/login",
+    "/register",
+    "/reset-request",
+    "/reset-password/:token",
+  ];
 
   return (
     <>
@@ -32,7 +38,11 @@ function AppContent() {
           <Route path="/library" element={<Library />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/reset" element={<ResetPassword />} />
+        <Route path="/reset-request" element={<ResetPasswordRequest />} />
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPasswordConfirm />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
