@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import Loading from "../../components/common/Loading";
+import isValidUsername from "../../utils/isValidUsername";
+import useAuthValidation from "../../hooks/useAuthValidation";
 
 const Register = () => {
   const { data, isLoading, error, registerUser } = useAuthFetch();
   const navigate = useNavigate();
+  const { validate } = useAuthValidation();
 
   const [registerData, setRegisterData] = useState({
     username: "",
@@ -36,7 +39,7 @@ const Register = () => {
   }, [data]);
 
   return (
-    <div className="min-h-screen flex flex-col m-auto">
+    <div className="min-h-screen flex flex-col m-auto bg-gray-100">
       <div className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-2xl">
           <form
@@ -60,7 +63,7 @@ const Register = () => {
                   required={true}
                   value={registerData.username}
                   onChange={handleChangeRegisterData}
-                  className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
+                  className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
               <div className="flex flex-col">
@@ -71,7 +74,7 @@ const Register = () => {
                   required={true}
                   value={registerData.email}
                   onChange={handleChangeRegisterData}
-                  className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
+                  className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
               <div className="flex flex-col">
@@ -82,7 +85,7 @@ const Register = () => {
                   required={true}
                   value={registerData.password1}
                   onChange={handleChangeRegisterData}
-                  className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
+                  className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
               <div className="flex flex-col">
@@ -93,7 +96,7 @@ const Register = () => {
                   required={true}
                   value={registerData.password2}
                   onChange={handleChangeRegisterData}
-                  className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
+                  className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
               <button

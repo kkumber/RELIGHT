@@ -13,7 +13,7 @@ const ResetPasswordRequest = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col m-auto">
+    <div className="min-h-screen flex flex-col m-auto bg-gray-100">
       <div className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-lg">
           <form
@@ -38,7 +38,7 @@ const ResetPasswordRequest = () => {
                   name="email"
                   required={true}
                   ref={emailRef}
-                  className="rounded-sm border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
+                  className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
 
