@@ -1,12 +1,28 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ResetPasswordConfirm = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [confirmPass, setConfirmPass] = useState<string>("");
+  const { data, isLoading, error, postData } = useFetch();
+  const { token } = useParams();
+  const navigate = useNavigate();
 
-  const handlePasswordReset = (e: React.FormEvent) => {
+  const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault();
+    await postData("api/password_reset/confirm/", {
+      token: token,
+      password: passwordRef.current?.value,
+    });
+    alert("Password Changed Successfully");
+    navigate("/login");
   };
+
+  useEffect(() => {
+    // Validate token first, if not go back to pass request
+    postData("api/password_reset/validate_token/", { token: token });
+  }, []);
 
   const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -24,7 +40,7 @@ const ResetPasswordConfirm = () => {
               <b>Change Password</b>
             </h1>
             <span className="text-black/60 dark:text-white/60">
-              Please enter the new password
+              Please enter your new password
             </span>
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">

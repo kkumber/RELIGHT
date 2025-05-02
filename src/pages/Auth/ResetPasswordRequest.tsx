@@ -23,9 +23,12 @@ const ResetPasswordRequest = () => {
             <h1 className="text-4xl">
               <b>Password Reset Request</b>
             </h1>
-            <span className="text-black/60 dark:text-white/60">
-              Please enter the details you used during account creation
-            </span>
+            <p className="text-black/60 dark:text-white/60">
+              Please enter the details you used during account creation.
+            </p>
+            <p className="text-black/60 dark:text-white/60">
+              A password reset link will be sent to your email.
+            </p>
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
               <div className="flex flex-col">
