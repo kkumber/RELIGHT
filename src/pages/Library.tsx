@@ -23,7 +23,7 @@ const Library = () => {
     <main className="max-w-screen-lg px-2 sm:px-4">
       <h3 className="text-3xl font-bold mb-4">Library</h3>
       {error && <ErrorMsg error={error} />}
-      {bookList ? (
+      {bookList && bookList.length > 0 ? (
         <section className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(140px,1fr))]">
           {isLoading
             ? Array.from({ length: 20 }, (_, i) => (

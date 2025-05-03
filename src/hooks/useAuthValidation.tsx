@@ -1,54 +1,74 @@
 import isValidUsername from "../utils/isValidUsername";
 import isEmailValid from "../utils/isEmailValid";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+
+interface Inputs {
+  username?: string;
+  email?: string;
+  password1?: string;
+  password2?: string;
+}
 
 interface Prop {
-  name: string;
-  value: string;
+  InputName: Inputs;
   password: string;
 }
 
-const useAuthValidation = ({ name, value, password }: Prop) => {
-  const [errorMsg, setErrorMsg] = useState<string>();
+const useAuthValidation = ({ InputName, password }: Prop) => {
+  const [usernameErrorMsg, setUsernameErrorMsg] = useState<string>("");
+  const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
+  const [password1ErrorMsg, setPassword1ErrorMsg] = useState<string>("");
+  const [password2ErrorMsg, setPassword2ErrorMsg] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
 
   const validate = useCallback(() => {
-    switch (name) {
-      case "username":
-        if (!isValidUsername(value)) {
-          setErrorMsg("Username must be 3–15 alphanumeric characters.");
-          setIsValid(false);
-          break;
-        }
-      case "email":
-        if (!isEmailValid(value)) {
-          setErrorMsg("Invalid Email");
-          setIsValid(false);
+    // Reset all errors
+    setUsernameErrorMsg("");
+    setEmailErrorMsg("");
+    setPassword1ErrorMsg("");
+    setPassword2ErrorMsg("");
 
-          break;
-        }
-      case "password":
-        if (value.length < 8) {
-          setErrorMsg("Password must at least be 8 characters.");
-          setIsValid(false);
+    let valid = true;
 
-          break;
-        }
-      case "password2":
-        if (value !== password) {
-          setErrorMsg("Password does not match.");
-          setIsValid(false);
-
-          break;
-        }
-      default:
-        setErrorMsg("");
-        setIsValid(true);
-        break;
+    if (InputName.username) {
+      if (!isValidUsername(InputName.username)) {
+        setUsernameErrorMsg("Username must be 3–15 alphanumeric characters.");
+        valid = false;
+      }
     }
-  }, [name, value, password]);
 
-  return { errorMsg, isValid, validate };
+    if (InputName.email) {
+      if (!isEmailValid(InputName.email)) {
+        setEmailErrorMsg("Invalid Email");
+        valid = false;
+      }
+    }
+
+    if (InputName.password1) {
+      if (InputName.password1.length < 8) {
+        setPassword1ErrorMsg("Password must be at least 8 characters.");
+        valid = false;
+      }
+    }
+
+    if (InputName.password2) {
+      if (InputName.password2 !== password) {
+        setPassword2ErrorMsg("Passwords do not match.");
+        valid = false;
+      }
+    }
+
+    setIsValid(valid);
+  }, [InputName, password]);
+
+  return {
+    isValid,
+    validate,
+    usernameErrorMsg,
+    emailErrorMsg,
+    password1ErrorMsg,
+    password2ErrorMsg,
+  };
 };
 
 export default useAuthValidation;

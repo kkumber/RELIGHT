@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthFetch from "../../hooks/useAuthFetch";
 import Loading from "../../components/common/Loading";
-import isValidUsername from "../../utils/isValidUsername";
 import useAuthValidation from "../../hooks/useAuthValidation";
 
 const Register = () => {
   const { data, isLoading, error, registerUser } = useAuthFetch();
   const navigate = useNavigate();
-  const { validate } = useAuthValidation();
 
   const [registerData, setRegisterData] = useState({
     username: "",
@@ -18,7 +16,19 @@ const Register = () => {
     password2: "",
   });
 
-  const handleChangeRegisterData = (e: any) => {
+  const {
+    isValid,
+    validate,
+    usernameErrorMsg,
+    emailErrorMsg,
+    password1ErrorMsg,
+    password2ErrorMsg,
+  } = useAuthValidation({
+    InputName: registerData,
+    password: registerData.password1,
+  });
+
+  const handleChangeRegisterData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setRegisterData({
       ...registerData,
@@ -26,9 +36,13 @@ const Register = () => {
     });
   };
 
-  const handleRegister = async (e: any) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    await registerUser(registerData);
+    if (isValid) {
+      await registerUser(registerData);
+    } else {
+      alert("Invalid credentials");
+    }
   };
 
   useEffect(() => {
@@ -56,55 +70,77 @@ const Register = () => {
             {/* User inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
               <div className="flex flex-col">
-                <label htmlFor="username">Username </label>
+                <label htmlFor="username">Username</label>
+                {usernameErrorMsg && (
+                  <p className="text-red-400 italic">{usernameErrorMsg}</p>
+                )}
                 <input
                   type="text"
                   name="username"
-                  required={true}
+                  required
                   value={registerData.username}
+                  maxLength={15}
                   onChange={handleChangeRegisterData}
+                  onKeyUp={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
+
               <div className="flex flex-col">
-                <label htmlFor="email">Email </label>
+                <label htmlFor="email">Email</label>
+                {emailErrorMsg && (
+                  <p className="text-red-400 italic">{emailErrorMsg}</p>
+                )}
                 <input
                   type="email"
                   name="email"
-                  required={true}
+                  required
                   value={registerData.email}
                   onChange={handleChangeRegisterData}
+                  onKeyUp={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
+
               <div className="flex flex-col">
-                <label htmlFor="password1">Password </label>
+                <label htmlFor="password1">Password</label>
+                {password1ErrorMsg && (
+                  <p className="text-red-400 italic">{password1ErrorMsg}</p>
+                )}
                 <input
                   type="password"
                   name="password1"
-                  required={true}
+                  required
                   value={registerData.password1}
                   onChange={handleChangeRegisterData}
+                  onKeyUp={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
+
               <div className="flex flex-col">
-                <label htmlFor="password2 ">Confirm Password </label>
+                <label htmlFor="password2">Confirm Password</label>
+                {password2ErrorMsg && (
+                  <p className="text-red-400 italic">{password2ErrorMsg}</p>
+                )}
                 <input
                   type="password"
                   name="password2"
-                  required={true}
+                  required
                   value={registerData.password2}
                   onChange={handleChangeRegisterData}
+                  onKeyUp={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
+
               <button
                 type="submit"
                 className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
               >
                 {isLoading ? <Loading /> : "Register"}
               </button>
+
               <span className="text-center">
                 Already have an account?{" "}
                 <Link to="/login">
