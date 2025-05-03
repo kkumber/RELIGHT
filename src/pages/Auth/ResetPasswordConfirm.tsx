@@ -1,32 +1,38 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
+import useAuthValidation from "../../hooks/useAuthValidation";
 
 const ResetPasswordConfirm = () => {
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const [confirmPass, setConfirmPass] = useState<string>("");
+  const [passwords, setPasswords] = useState({ password1: "", password2: "" });
   const { data, isLoading, error, postData } = useFetch();
   const { token } = useParams();
   const navigate = useNavigate();
+  const { isValid, password1ErrorMsg, password2ErrorMsg, validate } =
+    useAuthValidation({ InputName: passwords });
 
   const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault();
-    await postData("api/password_reset/confirm/", {
-      token: token,
-      password: passwordRef.current?.value,
-    });
-    alert("Password Changed Successfully");
-    navigate("/login");
+    if (isValid) {
+      await postData("api/password_reset/confirm/", {
+        token: token,
+        password: passwords.password1,
+      });
+      alert("Password Changed Successfully");
+      navigate("/login");
+    }
   };
 
   useEffect(() => {
-    // Validate token first, if not go back to pass request
     postData("api/password_reset/validate_token/", { token: token });
   }, []);
 
-  const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setConfirmPass(value);
+  const handlePasswordOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswords({
+      ...passwords,
+      [name]: value.trim(),
+    });
   };
   return (
     <div className="min-h-screen flex flex-col m-auto bg-gray-100 dark:bg-[#121212]">
@@ -42,27 +48,37 @@ const ResetPasswordConfirm = () => {
             <span className="text-black/60 dark:text-white/60">
               Please enter your new password
             </span>
+            {error && <p className="text-red-400">{error}</p>}
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
               <div className="flex flex-col">
                 <label htmlFor="password">New Password</label>
+                {password1ErrorMsg && (
+                  <p className="text-red-400 italic">{password1ErrorMsg}</p>
+                )}
                 <input
                   type="password"
-                  name="password"
+                  name="password1"
                   required={true}
-                  ref={passwordRef}
+                  value={passwords.password1}
+                  onChange={handlePasswordOnChange}
+                  onKeyDown={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
 
               <div className="flex flex-col">
                 <label htmlFor="password2">Confirm Password</label>
+                {password2ErrorMsg && (
+                  <p className="text-red-400 italic">{password2ErrorMsg}</p>
+                )}
                 <input
                   type="password"
                   name="password2"
                   required={true}
-                  value={confirmPass}
-                  onChange={handleConfirmPassword}
+                  value={passwords.password2}
+                  onChange={handlePasswordOnChange}
+                  onKeyDown={validate}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
@@ -71,7 +87,7 @@ const ResetPasswordConfirm = () => {
                 type="submit"
                 className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
               >
-                Confirm
+                {isLoading ? "Changing..." : "Confirm"}
               </button>
             </div>
           </form>

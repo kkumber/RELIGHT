@@ -1,13 +1,19 @@
 import { useRef, useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import useAuthValidation from "../../hooks/useAuthValidation";
 
 const ResetPasswordRequest = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const { postData } = useFetch();
 
+  const { isValid, validate, emailErrorMsg } = useAuthValidation({
+    InputName: { email: emailRef.current?.value },
+  });
+
   const handleChangePasswordRequest = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailRef.current) {
+    validate();
+    if (emailRef.current && isValid) {
       await postData("api/password_reset/", { email: emailRef.current.value });
     }
   };
@@ -27,12 +33,15 @@ const ResetPasswordRequest = () => {
               Please enter the details you used during account creation.
             </p>
             <p className="text-black/60 dark:text-white/60">
-              A password reset link will be sent to your email.
+              A link to change your password will be sent to your email.
             </p>
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
               <div className="flex flex-col">
                 <label htmlFor="email">Enter your Email </label>
+                {emailErrorMsg && (
+                  <p className="text-red-400 italic">{emailErrorMsg}</p>
+                )}
                 <input
                   type="email"
                   name="email"

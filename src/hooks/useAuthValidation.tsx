@@ -11,7 +11,7 @@ interface Inputs {
 
 interface Prop {
   InputName: Inputs;
-  password: string;
+  password?: string;
 }
 
 const useAuthValidation = ({ InputName, password }: Prop) => {

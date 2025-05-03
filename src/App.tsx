@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+} from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import NotFound from "./pages/NotFound";
@@ -17,16 +23,15 @@ import ResetPasswordConfirm from "./pages/Auth/ResetPasswordConfirm";
 
 function AppContent() {
   const location = useLocation();
-  const noNavRoutes = [
-    "/login",
-    "/register",
-    "/reset-request",
-    "/reset-password/:token",
-  ];
+  const matchReset = useMatch("/reset-password/:token");
+
+  // only hide nav on these exact paths…
+  const noNavExact = ["/login", "/register", "/reset-request"];
+  const hideNav = noNavExact.includes(location.pathname) || Boolean(matchReset);
 
   return (
     <>
-      {!noNavRoutes.includes(location.pathname) && <Navigation />}
+      {!hideNav && <Navigation />}
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} />
