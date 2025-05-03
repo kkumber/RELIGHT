@@ -53,7 +53,7 @@ const Register = () => {
   }, [data]);
 
   return (
-    <div className="min-h-screen flex flex-col m-auto bg-gray-100">
+    <div className="min-h-screen flex flex-col m-auto bg-gray-100 dark:bg-[#121212]">
       <div className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-2xl">
           <form
