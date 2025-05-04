@@ -15,10 +15,6 @@ const Browse = () => {
 
   useEffect(() => {
     fetchData(`library/books/?sort_by=${query}&page_size=${pageSize}`);
-  }, []);
-
-  useEffect(() => {
-    fetchData(`library/books/?sort_by=${query}&page_size=${pageSize}`);
   }, [query]);
 
   useEffect(() => {
