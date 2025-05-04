@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import useAuthValidation from "../../hooks/useAuthValidation";
+import { FiMail, FiSend } from "react-icons/fi";
 
 const ResetPasswordRequest = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -37,15 +38,18 @@ const ResetPasswordRequest = () => {
             </p>
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
-              <div className="flex flex-col">
-                <label htmlFor="email">Enter your Email </label>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="email" className="flex items-center gap-2">
+                  <FiMail className="text-xl" />
+                  Email
+                </label>
                 {emailErrorMsg && (
                   <p className="text-red-400 italic">{emailErrorMsg}</p>
                 )}
                 <input
                   type="email"
                   name="email"
-                  required={true}
+                  required
                   ref={emailRef}
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
@@ -53,8 +57,9 @@ const ResetPasswordRequest = () => {
 
               <button
                 type="submit"
-                className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
+                className="flex items-center gap-2 bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
               >
+                <FiSend className="text-lg" />
                 Submit
               </button>
             </div>

@@ -6,6 +6,7 @@ import { UserAuth } from "../../hooks/useAuthFetch";
 import { UserRegisterData } from "../../hooks/useAuthFetch";
 import { Link } from "react-router-dom";
 import Loading from "../../components/common/Loading";
+import { FiUser, FiLock, FiLogIn } from "react-icons/fi";
 
 interface Auth {
   data: User | undefined;
@@ -69,8 +70,10 @@ const Login = () => {
 
             {/* User Inputs */}
             <div className="flex flex-col justify-center gap-y-4 mt-4">
-              <div className="flex flex-col">
-                <label htmlFor="username">Username </label>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="username" className="flex items-center gap-2">
+                  <FiUser className="text-xl" /> <span>Username</span>
+                </label>
                 <input
                   type="text"
                   name="username"
@@ -80,8 +83,10 @@ const Login = () => {
                   className="rounded-md border-[1px] border-black/10 dark:border-white/10 p-2 dark:bg-[#2c2c2c] dark:hover:bg-[#373737] focus:bg-[$424242]"
                 />
               </div>
-              <div className="flex flex-col">
-                <label htmlFor="password">Password </label>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="password" className="flex items-center gap-2">
+                  <FiLock className="text-xl" /> <span>Password</span>
+                </label>
                 <input
                   type="password"
                   name="password"
@@ -99,8 +104,9 @@ const Login = () => {
               </Link>
               <button
                 type="submit"
-                className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80"
+                className="bg-primaryRed text-white py-2 px-4 rounded-md max-w-min hover:bg-primaryRed/80 flex items-center justify-center gap-2"
               >
+                <FiLogIn className="text-xl" />
                 {isLoading ? <Loading /> : "Login"}
               </button>
               <span className="text-center">
