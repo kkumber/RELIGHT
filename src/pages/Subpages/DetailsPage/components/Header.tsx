@@ -1,5 +1,3 @@
-import { Book } from "../../../../components/Renders/RenderBooks";
-
 interface Prop {
   book_cover: string;
   title: string;
@@ -8,7 +6,7 @@ interface Prop {
 const Header = ({ book_cover, title }: Prop) => {
   return (
     <>
-      <div className="absolute inset-0 backdrop-blur-xs bg-gradient-to-b from-black/40 to-gray-100 dark:from-black/60 dark:to-[#121212] overflow-hidden"></div>
+      <div className="absolute inset-0 backdrop-blur-xs bg-gradient-to-b from-black/40 to-gray-100 dark:from-black/60 dark:to-[#121212] overflow-hidden z-10"></div>
       <div className="z-0 bg-center bg-no-repeat">
         <img
           src={`https://res.cloudinary.com/dkhgtdh3i/${book_cover}`}
