@@ -144,8 +144,11 @@ const Details = () => {
                           }`}
                         />
                       ))}
+
                       <p className="text-lg font-semibold">
-                        {book.average_rating.toFixed(1)}
+                        {book.average_rating
+                          ? book.average_rating.toFixed(1)
+                          : "0.0"}
                       </p>
                     </div>
                   </div>
