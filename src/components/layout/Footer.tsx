@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="flex gap-4 items-center justify-center">
             <div className="w-24">
               <img
-                src="images/relight-logo.png"
+                src="/images/relight-logo.png"
                 alt="logo"
                 className="w-full"
               />
