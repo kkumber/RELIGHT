@@ -12,15 +12,24 @@ const Footer = () => {
       <footer className="bg-gray-300 dark:bg-[#1E1E1E] relative bottom-0 w-full p-8 mt-20">
         <div className="flex flex-col md:flex-row items-center justify-center gap-20">
           {/* Contact Info */}
-          <div className="flex items-center flex-col gap-2">
-            <div className="">
-              <b className="text-xl">RELIGHT</b>
+          <div className="flex gap-4 items-center justify-center">
+            <div className="w-24">
+              <img
+                src="/public/images/relight-logo.png"
+                alt="logo"
+                className="w-full"
+              />
             </div>
-            <div className="flex gap-x-4 items-center">
-              <FontAwesomeIcon icon={faGithub} size="lg" />
-              <FontAwesomeIcon icon={faDiscord} size="lg" />
-              <FontAwesomeIcon icon={faFacebook} size="lg" />
-              <FontAwesomeIcon icon={faInstagram} size="lg" />
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <b className="text-xl">RELIGHT</b>
+              </div>
+              <div className="flex gap-x-4 items-center">
+                <FontAwesomeIcon icon={faGithub} size="lg" />
+                <FontAwesomeIcon icon={faDiscord} size="lg" />
+                <FontAwesomeIcon icon={faFacebook} size="lg" />
+                <FontAwesomeIcon icon={faInstagram} size="lg" />
+              </div>
             </div>
           </div>
           {/* Services */}
