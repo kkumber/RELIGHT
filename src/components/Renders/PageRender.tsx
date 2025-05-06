@@ -43,11 +43,12 @@ const PageRenderer: React.FC<PageRenderProps> = ({
   return (
     <div
       id={`page-${pageNumber}`}
-      className="w-full md:w-[80%] mx-auto last:mb-0 border shadow-md rounded-lg overflow-hidden"
+      className="w-full md:w-[80%] mx-auto last:mb-0 border shadow-md rounded-lg overflow-auto"
     >
       <canvas
         ref={canvasRef}
-        className="w-full dark:filter dark:invert dark:brightness-110"
+        className="w-full dark:filter dark:invert dark:brightness-110 max-md:h-full max-md:scale-125 m-auto block text-wrap"
+        id={`page-${pageNumber}`}
       />
     </div>
   );
