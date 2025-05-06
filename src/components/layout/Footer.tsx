@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-20">
           {/* Contact Info */}
           <div className="flex gap-4 items-center justify-center">
-            <div className="w-24">
+            <div className="w-14">
               <img
                 src="/images/relight-logo.png"
                 alt="logo"
