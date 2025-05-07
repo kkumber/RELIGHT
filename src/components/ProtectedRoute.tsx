@@ -6,6 +6,7 @@ import {
 } from "../pages/Auth/AuthProvider";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
+import FrontPageLoading from "./common/FrontPageLoading";
 
 const ProtectedRoute = () => {
   const { accessToken, setAccessToken } = useAccessTokenContext();
@@ -45,7 +46,12 @@ const ProtectedRoute = () => {
     authenticate();
   }, [accessToken]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <FrontPageLoading />
+      </div>
+    );
   return accessToken ? <Outlet /> : <Navigate to="/login" />;
 };
 
