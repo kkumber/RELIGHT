@@ -86,13 +86,20 @@ const AddBookForm = () => {
       formData.append(key, value.trim());
     }
     if (pdf_File) formData.append("pdf_file", pdf_File);
-    if (book_Cover) formData.append("book_cover", imageRef.current!.value);
+    if (book_Cover) formData.append("book_cover", book_Cover);
 
     await postData("library/books/", formData);
     if (error) {
       alert("Error: " + error);
     } else {
       alert("PDF Uploaded");
+      setBookForm({ title: "", author: "", sypnosis: "" });
+      setPdf_File(undefined);
+      setBook_Cover(undefined);
+      setCoverPreview("");
+
+      if (pdfRef.current) pdfRef.current.value = "";
+      if (imageRef.current) imageRef.current.value = "";
     }
     pdfRef.current!.value = "";
   };
