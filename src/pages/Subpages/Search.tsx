@@ -63,7 +63,7 @@ const Search = () => {
             </p>
           </article>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(140px,170px))] gap-3">
           <>{renderSearchResult()}</>
         </div>
       </section>

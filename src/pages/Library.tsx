@@ -20,18 +20,22 @@ const Library = () => {
   }, [data]);
 
   return (
-    <main className="max-w-screen-lg px-2 sm:px-4">
+    <main className="px-2 sm:px-4">
       <h3 className="text-3xl font-bold mb-4">Library</h3>
+
       {error && <ErrorMsg error={error} />}
-      {bookList && bookList.length > 0 ? (
+
+      {isLoading ? (
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(140px,1fr))]">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <SkeletonBookListAnimation key={i} />
+          ))}
+        </div>
+      ) : bookList && bookList.length > 0 ? (
         <section className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(140px,1fr))]">
-          {isLoading
-            ? Array.from({ length: 20 }, (_, i) => (
-                <SkeletonBookListAnimation key={i} />
-              ))
-            : bookList.map((book) => (
-                <RenderBooks book={book} size="h-60 w-full" key={book.id} />
-              ))}
+          {bookList.map((book) => (
+            <RenderBooks book={book} size="h-60 w-full" key={book.id} />
+          ))}
         </section>
       ) : (
         <span>Nothing here yet...</span>

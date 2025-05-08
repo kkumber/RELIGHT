@@ -24,7 +24,7 @@ const AddBookForm = () => {
   const [coverPreview, setCoverPreview] = useState<string>("");
   // Extraction loading state
   const [isExtracting, setIsExtracting] = useState<boolean>(false);
-  const { isLoading, error, postData } = useFetch();
+  const { data, isLoading, error, postData } = useFetch();
 
   const imageRef = useRef<HTMLInputElement>(null);
   const pdfRef = useRef<HTMLInputElement>(null);

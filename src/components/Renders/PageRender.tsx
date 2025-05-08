@@ -47,7 +47,7 @@ const PageRenderer: React.FC<PageRenderProps> = ({
     >
       <canvas
         ref={canvasRef}
-        className="w-full dark:filter dark:invert dark:brightness-110 max-md:h-full max-md:scale-125 m-auto block text-wrap"
+        className="w-full dark:filter dark:invert dark:brightness-110 max-md:h-full m-auto block text-wrap"
         id={`page-${pageNumber}`}
       />
     </div>
