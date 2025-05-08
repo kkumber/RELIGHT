@@ -86,7 +86,7 @@ const AddBookForm = () => {
       formData.append(key, value.trim());
     }
     if (pdf_File) formData.append("pdf_file", pdf_File);
-    if (book_Cover) formData.append("book_cover", book_Cover);
+    if (book_Cover) formData.append("book_cover", imageRef.current!.value);
 
     await postData("library/books/", formData);
     if (error) {
