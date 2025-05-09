@@ -11,7 +11,7 @@ const AlertModal: React.FC<Prop> = ({ title, message }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50 shadow-xl backdrop-blur-sm">
       <div className="bg-white dark:bg-[#1E1E1E] rounded-2xl shadow-xl p-6 max-w-sm w-full relative">
         <button
           onClick={() => setIsOpen(false)}

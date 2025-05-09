@@ -10,11 +10,15 @@ import Uploading from "../common/Uploading";
 // Configure PDF.js to use the worker
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
-const AddBookForm = () => {
+interface Prop {
+  isDemo: boolean;
+}
+
+const AddBookForm: React.FC<Prop> = ({ isDemo }) => {
   const [bookForm, setBookForm] = useState({
     title: "",
     author: "",
-    sypnosis: "", // user fills manually
+    sypnosis: "",
   });
 
   // States for file uploads (PDF file and book cover)
@@ -22,7 +26,7 @@ const AddBookForm = () => {
   const [book_Cover, setBook_Cover] = useState<File | undefined>(undefined);
   // For previewing the extracted cover image.
   const [coverPreview, setCoverPreview] = useState<string>("");
-  // Extraction loading state
+  // Extraction loading states
   const [isExtracting, setIsExtracting] = useState<boolean>(false);
   const { data, isLoading, error, postData } = useFetch();
 
@@ -314,8 +318,8 @@ const AddBookForm = () => {
           </div>
 
           <button
-            className="bg-primaryRed hover:bg-primaryRed/80 rounded-md p-2 text-white font-medium transition-all"
-            disabled={isLoading ? true : false}
+            className="bg-primaryRed hover:bg-primaryRed/80 rounded-md p-2 text-white font-medium transition-all disabled:cursor-not-allowed"
+            disabled={isLoading || isDemo}
           >
             {isLoading ? <Uploading /> : "Submit"}
           </button>

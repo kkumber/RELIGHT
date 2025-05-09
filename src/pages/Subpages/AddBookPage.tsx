@@ -21,7 +21,7 @@ const AddBookPage = () => {
           {user && isDemo && (
             <AlertModal
               title="Demo Account"
-              message="You’re signed in as a demo user. You can try uploading a light novel, but uploads are disabled for demo accounts."
+              message="You’re signed in as a demo user. You can try uploading a light novel for an extraction demo, but uploads are disabled for demo accounts. Register an official account if you want to upload a light novel."
             />
           )}
           <AddBookForm isDemo={isDemo} />

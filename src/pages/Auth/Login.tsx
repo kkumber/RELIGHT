@@ -7,6 +7,7 @@ import { UserRegisterData } from "../../hooks/useAuthFetch";
 import { Link } from "react-router-dom";
 import Loading from "../../components/common/Loading";
 import { FiUser, FiLock, FiLogIn } from "react-icons/fi";
+import { AiOutlineUser } from "react-icons/ai";
 
 interface Auth {
   data: User | undefined;
@@ -32,12 +33,21 @@ const Login = () => {
     });
   };
 
-  const handleLogin = async (e: any) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loginData.username !== "" && loginData.password !== "") {
       await getToken(loginData);
     }
   };
+
+  const handleGuestLogin = () => {
+    setLoginData({
+      ...loginData,
+      username: "DemoUser",
+      password: "demouser",
+    });
+  };
+
   useEffect(() => {
     if (data && data.success) {
       navigate("/");
@@ -109,6 +119,14 @@ const Login = () => {
                 <FiLogIn className="text-xl" />
                 {isLoading ? <Loading /> : "Login"}
               </button>
+              <div
+                className="flex items-center justify-center hover:cursor-pointer"
+                onClick={handleGuestLogin}
+                aria-label="Login as Guest"
+              >
+                <p>Login as Guest</p>
+                <AiOutlineUser className="" size={30} aria-hidden="true" />
+              </div>
               <span className="text-center">
                 Don't have an account?{" "}
                 <Link to="/register">
