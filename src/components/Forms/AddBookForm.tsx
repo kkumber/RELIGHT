@@ -216,10 +216,12 @@ const AddBookForm: React.FC<Prop> = ({ isDemo }) => {
       <div className="bg-red-100 border border-red-300 text-red-800 p-4 rounded-md mb-4 text-pretty max-w-screen-sm m-auto flex flex-wrap">
         <p className="font-semibold">Note:</p>
         <p>
-          This form automatically extracts details from the selected PDF (e.g.,
-          author and cover image). The title is set using the file name while
-          the sypnosis must be entered manually. Please verify the extracted
-          details and update them manually if they are incorrect or incomplete.
+          This form automatically extracts details from the selected PDF using
+          the most common pattern in light novels. The title is set using the
+          file name, the Author must be within the first 5 pages, and the book
+          cover is on the first page, while The sypnosis must be filled
+          manually. Please verify the extracted details and update them manually
+          if they are incorrect or incomplete.
         </p>
       </div>
       {/* Loading indicator placed outside the form container */}
