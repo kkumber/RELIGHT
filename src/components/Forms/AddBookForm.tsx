@@ -313,7 +313,10 @@ const AddBookForm = () => {
             )}
           </div>
 
-          <button className="bg-primaryRed hover:bg-primaryRed/80 rounded-md p-2 text-white font-medium transition-all">
+          <button
+            className="bg-primaryRed hover:bg-primaryRed/80 rounded-md p-2 text-white font-medium transition-all"
+            disabled={isLoading ? true : false}
+          >
             {isLoading ? <Uploading /> : "Submit"}
           </button>
         </div>
