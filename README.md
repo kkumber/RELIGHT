@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# RELIGHT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RELIGHT is a sophisticated web application designed for sharing and viewing digital light novels. This platform provides a seamless reading experience by integrating modern web technologies with a robust backend architecture, ensuring efficient document management and secure user interactions.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The primary objective of RELIGHT is to offer a centralized platform where users can manage and share their digital light novel collections. The application emphasizes performance and security, utilizing a decoupled architecture with a React-based frontend and a Django REST Framework backend.
 
-## Expanding the ESLint configuration
+**API Repository:** [kkumber/relight-api](https://github.com/kkumber/relight-api)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Key Technical Features
 
-- Configure the top-level `parserOptions` property like this:
+*   **Secure Authentication:** Developed a secure REST API utilizing Django REST Framework and JWT (JSON Web Tokens) to manage user sessions and protect private resources.
+*   **Native Document Viewing:** Integrated PDF.js to provide a native, high-performance document viewing experience directly within the browser, eliminating the need for external plugins.
+*   **Advanced Search and Indexing:** Implemented a comprehensive search system that allows users to quickly locate and organize resources across large digital libraries.
+*   **Optimized Asset Management:** Utilized Cloudinary for reliable storage and optimized delivery of digital assets, ensuring fast load times and efficient media handling.
+*   **Responsive and Interactive UI:** Built with React and TypeScript, the frontend features a responsive design and interactive components for an enhanced user experience.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Technical Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Frontend
+*   **React:** For building a dynamic and responsive user interface.
+*   **TypeScript:** Ensuring type safety and maintainability across the codebase.
+*   **PDF.js:** For high-fidelity document rendering in the browser.
+*   **Tailwind CSS:** For modern, utility-first styling.
+*   **Axios:** For streamlined communication with the backend API.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Backend
+*   **Django / Django REST Framework:** A robust Python framework for building the scalable REST API.
+*   **JWT (JSON Web Token):** For secure, stateless user authentication.
+*   **Cloudinary:** For cloud-based media management and optimized asset delivery.
+*   **PostgreSQL:** A powerful, open-source relational database for reliable data storage.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Getting Started
+
+### Prerequisites
+
+*   Node.js (v18 or higher)
+*   npm or yarn
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/kkumber/relight-frontend.git
+    cd relight-frontend
+    ```
+
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3.  Configure environment variables:
+    Create a `.env` file in the root directory and add your API base URL:
+    ```env
+    VITE_API_BASE_URL=your_api_url
+    ```
+
+4.  Start the development server:
+    ```bash
+    npm run dev
+    ```
